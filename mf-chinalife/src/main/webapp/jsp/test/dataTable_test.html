@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title>DataTables test</title>
+
+    <link href="../../css/demo_table.css" rel="stylesheet" type="text/css"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" language="javascript" src="../../js/jquery-1.10.1.js"></script>
+    <script type="text/javascript" language="javascript" src="../../js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="../../js/holder.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').dataTable( {
+                "sPaginationType": "full_numbers",
+                "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+                    /* Append the grade to the default row class name */
+                    if ( aData[4] == "A" )
+                    {
+                        $('td:eq(4)', nRow).html( '<b>A</b>' );
+                    }
+                }
+            } );
+            $('#example tbody tr').on('click', function () {
+                var sTitle;
+                var nTds = $('td', this);
+                var sBrowser = $(nTds[1]).text();
+                var sGrade = $(nTds[2]).text();
+                //alert( sBrowser + " :" + sGrade )
+            } );
+        } );
+    </script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body id="dt_example" class="example_alt_pagination">
+<div id="container" style="width:70%">
+<table class="table table-hover" id="example">
+<thead>
+<tr>
+    <th width="20%">Rendering engine</th>
+    <th width="80%">Browser</th>
+</tr>
+</thead>
+<tbody>
+<tr class="gradeX">
+    <td><img data-src="holder.js/250x200" class="img-rounded"></td>
+    <td>
+        <h3>万达广场真正的一室一厅，设施全，看好来电</h3>
+        <ul class="list-inline">
+            <li>500W</li>
+            <li>100平方米</li>
+            <li>正在出售</li>
+        </ul>
+        <ul class="list-inline">
+            <li>地址:</li>
+            <li>捷达大路1777号</li>
+        </ul>
+        <ul class="list-inline">
+            <li>简介:</li>
+            <li>捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号</li>
+        </ul>
+        <p><a href="#" class="btn btn-primary" role="button">点击查看详情</a></p>
+    </td>
+</tr>
+<tr class="gradeC">
+    <td ><img data-src="holder.js/250x200" class="img-rounded"></td>
+    <td>anternet
+        Explorer 5.0</td>
+</tr>
+<tr class="gradeA">
+    <td><img data-src="holder.js/250x200" class="img-rounded"></td>
+    <td>Internet
+        Explorer 5.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
