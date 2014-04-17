@@ -79,7 +79,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img alt="" src="/chinalife/img/1.jpg" />
+                        <img alt="" src="/mf-chinalife/img/1.jpg" />
                         <div class="carousel-caption">
                             <h4>
                                 First Thumbnail label
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img alt="" src="/chinalife/img/2.jpg" />
+                        <img alt="" src="/mf-chinalife/img/2.jpg" />
                         <div class="carousel-caption">
                             <h4>
                                 Second Thumbnail label
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img alt="" src="/chinalife/img/3.jpg" />
+                        <img alt="" src="/mf-chinalife/img/3.jpg" />
                         <div class="carousel-caption">
                             <h4>
                                 Third Thumbnail label
@@ -133,7 +133,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="/chinalife/img/1.jpg" />
+                                <img alt="300x200" src="/mf-chinalife/img/1.jpg" />
                                 <div class="caption">
                                     <h3>
                                         Thumbnail label
@@ -149,7 +149,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="/chinalife/img/2.jpg" />
+                                <img alt="300x200" src="/mf-chinalife/img/2.jpg" />
                                 <div class="caption">
                                     <h3>
                                         Thumbnail label
@@ -165,7 +165,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                                <img alt="300x200" src="/chinalife/img/3.jpg" />
+                                <img alt="300x200" src="/mf-chinalife/img/3.jpg" />
                                 <div class="caption">
                                     <h3>
                                         Thumbnail label
@@ -192,7 +192,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        <img alt="300x200" src="/chinalife/img/1.jpg" />
+                        <img alt="300x200" src="/mf-chinalife/img/1.jpg" />
                         <div class="caption">
                             <h3>
                                 Thumbnail label
@@ -208,7 +208,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        <img alt="300x200" src="/chinalife/img/2.jpg" />
+                        <img alt="300x200" src="/mf-chinalife/img/2.jpg" />
                         <div class="caption">
                             <h3>
                                 Thumbnail label
@@ -224,7 +224,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        <img alt="300x200" src="/chinalife/img/3.jpg" />
+                        <img alt="300x200" src="/mf-chinalife/img/3.jpg" />
                         <div class="caption">
                             <h3>
                                 Thumbnail label
