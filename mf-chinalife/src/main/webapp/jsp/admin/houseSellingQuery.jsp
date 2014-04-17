@@ -12,8 +12,8 @@
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <c:import url="/template/importedFiles.html" />
-    <link href="/chinalife/css/demo_table.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" language="javascript" src="/chinalife/js/jquery.dataTables.js"></script>
+    <link href="/mf-chinalife/css/demo_table.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" language="javascript" src="/mf-chinalife/js/jquery.dataTables.js"></script>
     <script type="application/javascript" language="JavaScript">
         $(document).ready(function() {
             $('#example').dataTable( {

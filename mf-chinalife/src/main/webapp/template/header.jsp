@@ -27,15 +27,15 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
                         <span class="icon-bar"></span><span class="icon-bar"></span></button>
-                    <a class="navbar-brand" href="/chinalife/jsp/main.jsp">首页</a>
+                    <a class="navbar-brand" href="/mf-chinalife/jsp/main.jsp">首页</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li id="houseBuying">
-                            <a href="/chinalife/jsp/house/houseBuying.jsp">房屋租售</a>
+                            <a href="/mf-chinalife/jsp/house/houseBuying.jsp">房屋租售</a>
                         </li>
                         <li id="lifeService">
-                            <a href="/chinalife/jsp/life/lifeService.jsp">生活服务</a>
+                            <a href="/mf-chinalife/jsp/life/lifeService.jsp">生活服务</a>
                         </li>
                         <li id="lifeTips">
                             <a href="#" >生活贴士</a>
@@ -52,11 +52,11 @@
                             <c:when test="${sessionScope.user == null}">
                                 <li id="userLogon">
                                         <%--<a id="modal-964516" href="#modal-container-964516" role="button" class="btn" data-toggle="modal">用户登陆</a>--%>
-                                    <a href="/chinalife/jsp/user/userLogon.jsp" class="navbar-right">登陆</a>
+                                    <a href="/mf-chinalife/jsp/user/userLogon.jsp" class="navbar-right">登陆</a>
                                 </li>
                                 <li id="userRegister">
                                         <%--<a id="modal-964516" href="#modal-container-964516" role="button" class="btn" data-toggle="modal">用户登陆</a>--%>
-                                    <a href="/chinalife/jsp/user/userRegister.jsp" class="navbar-right">注册</a>
+                                    <a href="/mf-chinalife/jsp/user/userRegister.jsp" class="navbar-right">注册</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -66,7 +66,7 @@
                                         <%--<strong class="caret"></strong></a>--%>
                                     <%--<ul class="dropdown-menu">--%>
                                         <%--<li>--%>
-                                            <%--<a href="/chinalife/jsp/manage/userManage.jsp">用户资料</a>--%>
+                                            <%--<a href="/mf-chinalife/jsp/manage/userManage.jsp">用户资料</a>--%>
                                         <%--</li>--%>
                                         <%--<li>--%>
                                             <%--<a href="#">用户退出</a>--%>
@@ -85,7 +85,7 @@
                                         <div class="navbar-content"  style="width:300px;padding: 15px;padding-bottom:0px;">
                                             <div class="row">
                                                 <div class="col-md-5">
-                                                    <img src="/chinalife/img/default_img.jpg"
+                                                    <img src="/mf-chinalife/img/default_img.jpg"
                                                          alt="Alternate Text" class="img-responsive" />
                                                     <p class="text-center small">
                                                         <a href="#">Change Photo</a></p>
@@ -97,7 +97,7 @@
                                                     </p>
                                                     <div class="divider">
                                                     </div>
-                                                    <a href="/chinalife/jsp/manage/userManage.jsp" class="btn btn-primary btn-sm active">View Profile</a>
+                                                    <a href="/mf-chinalife/jsp/manage/userManage.jsp" class="btn btn-primary btn-sm active">View Profile</a>
                                                 </div>
                                             </div>
                                         </div>

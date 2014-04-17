@@ -20,10 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by ishikin on 14-4-14.
@@ -36,7 +34,7 @@ public class UploadServlet extends BaseServlet {
     private static final String PARAM_KEY_GET_THUMBNAIL = "getThumbnail";
     private static final String PARAM_KEY_DEL_FILE = "delFile";
 
-    private long current;
+    private String current;
 
     @Override
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -146,7 +144,13 @@ public class UploadServlet extends BaseServlet {
         } else if ("POST".equalsIgnoreCase(request.getMethod())) {
             Validate.isTrue(ServletFileUpload.isMultipartContent(request), "Invalid request form type.");
 
-            current = System.currentTimeMillis();
+//            current = System.currentTimeMillis();
+
+            //获取当前日期,格式20140417,当天上传的图片保存在一个文件夹
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            current=sdf.format(date);
+
             String savedPath = getInitParameter(SAVED_PATH_KEY);
             Validate.notBlank(savedPath, "Must define save path.");
             File savedDir = getSavedDir(savedPath);
@@ -173,9 +177,9 @@ public class UploadServlet extends BaseServlet {
                         uploadResponse.setSize(item.getSize());
 
                         String realPath = getSavedPath(savedPath, item.getName());
-                        uploadResponse.setUrl("/chinalife/upload?" + PARAM_KEY_GET_FILE + "=" + realPath);
-                        uploadResponse.setThumbnailUrl("/chinalife/upload?" + PARAM_KEY_GET_THUMBNAIL + "=" + realPath);
-                        uploadResponse.setDeleteUrl("/chinalife/upload?" + PARAM_KEY_DEL_FILE + "=" + realPath);
+                        uploadResponse.setUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_FILE + "=" + realPath);
+                        uploadResponse.setThumbnailUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_THUMBNAIL + "=" + realPath);
+                        uploadResponse.setDeleteUrl("/mf-chinalife/upload?" + PARAM_KEY_DEL_FILE + "=" + realPath);
                         uploadResponse.setDeleteType("GET");
                         uploadResponses.add(uploadResponse);
                     }

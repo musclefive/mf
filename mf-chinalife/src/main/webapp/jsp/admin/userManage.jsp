@@ -55,7 +55,7 @@
 </head>
 <body>
 <!--navigation for left area-->
-<%--<%@ include file="chinalife/jsp/header.jsp"%>--%>
+<%--<%@ include file="mf-chinalife/jsp/header.jsp"%>--%>
 <c:import url="/template/header.jsp" />
 <div class="container">
     <div class="row clearfix">
@@ -65,7 +65,7 @@
         <div class="col-md-9">
             <h3>账户信息管理</h3>
             <div class="panel">
-                <img class="pic img-circle" src="/chinalife/img/default_img.jpg" alt="...">
+                <img class="pic img-circle" src="/mf-chinalife/img/default_img.jpg" alt="...">
                 <div class="name"><small><c:out value="${sessionScope.user.getEmail()}">未登陆</c:out></small></div>
                 <a href="#" class="btn btn-xs btn-primary pull-right" style="margin:10px;">
                     <span class="glyphicon glyphicon-picture"></span> Change cover</a>

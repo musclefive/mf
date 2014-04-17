@@ -32,26 +32,38 @@
         $(function () {
             // Initialize the jQuery File Upload widget:
             $('#fileupload').fileupload({
-                // Uncomment the following to send cross-domain cookies:
-                //xhrFields: {withCredentials: true},
-//                url: '/chinalife/upload',
-//                done:function(e, data){
-//                   alert("done");
-//                }
-//                done : function (result, textStatus, jqXHR){
-//                    alert("bb");
-//                },
-                url: '/chinalife/upload'
+                url: '/mf-chinalife/upload',
+                maxFileSize: 3000000,
+                acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i
             });
             $('#fileupload').bind('fileuploaddone', function (e, result) {
                 $.each(result.result.files, function (index, file) {
-//                    $('<p/>').text(file.name).appendTo(document.body);
-//                    alert("file name:"+file.name+ " url:"+ file.url+ " index:"+index);
-                    $("#divForFileUpload").append("<input type='hidden' value='" + file.url + "' name='upload'>");
+                    $("#divForFileUpload").append("<input type='hidden' value='" + file.url + "' name='upload' id='"+file.size+"'>");
                 });
-//                alert(result.result.toString());
             });
         });
+        function deleteAction(fileID){
+            //如果选择全选删除按钮
+            if(fileID == "all"){
+                if(true == $("#deleteAll").prop("checked")){
+                    $("#divForFileUpload").empty();
+                }else{
+                    //遍历checkbox列表，删除所选中的checkbox
+                    var selectedID = "";
+                    $(".toggle").each(function(){
+                        if ($(this).prop('checked') == true) {
+                            selectedID = "#" + $(this).val();
+                            $(selectedID).remove();
+                        }
+                    })
+                }
+            }
+            //如果点击某一个删除按钮
+            else{
+                var selectedID = "#"+fileID;
+                $(selectedID).remove();
+            }
+        }
     </script>
 </head>
 <body>
@@ -94,7 +106,7 @@
 
     <br>
     <!-- The file upload form used as target for the file upload widget -->
-    <form id="fileupload" action="/chinalife/upload" method="POST" enctype="multipart/form-data">
+    <form id="fileupload" action="/mf-chinalife/upload" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
             <div class="col-lg-7">
@@ -112,7 +124,7 @@
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span>Cancel upload</span>
                 </button>
-                <button type="button" class="btn btn-danger delete">
+                <button type="button" class="btn btn-danger delete" onclick="deleteAction('all');">
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
@@ -170,13 +182,6 @@
         </td>
     </tr>
 {% } %}
-
-
-
-
-
-
-
 </script>
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
@@ -206,11 +211,11 @@
         </td>
         <td>
             {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <button class="btn btn-danger delete" onclick="deleteAction('{%=file.size%}');" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
+                <input type="checkbox" name="delete" value="{%=file.size%}" class="toggle">
             {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
@@ -220,13 +225,6 @@
         </td>
     </tr>
 {% } %}
-
-
-
-
-
-
-
 </script>
 
 </body>

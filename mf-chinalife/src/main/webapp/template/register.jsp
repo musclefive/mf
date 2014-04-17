@@ -8,7 +8,7 @@
         <div class="panel-body" >
             <div class="col-md-1"></div>
             <div class="col-md-10">
-                <form role="form" id="userRegisterForm" class="form-horizontal" action="/chinalife/register" method="post">
+                <form role="form" id="userRegisterForm" class="form-horizontal" action="/mf-chinalife/register" method="post">
                     <label class="label-danger">
                         <c:if test="${requestScope.error != null}">
                             <c:forEach items="${requestScope.error.errorInfo}" var="entry">
@@ -63,7 +63,7 @@
                         <div class="checkbox col-md-8">
                             <label>
                                 <input id="commitment" type="checkbox" name="commitment" value="1">
-                                我已经阅读并同意 <a href="#">《chinalife相关协议条款》</a>
+                                我已经阅读并同意 <a href="#">《mf-chinalife相关协议条款》</a>
                             </label>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
             <div class="col-md-1"></div>
         </div>
         <div class="panel-footer">
-            <a href="/chinalife/jsp/user/userLogon.jsp">
+            <a href="/mf-chinalife/jsp/user/userLogon.jsp">
                 已有账户，点击直接登录
             </a>
         </div>

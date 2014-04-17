@@ -12,7 +12,7 @@
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <c:import url="/template/importedFiles.html" />
-    <link href="/chinalife/css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="/mf-mf-chinalife/css/base.css" rel="stylesheet" type="text/css"/>
     <script type="application/javascript" language="JavaScript">
         $(function()
         {
@@ -31,11 +31,11 @@
             });
         })
     </script>
-    <script type="text/javascript" src="/chinalife/js/image/jquery.jcarousel.min.js"></script>
-    <script type="text/javascript" src="/chinalife/js/image/jquery.pikachoose.js"></script>
-    <script type="text/javascript" src="/chinalife/js/image/jquery.touchwipe.min.js"></script>
-    <script type="text/javascript" src="/chinalife/js/image/jquery.fancybox-1.3.4.js"></script>
-    <link href="/chinalife/css/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/mf-chinalife/js/image/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="/mf-chinalife/js/image/jquery.pikachoose.js"></script>
+    <script type="text/javascript" src="/mf-chinalife/js/image/jquery.touchwipe.min.js"></script>
+    <script type="text/javascript" src="/mf-chinalife/js/image/jquery.fancybox-1.3.4.js"></script>
+    <link href="/mf-chinalife/css/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
         /* jCarousel Styles */
         /*if you're not using the carousel you can delete everything below this */
@@ -95,12 +95,12 @@
                         </div>
                         <div class="panel-body">
                             <ul id="pikame" class="jcarousel-skin-pika">
-                                <li><a href="/chinalife/img/4.jpg"><img src="/chinalife/img/4.jpg"/></a></li>
-                                <li><a href="/chinalife/img/5.jpg"><img src="/chinalife/img/5.jpg"/></a></li>
-                                <li><a href="/chinalife/img/6.jpg"><img src="/chinalife/img/6.jpg"/></a></li>
-                                <li><a href="/chinalife/img/1.jpg"><img src="/chinalife/img/1.jpg"/></a></li>
-                                <li><a href="/chinalife/img/2.jpg"><img src="/chinalife/img/2.jpg"/></a></li>
-                                <li><a href="/chinalife/img/3.jpg"><img src="/chinalife/img/3.jpg"/></a></li>
+                                <li><a href="/mf-chinalife/img/4.jpg"><img src="/mf-chinalife/img/4.jpg"/></a></li>
+                                <li><a href="/mf-chinalife/img/5.jpg"><img src="/mf-chinalife/img/5.jpg"/></a></li>
+                                <li><a href="/mf-chinalife/img/6.jpg"><img src="/mf-chinalife/img/6.jpg"/></a></li>
+                                <li><a href="/mf-chinalife/img/1.jpg"><img src="/mf-chinalife/img/1.jpg"/></a></li>
+                                <li><a href="/mf-chinalife/img/2.jpg"><img src="/mf-chinalife/img/2.jpg"/></a></li>
+                                <li><a href="/mf-chinalife/img/3.jpg"><img src="/mf-chinalife/img/3.jpg"/></a></li>
                             </ul>
                         </div>
                         <!--house detail info-->

@@ -13,7 +13,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <div style="display:none" id="errorAlert" class="alert alert-danger col-sm-12">12</div>
-            <form role="form" class="form-horizontal" id="userLogonForm"  action="/chinalife/login" method="post">
+            <form role="form" class="form-horizontal" id="userLogonForm"  action="/mf-chinalife/login" method="post">
                 <label class="label-danger">
                     <c:if test="${requestScope.error != null}">
                         <c:forEach items="${requestScope.error.errorInfo}" var="entry">
@@ -39,7 +39,7 @@
                         <input class="form-control" id="captcha" name="captcha" type="text" placeholder="请输入右侧验证码"/>
                     </div>
                     <div class="col-md-4">
-                        <img border=0  id="code" src="/chinalife/template/captcha.jsp">
+                        <img border=0  id="code" src="/mf-chinalife/template/captcha.jsp">
                         <a href="javascript:changeImg()" >看不清，换一张 </a>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
     </div>
     <div class="panel-footer">
         Don't have an account!
-        <a href="/chinalife/jsp/user/userRegister.jsp">
+        <a href="/mf-chinalife/jsp/user/userRegister.jsp">
             Sign Up Here
         </a>
     </div>

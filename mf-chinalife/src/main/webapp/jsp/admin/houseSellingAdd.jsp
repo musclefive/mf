@@ -41,7 +41,7 @@
     <script src="../../js/upload/jquery.fileupload-validate.js"></script>
     <!-- The File Upload user interface plugin -->
     <script src="../../js/upload/jquery.fileupload-ui.js"></script>
-    <script src="/chinalife/js/jquery.validate.js" type="text/javascript"></script>
+    <script src="/mf-chinalife/js/jquery.validate.js" type="text/javascript"></script>
     <script type="application/javascript" language="JavaScript">
         $(function () {
             // validate the comment form when it is submitted
@@ -119,17 +119,38 @@
 //            });
 
             $('#fileupload').fileupload({
-                // Uncomment the following to send cross-domain cookies:
-                //xhrFields: {withCredentials: true},
-                url: '/chinalife/upload'
+                url: '/mf-chinalife/upload',
+                maxFileSize: 3000000,
+                acceptFileTypes:  /(\.|\/)(gif|jpe?g|png)$/i
             });
-            $('#fileupload').bind('fileuploaddone', function(e, result){
+            $('#fileupload').bind('fileuploaddone', function (e, result) {
                 $.each(result.result.files, function (index, file) {
-//                    alert("file name:"+file.name+ " url:"+ file.url+ " index:"+index);
-                    $("#divForFileUpload").append("<input type='hidden' value='"+file.url+"' name='upload'>");
+                    $("#divForFileUpload").append("<input type='hidden' value='" + file.url + "' name='upload' id='"+file.size+"'>");
                 });
             });
         })
+        function deleteAction(fileID){
+            //如果选择全选删除按钮
+            if(fileID == "all"){
+                if(true == $("#deleteAll").prop("checked")){
+                    $("#divForFileUpload").empty();
+                }else{
+                    //遍历checkbox列表，删除所选中的checkbox
+                    var selectedID = "";
+                    $(".toggle").each(function(){
+                        if ($(this).prop('checked') == true) {
+                            selectedID = "#" + $(this).val();
+                            $(selectedID).remove();
+                        }
+                    })
+                }
+            }
+            //如果点击某一个删除按钮
+            else{
+                var selectedID = "#"+fileID;
+                $(selectedID).remove();
+            }
+        }
     </script>
 </head>
 
@@ -337,10 +358,15 @@
             <div class="col-md-4"></div>
         </div>
     </form>
-    <form id="fileupload" action="/chinalife/upload" method="POST" enctype="multipart/form-data">
+    <%--upload template--%>
+    <form id="fileupload" action="/mf-chinalife/upload" method="POST" enctype="multipart/form-data" style="height:300">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div id="legend_1" class="">
+            <legend class="">上传图片</legend>
+        </div>
+        <label class="col-md-2 control-label"></label>
         <div class="row fileupload-buttonbar">
-            <div class="col-lg-7">
+            <div class="col-md-10">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
@@ -355,7 +381,7 @@
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span>Cancel upload</span>
                 </button>
-                <button type="button" class="btn btn-danger delete">
+                <button type="button" class="btn btn-danger delete" onclick="deleteAction('all');">
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
@@ -374,13 +400,16 @@
             </div>
         </div>
         <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+        <table role="presentation" class="table table-striped">
+            <tbody class="files"></tbody>
+        </table>
 
     </form>
 </div>
 </div>
 </div>
 </div>
+<!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade">
@@ -440,11 +469,11 @@
         </td>
         <td>
             {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <button class="btn btn-danger delete" onclick="deleteAction('{%=file.size%}');" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
+                <input type="checkbox" name="delete" value="{%=file.size%}" class="toggle">
             {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
