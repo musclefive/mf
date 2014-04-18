@@ -34,7 +34,7 @@ public class UploadServlet extends BaseServlet {
     private static final String PARAM_KEY_GET_THUMBNAIL = "getThumbnail";
     private static final String PARAM_KEY_DEL_FILE = "delFile";
 
-    private String current;
+    private long current;
 
     @Override
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -144,12 +144,7 @@ public class UploadServlet extends BaseServlet {
         } else if ("POST".equalsIgnoreCase(request.getMethod())) {
             Validate.isTrue(ServletFileUpload.isMultipartContent(request), "Invalid request form type.");
 
-//            current = System.currentTimeMillis();
-
-            //获取当前日期,格式20140417,当天上传的图片保存在一个文件夹
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            current=sdf.format(date);
+            current = System.currentTimeMillis();
 
             String savedPath = getInitParameter(SAVED_PATH_KEY);
             Validate.notBlank(savedPath, "Must define save path.");
@@ -181,6 +176,7 @@ public class UploadServlet extends BaseServlet {
                         uploadResponse.setThumbnailUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_THUMBNAIL + "=" + realPath);
                         uploadResponse.setDeleteUrl("/mf-chinalife/upload?" + PARAM_KEY_DEL_FILE + "=" + realPath);
                         uploadResponse.setDeleteType("GET");
+                        uploadResponse.setPath(savedFile.getPath());
                         uploadResponses.add(uploadResponse);
                     }
                 }
@@ -227,7 +223,7 @@ public class UploadServlet extends BaseServlet {
         private String thumbnailUrl;
         private String deleteUrl;
         private String deleteType;
-
+        private String path;
 
         public void setName(String name) {
             this.name = name;
@@ -275,6 +271,14 @@ public class UploadServlet extends BaseServlet {
 
         public String getDeleteType() {
             return deleteType;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
         }
     }
 

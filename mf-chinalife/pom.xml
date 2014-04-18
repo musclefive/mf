@@ -161,7 +161,7 @@
                         <port>8081</port>
                     </httpConnector>
                     <webApp>
-                        <contextPath>/chinalife</contextPath>
+                        <contextPath>/mf-chinalife</contextPath>
                     </webApp>
                 </configuration>
             </plugin>

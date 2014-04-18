@@ -11,37 +11,11 @@
 <head>
     <title>House Add</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="../../css/bootstrap.css">
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-    <link rel="stylesheet" href="../../css/jquery.fileupload.css">
-    <link rel="stylesheet" href="../../css/jquery.fileupload-ui.css">
-    <script src="../../js/jquery-1.10.1.js"></script>
-    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-    <script src="../../js/upload/jquery.ui.widget.js"></script>
-    <!-- The Templates plugin is included to render the upload/download listings -->
-    <script src="../../js/upload/tmpl.min.js"></script>
-    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-    <script src="../../js/upload/load-image.min.js"></script>
-    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-    <script src="../../js/upload/canvas-to-blob.min.js"></script>
-    <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-    <script src="../../js/bootstrap.js"></script>
-    <!-- blueimp Gallery script -->
-    <script src="../../js/upload/blueimp-gallery.js"></script>
-    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-    <script src="../../js/upload/jquery.iframe-transport.js"></script>
-    <!-- The basic File Upload plugin -->
-    <script src="../../js/upload/jquery.fileupload.js"></script>
-    <!-- The File Upload processing plugin -->
-    <script src="../../js/upload/jquery.fileupload-process.js"></script>
-    <!-- The File Upload image preview & resize plugin -->
-    <script src="../../js/upload/jquery.fileupload-image.js"></script>
-    <!-- The File Upload validation plugin -->
-    <script src="../../js/upload/jquery.fileupload-validate.js"></script>
-    <!-- The File Upload user interface plugin -->
-    <script src="../../js/upload/jquery.fileupload-ui.js"></script>
-    <script src="/mf-chinalife/js/jquery.validate.js" type="text/javascript"></script>
+
+    <c:import url="/template/style.html" />
+    <c:import url="/template/js.html" />
+    <c:import url="/template/import-jquery-file-upload.html" />
+
     <script type="application/javascript" language="JavaScript">
         $(function () {
             // validate the comment form when it is submitted
@@ -164,7 +138,7 @@
 </div>
 <div class="col-md-9">
 <div>
-    <form class="form-horizontal" id="formHouseAdd" method="post" action="" enctype="multipart/form-data">
+    <form class="form-horizontal" id="formHouseAdd" method="post" action="">
         <div id="legend" class="">
             <legend class="">House Add</legend>
         </div>

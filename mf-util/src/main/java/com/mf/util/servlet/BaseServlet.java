@@ -164,7 +164,7 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Enter servlet.");
+        logger.info("Enter base servlet.");
         logRequestParams(request);
 
         doProcess(request, response);
