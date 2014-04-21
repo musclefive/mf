@@ -23,4 +23,5 @@ public interface HouseSaleDAO {
                          String desc, String person1, String phone1, String person2, String phone2, Timestamp createTime) throws DAOException;
 
 
+    
 }
