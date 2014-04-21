@@ -34,7 +34,7 @@ public class UploadServlet extends BaseServlet {
     private static final String PARAM_KEY_GET_THUMBNAIL = "getThumbnail";
     private static final String PARAM_KEY_DEL_FILE = "delFile";
 
-    private long current;
+    private String currentDay;
 
     @Override
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -144,7 +144,8 @@ public class UploadServlet extends BaseServlet {
         } else if ("POST".equalsIgnoreCase(request.getMethod())) {
             Validate.isTrue(ServletFileUpload.isMultipartContent(request), "Invalid request form type.");
 
-            current = System.currentTimeMillis();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            this.currentDay = simpleDateFormat.format(new Date());
 
             String savedPath = getInitParameter(SAVED_PATH_KEY);
             Validate.notBlank(savedPath, "Must define save path.");
@@ -156,22 +157,22 @@ public class UploadServlet extends BaseServlet {
 
             ObjectMapper objectMapper = new ObjectMapper();
             List<UploadResponse> uploadResponses = new ArrayList<UploadResponse>();
-
             try {
                 String tmpPath = getTmpPath();
                 List<FileItem> items = FileUploadUtil.getFileIterms(request, tmpPath, 0, 0, null);
 
                 for (FileItem item : items) {
                     if (!item.isFormField()) {
-                        File savedFile = new File(savedDir, item.getName());
+                        String newFileName = System.currentTimeMillis() + "." + item.getName();
+                        File savedFile = new File(savedDir, newFileName);
                         item.write(savedFile);
-                        logger.info("Saved file " + item.getName() + " to " + savedFile.getPath());
+                        logger.info("Saved file " + newFileName + " to " + savedFile.getPath());
 
                         UploadResponse uploadResponse = new UploadResponse();
-                        uploadResponse.setName(item.getName());
+                        uploadResponse.setName(newFileName);
                         uploadResponse.setSize(item.getSize());
 
-                        String realPath = getSavedPath(savedPath, item.getName());
+                        String realPath = getSavedPath(savedPath, newFileName);
                         uploadResponse.setUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_FILE + "=" + realPath);
                         uploadResponse.setThumbnailUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_THUMBNAIL + "=" + realPath);
                         uploadResponse.setDeleteUrl("/mf-chinalife/upload?" + PARAM_KEY_DEL_FILE + "=" + realPath);
@@ -199,7 +200,7 @@ public class UploadServlet extends BaseServlet {
     }
 
     private String getSavedPath(String parentPath, String fileName) {
-        return parentPath + "/" + current + "/" + fileName;
+        return parentPath + "/" + currentDay + "/" + fileName;
     }
 
     private File getSavedDir(String parentPath) {
@@ -209,8 +210,10 @@ public class UploadServlet extends BaseServlet {
             parentDir.mkdir();
         }
 
-        File savedDir = new File(parentDir, String.valueOf(current));
-        savedDir.mkdir();
+        File savedDir = new File(parentDir, String.valueOf(currentDay));
+        if (!savedDir.exists()) {
+            savedDir.mkdir();
+        }
 
         return savedDir;
     }
