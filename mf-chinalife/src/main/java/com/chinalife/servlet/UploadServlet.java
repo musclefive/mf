@@ -40,7 +40,6 @@ public class UploadServlet extends BaseServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ("GET".equalsIgnoreCase(request.getMethod())) {
             logger.info("Enter upload servlet get method.");
-
             if (hasParam(request, PARAM_KEY_GET_FILE)) {
                 logger.info("Enter get file method.");
 
@@ -153,6 +152,7 @@ public class UploadServlet extends BaseServlet {
             //String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ request.getContextPath() + "/";
 
             response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
 
             ObjectMapper objectMapper = new ObjectMapper();

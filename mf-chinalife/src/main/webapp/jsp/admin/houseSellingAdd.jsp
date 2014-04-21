@@ -138,7 +138,7 @@
 </div>
 <div class="col-md-9">
 <div>
-    <form class="form-horizontal" id="formHouseAdd" method="post" action="">
+    <form class="form-horizontal" id="formHouseAdd" method="post" action="/mf-chinalife/houseSaleAdd">
         <div id="legend" class="">
             <legend class="">House Add</legend>
         </div>

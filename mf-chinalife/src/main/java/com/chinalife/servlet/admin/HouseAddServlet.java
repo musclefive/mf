@@ -61,6 +61,7 @@ public class HouseAddServlet extends BaseServlet {
             String contactPhone1 = getParam(request, "first_contact_phone");
             String contactPersion2 = getParam(request, "second_contact_name");
             String contactPhone2 = getParam(request, "second_contact_phone");
+
             String savedFilesStr = getParam(request, "saved_files");
             String[] savedFiles = savedFilesStr.split(";");
             Validate.notEmpty(savedFiles, "Must pass saved files path.");
