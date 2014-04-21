@@ -39,7 +39,7 @@ public class DBAccesser {
         }
     }
 
-    public static DBAccesser getInstance() {
+    public synchronized static DBAccesser getInstance() {
         if (null == instance) {
             throw new RuntimeException("Please initialize first.");
         }

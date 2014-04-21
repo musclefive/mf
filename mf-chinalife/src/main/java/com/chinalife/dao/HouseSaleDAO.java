@@ -1,6 +1,7 @@
 package com.chinalife.dao;
 
 
+import com.mf.dal.Converter;
 import com.mf.dal.DAOException;
 import com.mf.dal.annotation.DAO;
 import com.mf.dal.annotation.SQL;
@@ -22,6 +23,7 @@ public interface HouseSaleDAO {
                          int room, int toilet, int carport, double area, double min_price, double max_price,
                          String desc, String person1, String phone1, String person2, String phone2, Timestamp createTime) throws DAOException;
 
-
-
+    @Table("house_sale")
+    @SQL("select * from house_sale where house_id=?")
+    <T> T queryHouse(int houseId, Converter<T> converter) throws DAOException;
 }

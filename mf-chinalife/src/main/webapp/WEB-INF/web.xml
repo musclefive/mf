@@ -75,6 +75,10 @@
             <param-value>house_pictures</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>QuerySingleHouse</servlet-name>
+        <servlet-class>com.chinalife.servlet.admin.HouseSingleQuery</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuerySingleHouse</servlet-name>
+        <url-pattern>/querySingleHouse</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
