@@ -99,8 +99,9 @@
             });
             $('#fileupload').bind('fileuploaddone', function (e, result) {
                 $.each(result.result.files, function (index, file) {
-                    $("#divForFileUpload").append("<input type='hidden' value='" + file.url + "' name='upload' id='"+file.size+"'>");
+                    $("#divForFileUpload").append("<input type='hidden' value='" + file.url + "' name='upload' id='"+file.id+"'>");
                 });
+                addImageUrl();
             });
         })
         function deleteAction(fileID){
@@ -124,6 +125,19 @@
                 var selectedID = "#"+fileID;
                 $(selectedID).remove();
             }
+            //点击删除后重新获取hidden字符串的图片地址
+            addImageUrl();
+        }
+        /*获取所有input hidden 的图片地址，拼接字符串*/
+        function addImageUrl(){
+            var strSavedFiles = "";
+            $("#divForFileUpload input:hidden").each(function(index){
+//               alert("index:"+index+ "  value:"+ $(this).val());
+                strSavedFiles += $(this).val();
+                strSavedFiles += ";";
+            });
+            strSavedFiles = strSavedFiles.substring(0,strSavedFiles.length-1);
+            $("#saved_files").val(strSavedFiles);
         }
     </script>
 </head>
@@ -320,14 +334,15 @@
         </div>
         <%--div for file upload input hidden--%>
         <div class="form-group" id="divForFileUpload">
-
         </div>
+        <%--存放所有图片的url地址--%>
+        <input name="saved_files" id="saved_files" value="" type="hidden"/>
         <%--div for submit button--%>
         <div class="form-group">
             <label class="col-md-2 control-label"></label>
 
             <div class="col-md-6 controls">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" >Submit</button>
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -443,7 +458,7 @@
         </td>
         <td>
             {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" onclick="deleteAction('{%=file.size%}');" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <button class="btn btn-danger delete" onclick="deleteAction('{%=file.id%}');" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>

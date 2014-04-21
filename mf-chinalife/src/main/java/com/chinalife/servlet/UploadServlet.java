@@ -163,7 +163,9 @@ public class UploadServlet extends BaseServlet {
 
                 for (FileItem item : items) {
                     if (!item.isFormField()) {
-                        String newFileName = System.currentTimeMillis() + "." + item.getName();
+//                        String newFileName = System.currentTimeMillis() + "." + item.getName();
+                        String newFileName = item.getName();
+
                         File savedFile = new File(savedDir, newFileName);
                         item.write(savedFile);
                         logger.info("Saved file " + newFileName + " to " + savedFile.getPath());
@@ -173,6 +175,7 @@ public class UploadServlet extends BaseServlet {
                         uploadResponse.setSize(item.getSize());
 
                         String realPath = getSavedPath(savedPath, newFileName);
+                        uploadResponse.setId(String.valueOf(System.currentTimeMillis()));
                         uploadResponse.setUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_FILE + "=" + realPath);
                         uploadResponse.setThumbnailUrl("/mf-chinalife/upload?" + PARAM_KEY_GET_THUMBNAIL + "=" + realPath);
                         uploadResponse.setDeleteUrl("/mf-chinalife/upload?" + PARAM_KEY_DEL_FILE + "=" + realPath);
@@ -220,6 +223,7 @@ public class UploadServlet extends BaseServlet {
 
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
     private static class UploadResponse {
+        private  String id;
         private String name;
         private long size;
         private String url;
@@ -227,6 +231,10 @@ public class UploadServlet extends BaseServlet {
         private String deleteUrl;
         private String deleteType;
         private String path;
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public void setName(String name) {
             this.name = name;
@@ -250,6 +258,10 @@ public class UploadServlet extends BaseServlet {
 
         public void setDeleteType(String deleteType) {
             this.deleteType = deleteType;
+        }
+
+        public String getId() {
+            return id;
         }
 
         public String getName() {
