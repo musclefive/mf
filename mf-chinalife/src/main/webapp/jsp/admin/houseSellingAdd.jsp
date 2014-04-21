@@ -136,7 +136,7 @@
                 strSavedFiles += $(this).val();
                 strSavedFiles += ";";
             });
-            strSavedFiles = strSavedFiles.substring(0,strSavedFiles.length-1);
+//            strSavedFiles = strSavedFiles.substring(0,strSavedFiles.length-1);
             $("#saved_files").val(strSavedFiles);
         }
     </script>

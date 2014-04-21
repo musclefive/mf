@@ -163,8 +163,8 @@ public class UploadServlet extends BaseServlet {
 
                 for (FileItem item : items) {
                     if (!item.isFormField()) {
-//                        String newFileName = System.currentTimeMillis() + "." + item.getName();
-                        String newFileName = item.getName();
+                        String newFileName = System.currentTimeMillis() + "." + item.getName();
+//                        String newFileName = item.getName();
 
                         File savedFile = new File(savedDir, newFileName);
                         item.write(savedFile);
