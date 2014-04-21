@@ -99,7 +99,7 @@
             });
             $('#fileupload').bind('fileuploaddone', function (e, result) {
                 $.each(result.result.files, function (index, file) {
-                    $("#divForFileUpload").append("<input type='hidden' value='" + file.url + "' name='upload' id='"+file.id+"'>");
+                    $("#divForFileUpload").append("<input type='hidden' value='" + file.path + "' name='upload' id='"+file.id+"'>");
                 });
                 addImageUrl();
             });
