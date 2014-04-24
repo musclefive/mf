@@ -57,6 +57,14 @@ public class HouseAddServlet extends BaseServlet {
             double minPrice = getDoubleParam(request, "min_price");
             double maxPrice = getDoubleParam(request, "max_price");
             String desc = getParam(request, "description");
+            //处理textarea中的换行符
+            if (desc != null) {
+                if(desc.length() != 0){
+                    desc = desc.replaceAll("\n", "<br />");
+                    desc = desc.replaceAll("\r", "<br />");
+                    desc = desc.replaceAll("\"", "'");
+                }
+            }
             String contactPersion1 = getParam(request, "first_contact_name");
             String contactPhone1 = getParam(request, "first_contact_phone");
             String contactPersion2 = getParam(request, "second_contact_name");
@@ -67,7 +75,7 @@ public class HouseAddServlet extends BaseServlet {
             Validate.notEmpty(savedFiles, "Must pass saved files path.");
 
             Long houseSaleId = DAOFacade.getDAO(HouseSaleDAO.class)
-                    .createHouseSale(title, district, status, address, type, room, toilet, carport, area, minPrice, maxPrice, desc,
+                    .createHouseSale(title, district, status, address, type, room, toilet, carport, area, minPrice, maxPrice, desc.trim(),
                             contactPersion1, contactPhone1, contactPersion2, contactPhone2, new Timestamp(System.currentTimeMillis()));
 
             for (String savedFile : savedFiles) {

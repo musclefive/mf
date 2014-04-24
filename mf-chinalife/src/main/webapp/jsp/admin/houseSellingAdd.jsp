@@ -15,7 +15,23 @@
     <c:import url="/template/style.html" />
     <c:import url="/template/js.html" />
     <c:import url="/template/import-jquery-file-upload.html" />
+    <link rel="stylesheet" type="text/css" href="/mf-chinalife/css/prettify.css"/>
+    <link rel="stylesheet" type="text/css" href="/mf-chinalife/css/bootstrap-wysihtml5.css"/>
 
+    <style type="text/css" media="screen">
+        .btn.jumbo {
+            font-size: 20px;
+            font-weight: normal;
+            padding: 14px 24px;
+            margin-right: 10px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+        }
+    </style>
+    <script src="../../js/textarea/wysihtml5-0.3.0.js"></script>
+    <script src="../../js/textarea/prettify.js"></script>
+    <script src="../../js/textarea/bootstrap-wysihtml.js"></script>
     <script type="application/javascript" language="JavaScript">
         $(function () {
             // validate the comment form when it is submitted
@@ -264,7 +280,7 @@
             <label class="col-md-2 control-label" for="inputForArea">面积</label>
 
             <div class="col-md-2 controls">
-                <input placeholder="placeholder" class="form-control" id="inputForArea" type="text"
+                <input placeholder="输入面积" class="form-control" id="inputForArea" type="text"
                        name="area">
             </div>
             <div class="col-md-2">
@@ -296,13 +312,26 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="inputForDetail">描述</label>
 
-            <div class="col-md-6 controls">
+            <div class="col-md-10 controls">
                 <div class="textarea">
-                    <textarea class="form-control" id="inputForDetail" rows="6"
-                              name="description"> </textarea>
+                    <%--<textarea class="form-control" id="inputForDetail" rows="6"--%>
+                              <%--name="description"> </textarea>--%>
+                    <textarea class="textarea"  id="inputForDetail" name="description"
+                              placeholder="Enter text ..." style="width: 600px; height: 200px">
+                    </textarea>
+                        <script>
+                            $('#inputForDetail').wysihtml5({
+                                "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                                "emphasis": true, //Italics, bold, etc. Default true
+                                "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                                "html": false, //Button which allows you to edit the generated HTML. Default false
+                                "link": true, //Button to insert a link. Default true
+                                "image": false, //Button to insert an image. Default true,
+                                "color": false //Button to change color of font
+                            });
+                        </script>
                 </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
         <%--div for first contact--%>
         <div class="form-group">

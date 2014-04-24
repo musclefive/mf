@@ -78,6 +78,14 @@
     <servlet>
         <servlet-name>QuerySingleHouse</servlet-name>
         <servlet-class>com.chinalife.servlet.admin.HouseSingleQuery</servlet-class>
+        <init-param>
+            <param-name>s</param-name>
+            <param-value>/jsp/admin/houseSellingModify.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>f</param-name>
+            <param-value>/jsp/error/error.jsp</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>

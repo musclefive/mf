@@ -60,7 +60,8 @@
             <%@ include file="/template/left.jsp"%>
         </div>
         <div class="col-md-9">
-            <table class="table table-hover" id="example">
+            <%--<form class="form-horizontal" id="formHouseAdd" method="post" action="/mf-chinalife/QuerySingleHouse">--%>
+                <table class="table table-hover" id="example">
                 <thead>
                 <tr>
                     <th>序号</th>
@@ -80,7 +81,9 @@
                         </td>
                         <td>Win 95+</td>
                         <td class="center">4</td>
-                        <td class="center">X</td>
+                        <td class="center">
+                            <a href="/mf-chinalife/querySingleHouse?house_id=1">测试House Modify页面</a>
+                        </td>
                     </tr>
                     <tr class="gradeC">
                         <td>Trident</td>
@@ -111,6 +114,7 @@
                     </tr>
                 </tbody>
             </table>
+            <%--</form>--%>
         </div>
     </div>
 </div>

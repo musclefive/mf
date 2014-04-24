@@ -24,7 +24,7 @@ public class HouseSingleQuery extends BaseServlet {
     @Override
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int houseId = getIntParam(request, "house_id");
-
+        logger.info("this is house Single Query Servlet house_id:"+ houseId);
         try {
             SaledHouse house = DAOFacade.getDAO(HouseSaleDAO.class).queryHouse(houseId, new Converter<SaledHouse>() {
                 @Override
@@ -42,7 +42,7 @@ public class HouseSingleQuery extends BaseServlet {
                     saledHouse.setArea(resultSet.getDouble("area"));
                     saledHouse.setMinPrice(resultSet.getDouble("min_price"));
                     saledHouse.setMaxPrice(resultSet.getDouble("max_price"));
-                    saledHouse.setDescription(resultSet.getString("description"));
+                    saledHouse.setDescription(resultSet.getString("description").trim());
                     saledHouse.setContactPerson1(resultSet.getString("contact_person1"));
                     saledHouse.setContactPhone1(resultSet.getString("contact_phone1"));
                     saledHouse.setContactPerson2(resultSet.getString("contact_person2"));
@@ -52,7 +52,7 @@ public class HouseSingleQuery extends BaseServlet {
                     return saledHouse;
                 }
             });
-
+            logger.info("house description:" + house.getDescription());
             addAttribute(request, Scope.REQUEST, "house", house);
             getSuccessDispatcher(request).forward(request, response);
         } catch (DAOException e) {
@@ -81,6 +81,82 @@ public class HouseSingleQuery extends BaseServlet {
         private String contactPhone2;
         private Timestamp createTime;
         private Timestamp updateTime;
+
+        public int getHouseId() {
+            return houseId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDistrict() {
+            return district;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public int getRoom() {
+            return room;
+        }
+
+        public int getToilet() {
+            return toilet;
+        }
+
+        public int getCarport() {
+            return carport;
+        }
+
+        public double getArea() {
+            return area;
+        }
+
+        public double getMinPrice() {
+            return minPrice;
+        }
+
+        public double getMaxPrice() {
+            return maxPrice;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getContactPerson1() {
+            return contactPerson1;
+        }
+
+        public String getContactPhone1() {
+            return contactPhone1;
+        }
+
+        public String getContactPerson2() {
+            return contactPerson2;
+        }
+
+        public String getContactPhone2() {
+            return contactPhone2;
+        }
+
+        public Timestamp getCreateTime() {
+            return createTime;
+        }
+
+        public Timestamp getUpdateTime() {
+            return updateTime;
+        }
 
         public void setHouseId(int houseId) {
             this.houseId = houseId;
