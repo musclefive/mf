@@ -12,13 +12,20 @@
         <div class="col-md-4 column">
             <img data-src="holder.js/220x80" class="img-rounded">
         </div>
-        <div class="col-md-8 column">
-            <form class="navbar-form center-block" role="search">
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="请输入搜索内容" />
-                </div> <button type="type" class="btn btn-default" >搜索</button>
+        <div class="col-md-6 column">
+            <br/>
+            <form class="form-group" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button">
+                            <span class=" glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
             </form>
         </div>
+        <div class="col-md-2 column"></div>
     </div>
     <div class="row clearfix">
         <div class="col-md-12 column">

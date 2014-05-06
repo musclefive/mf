@@ -12,7 +12,7 @@
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <c:import url="/template/importedFiles.html" />
-    <link href="/mf-mf-chinalife/css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="/mf-chinalife/css/base.css" rel="stylesheet" type="text/css"/>
     <script type="application/javascript" language="JavaScript">
         $(function()
         {

@@ -17,16 +17,22 @@
         {
             $("#lifeService").removeClass("active");
             $("#houseBuying").addClass("active");
-//            $("#userLogonForm").validate({
-//                rules: {
-//                    nickname : "required",
-//                    password : "required"
-//                },
-//                messages: {
-//                    nickname: "you need to enter the status of the house",
-//                    password : "you need to enter the status of the house"
-//                }
-//            })
+            $("#userLogonForm").validate({
+                rules: {
+                    nickname : "required",
+                    password : "required"
+                },
+                messages: {
+                    nickname: "you need to enter the status of the house",
+                    password : "you need to enter the status of the house"
+                },
+                highlight: function(element) {
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                success: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                }
+            })
         })
         function changeImg()
         {

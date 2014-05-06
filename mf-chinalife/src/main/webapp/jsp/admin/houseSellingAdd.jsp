@@ -119,6 +119,78 @@
                 });
                 addImageUrl();
             });
+            /*room toilet carpot 控件*/
+            $('.btn-number').click(function(e){
+                e.preventDefault();
+
+                fieldName = $(this).attr('data-field');
+                type      = $(this).attr('data-type');
+                var input = $("input[name='"+fieldName+"']");
+                var currentVal = parseInt(input.val());
+                if (!isNaN(currentVal)) {
+                    if(type == 'minus') {
+
+                        if(currentVal > input.attr('min')) {
+                            input.val(currentVal - 1).change();
+                        }
+                        if(parseInt(input.val()) == input.attr('min')) {
+                            $(this).attr('disabled', true);
+                        }
+
+                    } else if(type == 'plus') {
+
+                        if(currentVal < input.attr('max')) {
+                            input.val(currentVal + 1).change();
+                        }
+                        if(parseInt(input.val()) == input.attr('max')) {
+                            $(this).attr('disabled', true);
+                        }
+
+                    }
+                } else {
+                    input.val(0);
+                }
+            });
+            $('.input-number').focusin(function(){
+                $(this).data('oldValue', $(this).val());
+            });
+            $('.input-number').change(function() {
+
+                minValue =  parseInt($(this).attr('min'));
+                maxValue =  parseInt($(this).attr('max'));
+                valueCurrent = parseInt($(this).val());
+
+                name = $(this).attr('name');
+                if(valueCurrent >= minValue) {
+                    $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the minimum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+                if(valueCurrent <= maxValue) {
+                    $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the maximum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+
+
+            });
+            $(".input-number").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                    // Allow: Ctrl+A
+                        (e.keyCode == 65 && e.ctrlKey === true) ||
+                    // Allow: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
         })
         function deleteAction(fileID){
             //如果选择全选删除按钮
@@ -234,7 +306,7 @@
                 <select class="form-control" id="selectType" name="type">
                     <option value="">请选择</option>
                     <option value="House">房子House</option>
-                    <option value="Apartmen">公寓Apartment</option>
+                    <option value="Apartment">公寓Apartment</option>
                     <option value="Unit">单位Unit</option>
                     <option value="Townhouse">联排别墅Townhouse</option>
                     <option value="Land">土地Land</option>
@@ -245,7 +317,7 @@
             <div class="col-md-2"></div>
         </div>
         <%--div for house status--%>
-        <div class="form-group">
+        <%--<div class="form-group">
             <label class="col-md-2 control-label">房屋情况</label>
 
             <div class="col-md-6 controls">
@@ -274,6 +346,50 @@
                 </div>
             </div>
             <div class="col-md-4"></div>
+        </div>--%>
+        <div class="form-group">
+            <label class="col-md-2 control-label">房屋情况</label>
+            <div class="col-md-8 controls">
+                <div class="input-group">
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="houseType_shi">
+                                      <span class="glyphicon glyphicon-minus"></span>
+                                  </button>
+                              </span>
+                    <input type="text" id="houseType_shi" name="houseType_shi" class="form-control input-number" value="1" min="1" max="9">
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="houseType_shi">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                              </span>
+                    <label class="control-label" for="houseType_shi">&nbsp;&nbsp;&nbsp;&nbsp;室&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="houseType_wei">
+                                      <span class="glyphicon glyphicon-minus"></span>
+                                  </button>
+                              </span>
+                    <input type="text" id="houseType_wei" name="houseType_wei" class="form-control input-number" value="1" min="1" max="9">
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="houseType_wei">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                              </span>
+                    <label class="control-label" for="houseType_wei">&nbsp;&nbsp;&nbsp;&nbsp;卫&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="houseType_garage">
+                                      <span class="glyphicon glyphicon-minus"></span>
+                                  </button>
+                              </span>
+                    <input type="text" id="houseType_garage" name="houseType_garage" class="form-control input-number" value="1" min="1" max="9">
+                              <span class="input-group-btn">
+                                  <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="houseType_garage">
+                                      <span class="glyphicon glyphicon-plus"></span>
+                                  </button>
+                              </span>
+                    <label class="control-label" for="houseType_garage">&nbsp;&nbsp;&nbsp;&nbsp;车</label>
+                </div>
+
+            </div>
         </div>
         <%--div for house area--%>
         <div class="form-group">
