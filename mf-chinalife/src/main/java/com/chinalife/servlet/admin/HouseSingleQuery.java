@@ -1,6 +1,8 @@
 package com.chinalife.servlet.admin;
 
 import com.chinalife.dao.HouseSaleDAO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mf.dal.Converter;
 import com.mf.dal.DAOException;
 import com.mf.dal.DAOFacade;
@@ -61,6 +63,7 @@ public class HouseSingleQuery extends BaseServlet {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class SaledHouse {
         private int houseId;
         private String title;

@@ -11,39 +11,42 @@
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <c:import url="/template/importedFiles.html" />
+    <c:import url="/template/importedFiles.html"/>
     <link href="/mf-chinalife/css/demo_table.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" language="javascript" src="/mf-chinalife/js/jquery.dataTables.js"></script>
     <script type="application/javascript" language="JavaScript">
-        $(document).ready(function() {
-            $('#example').dataTable( {
+        $(document).ready(function () {
+            $('#example').dataTable({
                 "sPaginationType": "full_numbers",
-                "bProcessing": true
+                "bProcessing": true,
+                "ajax": "/queryHouses"
 //                "sAjaxSource": 'houseData.txt'
-            } );
+            });
+
             $('#example tbody tr').on('click', function () {
                 var sTitle;
                 var nTds = $('td', this);
                 var sBrowser = $(nTds[1]).text();
                 var sGrade = $(nTds[4]).text();
 
-                if ( sGrade == "A" )
-                    sTitle =  sBrowser+' will provide a first class (A) level of CSS support.';
-                else if ( sGrade == "C" )
-                    sTitle = sBrowser+' will provide a core (C) level of CSS support.';
-                else if ( sGrade == "X" )
-                    sTitle = sBrowser+' does not provide CSS support or has a broken implementation. Block CSS.';
+                if (sGrade == "A")
+                    sTitle = sBrowser + ' will provide a first class (A) level of CSS support.';
+                else if (sGrade == "C")
+                    sTitle = sBrowser + ' will provide a core (C) level of CSS support.';
+                else if (sGrade == "X")
+                    sTitle = sBrowser + ' does not provide CSS support or has a broken implementation. Block CSS.';
                 else
-                    sTitle = sBrowser+' will provide an undefined level of CSS support.';
-                alert( sTitle )
-            } );
-        } );
+                    sTitle = sBrowser + ' will provide an undefined level of CSS support.';
+                alert(sTitle)
+            });
+        });
     </script>
     <style type="text/css">
         .dataTables_paginate {
             float: right;
             text-align: right;
         }
+
         .paging_full_numbers {
             width: 400px;
             height: 22px;
@@ -53,15 +56,15 @@
 </head>
 <body>
 <!--navigation for left area-->
-<%@ include file="/template/header.jsp"%>
+<%@ include file="/template/header.jsp" %>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-3">
-            <%@ include file="/template/left.jsp"%>
+            <%@ include file="/template/left.jsp" %>
         </div>
         <div class="col-md-9">
             <%--<form class="form-horizontal" id="formHouseAdd" method="post" action="/mf-chinalife/QuerySingleHouse">--%>
-                <table class="table table-hover" id="example">
+            <table class="table table-hover" id="example">
                 <thead>
                 <tr>
                     <th>序号</th>
@@ -72,46 +75,48 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr class="gradeX">
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer
-                            4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td class="center">4</td>
-                        <td class="center">
-                            <a href="/mf-chinalife/querySingleHouse?house_id=1">测试House Modify页面</a>
-                        </td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 5.0</td>
-                        <td>Win 95+</td>
-                        <td class="center">5</td>
-                        <td class="center">C</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Trident</td>
-                        <td>
-                            Internet
-                            Explorer
-                            4.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td class="center">4</td>
-                        <td class="center">X</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 5.0</td>
-                        <td>Win 95+</td>
-                        <td class="center">5</td>
-                        <td class="center">C</td>
-                    </tr>
+                <tr class="gradeX">
+                    <td>Trident</td>
+                    <td>
+                        Internet
+                        Explorer
+                        4.0
+                    </td>
+                    <td>Win 95+</td>
+                    <td class="center">4</td>
+                    <td class="center">
+                        <a href="/mf-chinalife/querySingleHouse?house_id=1">测试House Modify页面</a>
+                    </td>
+                </tr>
+                <tr class="gradeC">
+                    <td>Trident</td>
+                    <td>Internet
+                        Explorer 5.0
+                    </td>
+                    <td>Win 95+</td>
+                    <td class="center">5</td>
+                    <td class="center">C</td>
+                </tr>
+                <tr class="gradeX">
+                    <td>Trident</td>
+                    <td>
+                        Internet
+                        Explorer
+                        4.0
+                    </td>
+                    <td>Win 95+</td>
+                    <td class="center">4</td>
+                    <td class="center">X</td>
+                </tr>
+                <tr class="gradeC">
+                    <td>Trident</td>
+                    <td>Internet
+                        Explorer 5.0
+                    </td>
+                    <td>Win 95+</td>
+                    <td class="center">5</td>
+                    <td class="center">C</td>
+                </tr>
                 </tbody>
             </table>
             <%--</form>--%>
