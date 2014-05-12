@@ -9,6 +9,7 @@ import com.mf.dal.annotation.SQLControl;
 import com.mf.dal.annotation.Table;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by shixin on 3/24/14.
@@ -26,4 +27,8 @@ public interface HouseSaleDAO {
     @Table("house_sale")
     @SQL("select * from house_sale where house_id=?")
     <T> T queryHouse(int houseId, Converter<T> converter) throws DAOException;
+
+    @Table("house_sale")
+    @SQL("select house_id,title,address,contact_phone1 from house_sale order by create_time desc")
+    <T> List<T> queryAllHouse(Converter<T> converter) throws DAOException;
 }

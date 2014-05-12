@@ -54,19 +54,24 @@ class DAOInvocationHandler implements InvocationHandler {
                 Validate.notNull("Cant find converter.");
 
                 // This is not a generic type, assume it's querying one object.
+                /*
                 if (returnGenericTypes.length == 0) {
+                    logger.info("Execute query to one.");
                     return dbClient.executeQueryToOne(converter);
                 }
-
+                */
                 if (List.class.isAssignableFrom(returnType)) {
+                    logger.info("Execute query to list.");
                     return dbClient.executeQueryToList(converter);
                 }
 
                 if (Set.class.isAssignableFrom(returnType)) {
+                    logger.info("Execute query to Set.");
                     return dbClient.executeQueryToSet(converter);
                 }
 
-                throw new UnsupportedOperationException("Unknown return type : " + returnValue.getClass().getName());
+                logger.info("Execute query to one.");
+                return dbClient.executeQueryToOne(converter);
             } else {
                 if (daoMethod.isApplyToAllTables()) {
                     returnValue = dbClient.executeUpdateForAllPartitions();

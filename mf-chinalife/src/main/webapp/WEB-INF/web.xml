@@ -87,6 +87,10 @@
             <param-value>/jsp/error/error.jsp</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>QueryMultiHouse</servlet-name>
+        <servlet-class>com.chinalife.servlet.admin.HouseMultiQuery</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>QuerySingleHouse</servlet-name>
         <url-pattern>/querySingleHouse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QueryMultiHouse</servlet-name>
+        <url-pattern>/queryHouses</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
