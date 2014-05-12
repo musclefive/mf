@@ -10,6 +10,7 @@
     <script src="../../js/bootstrap.js" type="text/javascript"></script>
     <script src="../../js/jquery.validate.js" type="text/javascript"></script>
     <script src="../../js/holder.js" type="text/javascript"></script>
+    <script src="../../js/jquery.json-2.4.js" type="text/javascript"></script>
     <script language="javascript">
         $(document).ready(function(){
 
@@ -41,7 +42,7 @@
 
 <script id="movieTemplate" type="text/x-jquery-tmpl">
 	<li>
-		<b>${Name}</b> (${ReleaseYear})
+		<b>${pic}</b> (${price})
 	</li>
 </script>
 
@@ -53,8 +54,15 @@
         { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
         { Name: "The Inheritance", ReleaseYear: "1976" }
     ];
-
-    $("#movieTemplate").tmpl(movies).appendTo( "#movieList_1" );
+//    var data = '{"Name":"Empty Entertainments","Address":"Nobel House, Regent Centre","Contact":"Phone"}';
+    var data = '{"items":[{"id":"0","pic":"holder.js/200x185","price":"500","area":"100","bed":"1","district":"东南区","carport":"3","baths":"2","address":"捷达大路1777号","title":"万达广场真正的一室一厅，设施全，看好来电","description":"捷...","status":"正在出售"},{"id":"1","pic":"holder.js/200x185","price":"500","area":"100","bed":"1","district":"东南区","carport":"3","baths":"2","address":"捷达大路1777号","title":"万达广场真正的一室一厅，设施全，看好来电","description":"捷...","status":"正在出售"},{"id":"2","pic":"holder.js/200x185","price":"500","area":"100","bed":"1","district":"东南区","carport":"3","baths":"2","address":"捷达大路1777号","title":"万达广场真正的一室一厅，设施全，看好来电","description":"捷...","status":"正在出售"},{"id":"3","pic":"holder.js/200x185","price":"500","area":"100","bed":"1","district":"东南区","carport":"3","baths":"2","address":"捷达大路1777号","title":"万达广场真正的一室一厅，设施全，看好来电","description":"捷...","status":"正在出售"},{"id":"4","pic":"holder.js/200x185","price":"500","area":"100","bed":"1","district":"东南区","carport":"3","baths":"2","address":"捷达大路1777号","title":"万达广场真正的一室一厅，设施全，看好来电","description":"捷...","status":"正在出售"}]}';
+    var test = $.evalJSON( data );
+    alert(test);
+//    alert(object);
+//    alert(object[0]["Name"]);
+//    var dataArray = data.toArray();
+//    alert(dataArray);
+    $("#movieTemplate").tmpl(test.items).appendTo( "#movieList_1" );
 
 </script>
 <div class="container">

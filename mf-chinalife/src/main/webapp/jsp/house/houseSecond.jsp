@@ -19,12 +19,12 @@
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
-            $('#houseList').dataTable( {
+            /*$('#houseList').dataTable( {
                 "sPaginationType": "full_numbers",
                 "bLengthChange": false, //改变每页显示数据数量
                 "bFilter": false,
                 "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
-                    /* Append the grade to the default row class name */
+                    *//* Append the grade to the default row class name *//*
                     if ( aData[4] == "A" )
                     {
                         $('td:eq(4)', nRow).html( '<b>A</b>' );
@@ -37,7 +37,7 @@
                 var sBrowser = $(nTds[1]).text();
                 var sGrade = $(nTds[2]).text();
                 alert( sBrowser + " :" + sGrade )
-            } );
+            } );*/
         } );
     </script>
     <style type="text/css">
@@ -46,7 +46,7 @@
 </head>
 <body>
 <!--navigation for top area-->
-<%--<%@ include file="/template/header.jsp"%>--%>
+<%@ include file="/template/header.jsp"%>
 <div class="container">
     <a href="#">Chinalife</a>-&gt;<a href="#"> 房产</a>
     <div class="panel panel-default">
@@ -171,65 +171,35 @@
                             </tr>
                             </thead>
                             <tbody id="houseSellBody">
-                            <tr class="media">
-                                <td><img data-src="holder.js/200x185" class="img-rounded img-responsive"></td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4 class="media-heading">
-                                                <a href="#" target="_parent" class="text-info">$1,975,000</a>
-                                                <a href="#" class="btn btn-default pull-right" title="Please log in to favorite this snippet">
-                                                    <span class="glyphicon glyphicon-thumbs-up"></span> 10</a>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <ul class="list-inline">
-                                                <li>4,820 SqFt</li>
-                                                <li style="list-style: none">|</li>
-                                                <li>5 Beds</li>
-                                                <li style="list-style: none">|</li>
-                                                <li>5 Baths</li>
-                                                <li style="list-style: none">|</li>
-                                                <li>5 Carport</li>
-                                            </ul>
-                                            <ul class="list-inline">
-                                                <li>
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary btn-xs">
-                                                        <span class="glyphicon glyphicon-hand-right"></span>
-                                                    </button>
-                                                    <text>正在出售</text>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <text class="text-info">2014-05-05 11:11</text>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <text class="text-info">东南区</text>
-                                                </span>
-                                                </li>
-                                            </ul>
-                                            <p class="hidden-xs">
-                                                万达广场真正的一室一厅，设施全，看好来电 万达广场真正的一室一厅，设施全，看好来电
-                                                万达广场真正的一室一厅，设施
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <img data-src="holder.js/120x100" class="img-rounded img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                                <span class="input-group-btn text-muted">
-                                                <button type="button" class="btn btn-primary btn-xs">
-                                                    <span class="glyphicon glyphicon-home"></span>
-                                                </button>
-                                            Courtesy of HS Fox & Roach-Chestnut Hill
-                                            Evergreen</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <script id="houseSellTemplate" type="text/x-jquery-tmpl">
+                            </tbody>
+                        </table>
+                        <!--pagination-->
+                        <div class="col-md-12 column text-center">
+                            <ul class="pagination pagination-lg">
+                                <li>
+                                    <a href="#">Prev</a>
+                                </li>
+                                <li>
+                                    <a href="#">1</a>
+                                </li>
+                                <li>
+                                    <a href="#">2</a>
+                                </li>
+                                <li>
+                                    <a href="#">3</a>
+                                </li>
+                                <li>
+                                    <a href="#">4</a>
+                                </li>
+                                <li>
+                                    <a href="#">5</a>
+                                </li>
+                                <li>
+                                    <a href="#">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <script id="houseSellTemplate" type="text/x-jquery-tmpl">
     <tr class="media">
     <td><img data-src="{{= Pic}}" class="img-rounded"></td>
     <td>
@@ -288,20 +258,18 @@
     </td>
 </tr>
 </script>
-                            <script type="text/javascript">
-                                var houseData = [
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
-                                    { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"}
-                                ];
-                                $("#houseSellTemplate").tmpl(houseData).appendTo("#houseSellBody");
-                            </script>
-                            </tbody>
-                        </table>
+                        <script type="text/javascript">
+                            var houseData = [
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+                                { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"}
+                            ];
+                            $("#houseSellTemplate").tmpl(houseData).appendTo("#houseSellBody");
+                        </script>
                     </div>
                     <div class="tab-pane" id="panel-775800">
                         23
