@@ -29,6 +29,10 @@ public interface HouseSaleDAO {
     <T> T queryHouse(int houseId, Converter<T> converter) throws DAOException;
 
     @Table("house_sale")
-    @SQL("select house_id,title,address,contact_phone1 from house_sale order by create_time desc")
+    @SQL("select house_id,title,address,max_price,district,create_time from house_sale order by create_time desc")
+    <T> List<T> queryHouseForItems(Converter<T> converter) throws DAOException;
+
+    @Table("house_sale")
+    @SQL("select * from house_sale order by create_time desc")
     <T> List<T> queryAllHouse(Converter<T> converter) throws DAOException;
 }

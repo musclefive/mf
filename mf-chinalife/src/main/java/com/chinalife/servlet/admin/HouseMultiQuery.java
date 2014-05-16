@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ishikin on 14-4-21.
@@ -32,20 +34,29 @@ public class HouseMultiQuery extends BaseServlet {
             response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
 
+            //pic price area bed baths carport district status title address
             List<HouseSingleQuery.SaledHouse> houses = DAOFacade.getDAO(HouseSaleDAO.class).queryAllHouse(new Converter<HouseSingleQuery.SaledHouse>() {
                 @Override
                 public HouseSingleQuery.SaledHouse convert(ResultSet resultSet) throws SQLException {
                     HouseSingleQuery.SaledHouse house = new HouseSingleQuery.SaledHouse();
                     house.setHouseId(resultSet.getInt("house_id"));
+                    house.setMaxPrice(resultSet.getDouble("max_price"));
+                    house.setArea(resultSet.getDouble("area"));
+                    house.setRoom(resultSet.getInt("room"));
+                    house.setToilet(resultSet.getInt("toilet"));
+                    house.setCarport(resultSet.getInt("carport"));
+                    house.setDistrict(resultSet.getString("district"));
+                    house.setStatus(resultSet.getString("status"));
                     house.setTitle(resultSet.getString("title"));
                     house.setAddress(resultSet.getString("address"));
-                    house.setContactPhone1("contact_phone1");
                     return house;
                 }
             });
 
             ObjectMapper objectMapper = new ObjectMapper();
             String ret = objectMapper.writeValueAsString(houses);
+
+            ret = "{\"items\":" + ret + "}";
 
             logger.error("Result : " + ret);
 

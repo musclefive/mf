@@ -240,7 +240,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h4 class="media-heading">
-                    <a href="#" target="_parent" class="text-info">{{= price}}</a>
+                    <a href="#" target="_parent" class="text-info">{{= maxPrice}}</a>
                     <a href="#" class="btn btn-default pull-right" title="Please log in to favorite this snippet">
                         <span class="glyphicon glyphicon-thumbs-up"></span> 10</a>
                 </h4>
@@ -251,9 +251,9 @@
                 <ul class="list-inline">
                     <li>{{= area}} SqFt</li>
                     <li style="list-style: none">|</li>
-                    <li>{{= bed}} Beds</li>
+                    <li>{{= room}} Beds</li>
                     <li style="list-style: none">|</li>
-                    <li>{{= baths}} Baths</li>
+                    <li>{{= toilet}} Baths</li>
                     <li style="list-style: none">|</li>
                     <li>{{= carport}} Carport</li>
                 </ul>
@@ -293,19 +293,19 @@
 </tr>
 </script>
                         <script type="text/javascript">
-                            /*$.ajax({
-                             url:"/mf-chinalife/cuichao",
+                            $.ajax({
+                             url:"/mf-chinalife/queryHouses",
                              type:'post',
                              dataType: "json",
                              beforeSend:function(XMLHttpRequest){
                              $("#myShow").css({display:"",top:"50%",left:"50%",position:"absolute"});
                              },
                              success:function(data){
-                                 $("#houseSellTemplate").tmpl(data.items).appendTo( "#houseSellBody" );
+                                 $("#houseSellTemplate").tmpl(data).appendTo( "#houseSellBody" );
+                                 $("#myShow").hide();
                              }
                              });
-                             */
-                            var houseData = [
+                            /*var houseData = [
                                 { id: "1", pic: "holder.js/200x185", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100", bed: "1", baths: "2", carport: "2", district:"东南区", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
                                 { id: "1", pic: "holder.js/200x185", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100", bed: "1", baths: "2", carport: "2", district:"东南区", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
                                 { id: "1", pic: "holder.js/200x185", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100", bed: "1", baths: "2", carport: "2", district:"东南区", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
@@ -314,7 +314,7 @@
                                 { id: "1", pic: "holder.js/200x185", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100", bed: "1", baths: "2", carport: "2", district:"东南区", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
                                 { id: "1", pic: "holder.js/200x185", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100", bed: "1", baths: "2", carport: "2", district:"东南区", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"}
                             ];
-                            $("#houseSellTemplate").tmpl(houseData).appendTo("#houseSellBody");
+                            $("#houseSellTemplate").tmpl(houseData).appendTo("#houseSellBody");*/
                         </script>
                     </div>
             </div>

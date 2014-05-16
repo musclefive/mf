@@ -149,8 +149,12 @@
         </div>
     </div>
 </div>
+<%-- query house list--%>
 <div class="container">
     <div class="row clearfix">
+        <div id="myShow" style="display:none;">
+            <img alt="loading" style="width: 50px;height: 50px"  src="../../img/loading.gif" />
+        </div>
         <div class="col-md-9">
             <div class="tabbable" id="tabs-204282">
                 <ul class="nav nav-tabs">
@@ -201,12 +205,12 @@
                         </div>
                         <script id="houseSellTemplate" type="text/x-jquery-tmpl">
     <tr class="media">
-    <td><img data-src="{{= Pic}}" class="img-rounded"></td>
+    <td><img data-src="{{= pic}}" class="img-rounded"></td>
     <td>
         <div class="row">
             <div class="col-md-12">
                 <h4 class="media-heading">
-                    <a href="#" target="_parent" class="text-info">{{= Price}}</a>
+                    <a href="/mf-chinalife/querySingleHouse?house_id={{= houseId}}" target="_parent" class="text-info">{{= maxPrice}}</a>
                     <a href="#" class="btn btn-default pull-right" title="Please log in to favorite this snippet">
                         <span class="glyphicon glyphicon-thumbs-up"></span> 10</a>
                 </h4>
@@ -215,13 +219,13 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-inline">
-                    <li>{{= Area}} SqFt</li>
+                    <li>{{= area}} SqFt</li>
                     <li style="list-style: none">|</li>
-                    <li>{{= Bed}} Beds</li>
+                    <li>{{= room}} Beds</li>
                     <li style="list-style: none">|</li>
-                    <li>{{= Baths}} Baths</li>
+                    <li>{{= toilet}} Baths</li>
                     <li style="list-style: none">|</li>
-                    <li>{{= Carport}} Carport</li>
+                    <li>{{= carport}} Carport</li>
                 </ul>
                 <ul class="list-inline">
                     <li>
@@ -229,16 +233,16 @@
                     <button type="button" class="btn btn-primary btn-xs">
                         <span class="glyphicon glyphicon-hand-right"></span>
                     </button>
-                    <text>{{= Status}}</text>
+                    <text>{{= status}}</text>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <text class="text-info">2014-05-05 11:11</text>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <text class="text-info">{{= District}}</text>
+                    <text class="text-info">{{= district}}</text>
                 </span>
                     </li>
                 </ul>
                 <p class="hidden-xs">
-                    {{= Title}}
+                    {{= title}}
                 </p>
             </div>
             <div class="col-md-4">
@@ -251,7 +255,7 @@
                     <button type="button" class="btn btn-primary btn-xs">
                         <span class="glyphicon glyphicon-home"></span>
                     </button>
-                    {{= Address}}
+                    {{= address}}
                 </span>
             </div>
         </div>
@@ -259,7 +263,19 @@
 </tr>
 </script>
                         <script type="text/javascript">
-                            var houseData = [
+                            $.ajax({
+                                url:"/mf-chinalife/queryHouses",
+                                type:'post',
+                                dataType: "json",
+                                beforeSend:function(XMLHttpRequest){
+                                    $("#myShow").css({display:"",top:"50%",left:"50%",position:"absolute"});
+                                },
+                                success:function(data){
+                                    $("#houseSellTemplate").tmpl(data.items).appendTo( "#houseSellBody" );
+                                    $("#myShow").hide();
+                                }
+                            });
+                            /*var houseData = [
                                 { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
                                 { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
                                 { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
@@ -268,7 +284,7 @@
                                 { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
                                 { id: "1", Pic: "holder.js/200x185", Title: "万达广场真正的一室一厅，设施全，看好来电", Price: "500W", Area: "100", Bed: "1", Baths: "2", Carport: "2", District:"东南区", Status: "正在出售", Address: "捷达大路1777号", Description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"}
                             ];
-                            $("#houseSellTemplate").tmpl(houseData).appendTo("#houseSellBody");
+                            $("#houseSellTemplate").tmpl(houseData).appendTo("#houseSellBody");*/
                         </script>
                     </div>
                     <div class="tab-pane" id="panel-775800">

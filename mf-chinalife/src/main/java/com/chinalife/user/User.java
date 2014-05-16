@@ -1,5 +1,7 @@
 package com.chinalife.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
 /**

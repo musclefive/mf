@@ -27,7 +27,6 @@ public class LoginServlet extends BaseServlet {
 
         try {
             String sysRand = (String) request.getSession().getAttribute("rand");
-            ;
 
             Long userId = DAOFacade.getDAO(UserDAO.class).login(nickname, password);
 

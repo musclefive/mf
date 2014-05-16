@@ -17,59 +17,68 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                "columnDefs": [ {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<input type='checkbox' name='my-checkbox'  checked/>&nbsp;" +
-                            "<button class='btn btn-danger btn-xs' title='Delete' type='button' href='#modal-container-647946' data-toggle='modal'>" +
-                            "<span class='glyphicon glyphicon-trash'></span></button>&nbsp;" +
-                            "<button class='btn btn-primary btn-xs' title='View' type='button'>" +
-                            "<span class='glyphicon glyphicon-eye-open'></span></button>"
-                } ]
-            });
+                "bProcessing": true,
+//                "ajax": {
+//                    "url" : "/mf-chinalife/queryHouses",
+//                    "dataSrc" : "items"
+//                },
+                stateSave: true,
+                "columns": [
+                    { "data": "houseId" },
+                    { "data": "title" },
+                    { "data": "district" },
+                    { "data": "status" },
+                    { "data": "address" },
+                    {
+                        "targets": -1,
+                        "data": null,
+//                        "defaultContent": "<button>Click!</button>"
+                        "defaultContent": "<input type='checkbox' name='my-checkbox'  checked/>&nbsp;" +
+                                "<button class='btn btn-danger btn-xs' title='Delete' type='button' href='#modal-container-647946' data-toggle='modal'>" +
+                                "<span class='glyphicon glyphicon-trash'></span></button>&nbsp;" +
+                                "<button class='btn btn-primary btn-xs' title='View' type='button'>" +
+                                "<span class='glyphicon glyphicon-eye-open'></span></button>"
+                    }
+                ],
+                "drawCallback": function( settings ) {
+                    // Output the data for the visible rows to the browser's console
+                    $("input[name='my-checkbox']").bootstrapSwitch({
+                        onColor : "success",
+                        offColor : "danger",
+                        size : "small",
+                        onSwitchChange : function(event, state) {
+                            alert(state);
+                            var data = table.row( $(this).parents('tr') ).data();
+                            alert( "view  " + data["houseId"] +"'s salary is: "+ data[ 3 ] );
+                        }
+                    });
 
-            $("[name='my-checkbox']").bootstrapSwitch({
-                onColor : "success",
-                offColor : "danger",
-                size : "small",
-                onSwitchChange : function(event, state) {
-                    alert(state);
+                    $("button[title='View']").on('click', function(){
+                        var data = table.row( $(this).parents('tr') ).data();
+//                        alert( "view  " + data["houseId"] +"'s salary is: "+ data[ 3 ] );
+                        location.href = "/mf-chinalife/querySingleHouse?house_id="+data["houseId"];
+                    })
+                    $("button[title='Delete']").on('click', function(){
+                        var data = table.row( $(this).parents('tr') ).data();
+                        alert("delete:" +  data["houseId"] +"'s salary is: "+ data["address"] );
+                        var data = table.row( $(this).parents('tr') ).data();
+                        if(confirm("确定要删除")){
+                            table.row( $(this).parents('tr') ).remove().draw( false );
+                        }
+                    } );
                 }
             });
+            $("button[title='cuichao']").on('click', function(){
+                alert($(this).attr("title"));
+                location.href = "www.baidu.com";
+            })
 
-            $("[title='Delete']").click( function () {
-                var data = table.row( $(this).parents('tr') ).data();
-                if(confirm("确定要删除")){
-                    table.row( $(this).parents('tr') ).remove().draw( false );
-                }
-//                table.row( $(this).parents('tr') ).remove().draw( false );
-//                return confirm("确定要删除");
-
-            } );
-
-            $("[title='View']").click( function () {
-                var data = table.row( $(this).parents('tr') ).data();
-                alert( data[0] +"'s salary is: "+ data[ 3 ] );
-            } );
-/*            var table = $('#example').DataTable( {
-                "ajax": "dataSource.txt",
-                "columnDefs": [ {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button>Click!</button>"
-                } ]
-            } );
-
-            $('#example tbody').on( 'click', 'button', function () {
-                var data = table.row( $(this).parents('tr') ).data();
-                alert( data[0] +"'s salary is: "+ data[ 5 ] );
-            } );*/
         } );
     </script>
 </head>
 <body>
 <div class="container">
-
+<button class='btn btn-primary btn-xs' title='cuichao' type='button'><span class='glyphicon glyphicon-eye-open'></span></button>
 <table id="example" class="display" cellspacing="0" width="100%">
 <thead>
 <tr>
@@ -83,6 +92,7 @@
 </thead>
 
 <tbody>
+
 <tr>
     <td style="width: 10%">Tiger Nixon</td>
     <td style="width: 30%">System Architect</td>
@@ -157,7 +167,7 @@
     <td>2010/10/14</td>
     <td>$327,900</td>
 </tr>
-<!--
+
 <tr>
     <td>Colleen Hurst</td>
     <td>Javascript Developer</td>
@@ -549,8 +559,19 @@
     <td>27</td>
     <td>2011/01/25</td>
     <td>$112,000</td>
-</tr>-->
+</tr>
 </tbody>
+<script type="text/javascript" charset="utf-8">
+
+    $("input[name='my-checkbox']").bootstrapSwitch({
+            onColor : "success",
+            offColor : "danger",
+            size : "small",
+            onSwitchChange : function(event, state) {
+                alert(state);
+            }
+        });
+</script>
 </table>
 </div>
 </body>

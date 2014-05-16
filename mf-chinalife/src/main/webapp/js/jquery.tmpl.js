@@ -106,9 +106,6 @@
             var ret = $.tmpl(this, data, options, parentItem);
             return ret;
         },
-        test: function(){
-          alert("Cuichao" + this[0]);
-        },
         // Find which rendered template item the first wrapped DOM element belongs to
         tmplItem: function() {
             var ret = $.tmplItem(this[0]);

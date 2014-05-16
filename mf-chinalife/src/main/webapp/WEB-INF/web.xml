@@ -91,6 +91,14 @@
         <servlet-name>QueryMultiHouse</servlet-name>
         <servlet-class>com.chinalife.servlet.admin.HouseMultiQuery</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserMultiQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.admin.UserMultiQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserSingleQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.admin.UserSingleQuery</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -115,6 +123,14 @@
     <servlet-mapping>
         <servlet-name>QueryMultiHouse</servlet-name>
         <url-pattern>/queryHouses</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserMultiQuery</servlet-name>
+        <url-pattern>/queryUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserSingleQuery</servlet-name>
+        <url-pattern>/queryUser</url-pattern>
     </servlet-mapping>
 
     <jsp-config>

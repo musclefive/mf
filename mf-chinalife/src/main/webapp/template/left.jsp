@@ -9,6 +9,7 @@
 <div class="panel panel-info">
     <div class="panel-heading"><strong>用户管理</strong></div>
     <a href="/mf-chinalife/jsp/admin/userManage.jsp" class="list-group-item">账户信息</a>
+    <a href="/mf-chinalife/jsp/admin/userAllQuery.jsp" class="list-group-item">用户列表</a>
     <a href="#" class="list-group-item">积分管理</a>
     <div class="panel-heading"><strong>租售房管理</strong></div>
     <a href="/mf-chinalife/jsp/admin/houseSellingAdd.jsp" class="list-group-item">发布售房信息</a>
