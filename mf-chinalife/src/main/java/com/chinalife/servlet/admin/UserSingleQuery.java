@@ -34,6 +34,7 @@ public class UserSingleQuery extends BaseServlet {
 
     protected void deleteSelectedUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         int userId = getIntParam(request, "user_id");
+        userId = 100;
         logger.info("the deleted user_id is :" + userId);
         try {
             response.setContentType("text/html");

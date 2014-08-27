@@ -55,8 +55,8 @@
 //                            dateType : "json",
                             success:function(msg){
                                 table.row( $(this).parents('tr') ).remove().draw( false );
-//                                alert(msg);
-                                alert("删除成功");
+                                alert(msg);
+//                                alert("删除成功");
                             },
                             error : function(textStatus){
                                 alert("error:" + textStatus.error);
