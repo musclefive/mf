@@ -1,3 +1,4 @@
+<!--
 <database>
     <connections>
         <connection name="chinalife"
@@ -11,5 +12,20 @@
         <table name="user_info" con_refs="chinalife"></table>
         <table name="house_sale" con_refs="chinalife"></table>
         <table name="house_sale_picture" con_refs="chinalife"></table>
+        <table name="production" con_refs="chinalife"></table>
     </tables>
+</database>
+-->
+
+<database>
+<connections>
+    <connection name="master"
+                url="jdbc:sqlserver://10.120.78.71:1433;DatabaseName=master"
+                user="${db_user}"
+                pwd="${db_password}"
+                role="master"/>
+</connections>
+<tables>
+    <table name="teampc11" con_refs="master"></table>
+</tables>
 </database>

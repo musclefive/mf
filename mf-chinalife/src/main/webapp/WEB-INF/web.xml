@@ -99,6 +99,14 @@
         <servlet-name>UserSingleQuery</servlet-name>
         <servlet-class>com.chinalife.servlet.admin.UserSingleQuery</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductionMultiQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.ProductionMultiQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeamPCQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.TeamPCQuery</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -131,6 +139,14 @@
     <servlet-mapping>
         <servlet-name>UserSingleQuery</servlet-name>
         <url-pattern>/queryUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductionMultiQuery</servlet-name>
+        <url-pattern>/queryProduction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeamPCQuery</servlet-name>
+        <url-pattern>/queryTeamPC</url-pattern>
     </servlet-mapping>
 
     <jsp-config>

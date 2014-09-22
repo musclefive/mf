@@ -21,8 +21,8 @@
         -->
         <log4j_path>/tmp</log4j_path>
         <log4j_level>INFO</log4j_level>
-        <db_user>shixin</db_user>
-        <db_password>shixin</db_password>
+        <db_user>root</db_user>
+        <db_password>root</db_password>
         <jetty_version>9.0.2.v20130417</jetty_version>
         <tmp_path>/tmp</tmp_path>
     </properties>
@@ -56,8 +56,8 @@
                 <!--这里要配置成你自己的需要放log的目录-->
                 <log4j_path>D:\bin\apache-tomcat-7.0.52\logs</log4j_path>
                 <log4j_level>INFO</log4j_level>
-                <db_user>root</db_user>
-                <db_password>root</db_password>
+                <!--<db_user>root</db_user>
+                <db_password>root</db_password>-->
                 <tmp_path>D:\bin\apache-tomcat-7.0.52\temp</tmp_path>
             </properties>
         </profile>
