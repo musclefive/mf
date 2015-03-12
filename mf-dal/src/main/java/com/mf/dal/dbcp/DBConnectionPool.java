@@ -41,7 +41,7 @@ public class DBConnectionPool extends GenericObjectPool<Connection> {
         this.setMinEvictableIdleTimeMillis(10 * 60 * 1000);
         this.setTimeBetweenEvictionRunsMillis(12 * 60 * 1000);
 
-        this.setMaxTotal(Integer.parseInt(properties.getProperty("max.idle", "5")));
+        this.setMaxIdle(Integer.parseInt(properties.getProperty("max.idle", "5")));
         this.setMaxTotal(Integer.parseInt(properties.getProperty("max.total", "50")));
     }
 
