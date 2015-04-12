@@ -14,5 +14,6 @@
         <module>mf-dal</module>
         <module>mf-util</module>
         <module>mf-chinalife</module>
+        <module>mf-admin</module>
     </modules>
 </project>
