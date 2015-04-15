@@ -15,5 +15,6 @@
         <module>mf-util</module>
         <module>mf-chinalife</module>
         <module>mf-admin</module>
+        <module>mf-diamond</module>
     </modules>
 </project>
