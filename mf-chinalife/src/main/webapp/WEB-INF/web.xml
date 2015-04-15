@@ -15,7 +15,7 @@
     </context-param>
     <context-param>
         <param-name>db.max.total</param-name>
-        <param-value>100</param-value>
+        <param-value>1000</param-value>
     </context-param>
     <context-param>
         <param-name>tmp</param-name>
@@ -107,6 +107,26 @@
         <servlet-name>TeamPCQuery</servlet-name>
         <servlet-class>com.chinalife.servlet.chart.TeamPCQuery</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TeamPCLiveQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.TeamPCLiveQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TeamPCLiveSingleQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.TeamPCLiveSingleQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DailyReportQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.DailyReportQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BreakdownQuery</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.BreakdownQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BreakdownAdd</servlet-name>
+        <servlet-class>com.chinalife.servlet.chart.BreakdownAdd</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -147,6 +167,26 @@
     <servlet-mapping>
         <servlet-name>TeamPCQuery</servlet-name>
         <url-pattern>/queryTeamPC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeamPCLiveQuery</servlet-name>
+        <url-pattern>/queryTeamPCLive</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TeamPCLiveSingleQuery</servlet-name>
+        <url-pattern>/queryTeamPCLiveSingle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DailyReportQuery</servlet-name>
+        <url-pattern>/queryDailyReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BreakdownQuery</servlet-name>
+        <url-pattern>/queryBreakdown</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BreakdownAdd</servlet-name>
+        <url-pattern>/addBreakdown</url-pattern>
     </servlet-mapping>
 
     <jsp-config>

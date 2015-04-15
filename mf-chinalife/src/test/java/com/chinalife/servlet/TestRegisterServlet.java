@@ -21,8 +21,11 @@ import java.util.Properties;
  * Created by shixin on 3/18/14.
  */
 public class TestRegisterServlet {
-    private static String log4jFileUbuntu = "/home/shixin/workspace/chinalife/src/test/resources/log4j.properties";
-    private static String dbFileUbuntu = "/home/shixin/workspace/chinalife/src/test/resources/db_config.xml";
+/*    private static String log4jFileUbuntu = "/home/shixin/workspace/chinalife/src/test/resources/log4j.properties";
+    private static String dbFileUbuntu = "/home/shixin/workspace/chinalife/src/test/resources/db_config.xml";*/
+
+    private static String dbFileUbuntu = "D:\\project\\mf\\mf-chinalife\\src\\test\\resources\\db_config.xml";
+    private static String log4jFileUbuntu= "D:\\project\\mf\\mf-chinalife\\src\\test\\resources\\log4j.properties";
 
     @Before
     public void init() throws FileNotFoundException {
@@ -42,11 +45,11 @@ public class TestRegisterServlet {
         UserDAO userDAO = DAOFacade.getDAO(UserDAO.class);
         Validate.notNull(userDAO);
 
-        String nickname = "shixin";
+        String nickname = "shixincc";
         Long userId = userDAO.queryUserByNickname(nickname);
         System.out.println(userId);
 
-        String email = "shixin@xiaomi.com";
+        String email = "shixincc@xiaomi.com";
         userId = userDAO.queryUserByEmail(email);
         System.out.println(userId);
 

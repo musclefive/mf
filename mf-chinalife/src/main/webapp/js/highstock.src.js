@@ -1554,8 +1554,8 @@ defaultOptions = {
 
 	credits: {
 		enabled: true,
-		text: 'Highcharts.com',
-		href: 'http://www.highcharts.com',
+		text: 'Stoneinfo',
+//		href: 'http://www.highcharts.com',
 		position: {
 			align: 'right',
 			x: -10,
