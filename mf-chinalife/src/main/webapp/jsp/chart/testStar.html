@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../../css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>-->
+    <script src="../../js/jquery-1.10.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../js/highcharts.src.js" type="text/javascript"></script>
+    <script src="../../js/exporting.src.js" type="text/javascript"></script>
+    <script src="../../js/starrr.js" type="text/javascript"></script>
+    <style rel="stylesheet" type="text/css">
+        .starrr {
+            display: inline-block; }
+        .starrr i {
+            font-size: 25px;
+            padding: 0 1px;
+            cursor: pointer;
+            color: darkred; }
+    </style>
+    <script language="javascript">
+        $(function () {
+            /*$('.starrr:eq(0)').on('starrr:change', function(e, value){
+                if (value) {
+                    $('.your-choice-was').show();
+                    $('.choice').text(value);
+                } else {
+                    $('.your-choice-was').hide();
+                }
+            });*/
+//            $("#stars").val("5");
+//            $("#stars").attr("data-rating","4");
+//            $("#stars_1").attr("data-rating","4");
+//            $(".starrr").attr("data-rating",2);
+            var options = {
+                'rating' : 3
+            };
+            //绘制评分，设置当前评分
+            $(".starrr").starrr(options);
+//            $(".starrr").starrr().rating = 4;
+//            var temp = $(".starrr").starrr({
+//                "rating" : 5
+//            });
+//            temp.setRating(5);
+            $("#btnClose").click(function(e){
+                //重置评分控件
+                var options = {
+                    'rating' : 4
+                };
+                //绘制评分，设置当前评分
+                $(".starrr").starrr(options);
+            });
+//            var i = 0;
+//            var IntervalName;
+//            if(IntervalName == undefined){
+//                alert("11");
+//            }
+//
+//            IntervalName =  setInterval(function() {
+//                    i ++;
+//                    $("#test").html(i);
+//                }, 3000);
+//            if(IntervalName != undefined){
+//                alert("22");
+//            }
+        })
+        function showMask(){
+            $(body).css("overflow","hidden");
+            $("#cover").show();
+        }
+
+    </script>
+    <style type="text/css">
+        .cover {
+            position:fixed; top: 0px; right:0px; bottom:0px;filter: alpha(opacity=60); background-color: #777;
+            z-index: 1002; left: 0px; display:none;
+            opacity:0.5; -moz-opacity:0.5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3>Starrr</h3>
+    <span id="test"></span>
+    <button type="button" class="btn btn-primary" id="btnClose">Close</button>
+　　　　<div style="height:1000px;">11</div>
+　　　　<a href="javascript:;" onclick="showMask()" >点我显示遮罩层</a><br />
+　　<div id="cover" class="cover"></div>
+    <h5>Click to rate:</h5>
+    <div id="testF"><div class='starrr' id="stars_1"  data-numstars='6'></div></div>
+    <div>&nbsp;
+      <span class='your-choice-was' style='display: none;'>
+        Your rating was <span class='choice'></span>.
+      </span>
+    </div>
+
+    <h5>Advanced:</h5>
+
+    <div class='starrr' data-numstars='10' id="stars"></div>
+    <br />
+    <input type='text' name='rating' id="rating" value='' />
+<!--    <script language="javascript">
+            $("#stars").attr("data-rating","4");
+            $("#stars_1").attr("data-rating","4");
+    </script>-->
+</div>
+</body>
+</html>

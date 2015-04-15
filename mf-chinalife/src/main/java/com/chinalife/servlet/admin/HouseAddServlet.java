@@ -44,6 +44,8 @@ public class HouseAddServlet extends BaseServlet {
             String contactPersion2 = getStr(parameters, "second_contact_name");
             String contactPhone2 = getStr(parameters, "second_contact_phone");
             */
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
             String title = getParam(request, "title");
             String district = getParam(request, "district");

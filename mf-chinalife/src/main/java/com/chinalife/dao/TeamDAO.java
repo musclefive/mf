@@ -15,15 +15,24 @@ import java.util.List;
  */
 @DAO
 public interface TeamDAO {
-    @Table("teampc11")
-    @SQL("select top 100 * from teampc11")
+    @Table("Data2014")
+    @SQL("select top 100 * from Data2014")
     <T> List<T> queryAllProduction(Converter<T> converter) throws DAOException;
 
-    @Table("teampc11")
-    @SQL("select No from teampc11 where No = 1713")
+    @Table("Data2014")
+    @SQL("select No from Data2014 where No = 1713")
     String queryTest() throws DAOException;
+
+    @Table("Data2014")
+    @SQL("select * from Data2014 where catch_time > ? and catch_time < ? and station_id = 'M1650'  order by catch_time")
+    <T> List<T> queryDataPerDay(String startDate, String endDate, Converter<T> converter) throws DAOException;
+
+    @Table("teampc11")
+    @SQL("select * from teampc11 where NO= ?")
+    <T> T querySingleData(int number , Converter<T> converter) throws DAOException;
 
     @Table("teampc11")
     @SQL("select * from teampc11 where catch_time > ? and catch_time < ? and station_id = 'M1650'  order by catch_time")
-    <T> List<T> queryDataPerDay(String startDate, String endDate, Converter<T> converter) throws DAOException;
+    <T> List<T> queryDataLive(String startDate, String endDate, Converter<T> converter) throws DAOException;
+
 }

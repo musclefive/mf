@@ -109,14 +109,19 @@ class DBClient {
         String sql = this.daoMethod.getRealSql();
         Object[] arguments = this.daoMethod.getRealArguments();
         ParameterType[] parameterTypes = this.daoMethod.getParameterTypes();
+        logger.info("Method(executeQuery) enter executeQuery:" + dbRole + " tableName:" + tableName);
 
         DBConnectionPool dbConnectionPool = DBAccesser.getInstance().lookupDBPool(tableName, dbRole);
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        logger.info("Method(executeQuery) dbConnectionPool: " + dbConnectionPool);
+
 
         try {
             connection = dbConnectionPool.borrowObject();
+            logger.info("Method(executeQuery) create db connection pool :" + connection );
+
             preparedStatement = connection.prepareStatement(sql);
 
             for (int i = 0; i < arguments.length; i++) {
@@ -124,6 +129,8 @@ class DBClient {
             }
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            logger.info("Method(resultSet) create executeQuery :" + resultSet);
+
             return resultSetVisitor.visit(resultSet, converter);
         } finally {
             if (null != preparedStatement) {
