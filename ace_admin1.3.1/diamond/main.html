@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Diamond 主页</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Diamand Main Page</title>
 
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
@@ -29,7 +29,42 @@
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
     <![endif]-->
+    <style type="text/css">
+        /*
+        Credits:
+        Code snippet by @maridlcrmn (Follow me on Twitter)
+        Images by Nike.com (http://www.nike.com/us/en_us/)
+        Logo by Sneaker-mission.com (http://www.sneaker-mission.com/)
+        */
+        .nav-tabs > li > a,
+        .nav-tabs > li > a:hover,
+        .nav-tabs > li > a:focus,
+        .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus {
+            border: none;
+            border-radius: 0;
+        }
 
+        .nav-list { border-bottom: 1px solid #eee; }
+        .nav-list > li {
+            padding: 20px 15px 15px;
+            border-left: 1px solid #eee;
+        }
+        .nav-list > li:last-child { border-right: 1px solid #eee; }
+        .nav-list > li > a:hover { text-decoration: none; }
+        .nav-list > li > a > span {
+            display: block;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .mega-dropdown { position: static !important; }
+        .mega-dropdown-menu {
+            padding: 20px 15px 15px;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
     <!-- inline styles related to this page -->
 
     <!-- ace settings handler -->
@@ -40,217 +75,538 @@
     <!--[if lte IE 8]>
     <script src="../assets/js/html5shiv.min.js"></script>
     <script src="../assets/js/respond.min.js"></script>
+    <script src="../assets/js/custom/holder.js" type="text/javascript"></script>
     <![endif]-->
-
-    <link href="../docs/assets/js/themes/sunburst.css" rel="stylesheet" />
-
-    <style>
-        .navbar {
-            background: #438EB9 !important;
-        }
-        body {
-            font-size: 14px;
-        }
-        .skin-3 .main-container:before {
-            background: #F6F6F6;
-        }
-        .page-content {
-            padding-top: 25px;
-            padding-bottom: 75px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .help-content {
-            background-color: #FFF;
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 12px 24px;
-            border:1px solid #C5D0DC;
-        }
-        .help-content > .widget-box > .widget-header > .info-title {
-            cursor: pointer;
-        }
-        .help-content > .widget-box > .widget-header > .info-title:hover {
-            background-color: #DCE8F1;
-        }
-        .help-content > .widget-box.collapsed > .widget-header {
-            border-bottom-width: 0;
-        }
-
-        .help-content > .widget-box {
-            border-bottom: 1px solid #DCE8F1;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            transition: none;
-        }
-        .help-content > .widget-box.collapsed {
-            padding-bottom: 10px;
-            transition: padding-bottom 0.1s;
-        }
-        .help-content > .widget-box:last-child {
-            border-bottom-width: 0;
-            margin-bottom: 0;
-        }
-
-        .help-content > .widget-box:only-child {
-            padding-bottom: 0;
-            padding-bottom: 5px;
-        }
-
-
-        .info-list {
-            margin: 0;
-        }
-        .info-list > li:nth-child(odd) > .ace-icon:first-child {
-            color: #478FCA;
-        }
-        .info-list > li:nth-child(even) > .ace-icon:first-child {
-            color: #69AA46;
-        }
-        .info-list > li:not(.hr) {
-            margin-top: 0;
-            margin-bottom: 0;
-            padding: 16px 12px;
-            line-height: 22px;
-        }
-        .info-list > li:not(.hr):nth-child(even) {
-            background-color: #FFF;
-            border: 1px solid #E9E9E9;
-        }
-        .info-list > li:not(.hr):nth-child(odd) {
-            background-color: #F0F4F9;
-        }
-
-        .info-list > li:not(.hr):nth-child(even)  code
-        {
-            background-color: #F0F4F9;
-        }
-        .info-list > li:not(.hr):nth-child(odd)  code
-        {
-            background-color: #FFF;
-        }
-
-
-        .help-more {
-            color: #4E82A3;
-            border-bottom: 1px dotted #8BA8BA;
-            padding: 0 1px 1px;
-        }
-        .help-more:hover {
-            text-decoration: none;
-            border-bottom-color: #628DB2;
-            background-color: #E4EAC7;
-        }
-
-        u.dotted {
-            text-decoration: none;
-            border-bottom: 1px dotted #999;
-        }
-
-        @media only screen and (min-width: 992px) {
-            .sidebar {
-                padding-top: 4px;
-            }
-        }
-
-        pre .close {
-            float: inherit;
-            font-size: inherit;
-            font-weight: inherit;
-            line-height: inherit;
-            opacity: inherit;
-            text-shadow: inherit;
-        }
-
-        .open-file {
-            cursor: pointer;
-            -webkit-transition: all 0.12s;
-            transition: all 0.12s;
-        }
-        .open-file:hover {
-            background-color: #CEE0EA !important;
-        }
-        .open-file .brief-show {
-            display: none;
-        }
-        .open-file:hover .brief-show {
-            display: inline;
-        }
-
-        .code-modal .modal-dialog {
-            margin-top: 6px;
-            margin-bottom: 6px;
-        }
-        .code-modal .modal-header {
-            padding-top: 6px;
-            padding-bottom: 6px;
-        }
-        .code-modal .modal-body {
-            padding: 10px 12px
-        }
-
-
-        pre {
-            border-width: 0;
-            box-shadow: none;
-            border-radius: 0;
-            margin-top: 8px;
-        }
-
-        a[href^="http"]:before {
-            font-family: FontAwesome;
-            font-size: 15px;
-            content: "\f08e";
-            display: inline;
-            margin-right: 3px;
-        }
-        a.external_link[href^="http"]:before {
-            display: none;
-        }
-
-        .thumbnail {
-            margin: 12px 0 8px;
-        }
-    </style>
-
 </head>
-<body class="no-skin skin-3">
-    <div id="navbar" class="navbar navbar-default navbar-fixed-top h-navbar">
-        <div class="navbar-container container" id="navbar-container">
-            <div class="navbar-header pull-left ace-navbar-brand">
-                    <span class="no-skin">
-                     <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
-                         <span class="sr-only">Toggle sidebar</span>
-                         <span class="icon-bar"></span>
-                         <span class="icon-bar"></span>
-                         <span class="icon-bar"></span>
-                     </button>
-                    </span>
+
+<body class="no-skin">
+    <!-- #section:basics/navbar.layout -->
+    <div id="navbar" class="navbar navbar-default">
+        <script type="text/javascript">
+            try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+        </script>
+
+        <div class="navbar-container" id="navbar-container">
+            <!-- #section:basics/sidebar.mobile.toggle -->
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- /section:basics/sidebar.mobile.toggle -->
+            <div class="navbar-header pull-left">
+                <!-- #section:basics/navbar.layout.brand -->
                 <a href="#" class="navbar-brand">
                     <small>
-                        &nbsp;<i class="glyphicon glyphicon-book"></i>&nbsp;
-                        Help <span class="smaller-75">(v1.3.1)</span>
+                        <i class="fa fa-leaf"></i>
+                        Ace Admin
                     </small>
-                </a><!-- /.brand -->
+                </a>
+
+                <!-- /section:basics/navbar.layout.brand -->
+
+                <!-- #section:basics/navbar.toggle -->
+
+                <!-- /section:basics/navbar.toggle -->
             </div>
 
-            <div class="navbar-header pull-right ace-navbar-buttons">
+            <!-- #section:basics/navbar.dropdown -->
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
-                    <li class="margin-2 no-border">
-                        <a href="#" id="help-move-prev"><i class="ace-icon fa fa-chevron-left"></i></a>
-                    </li>
-                    <li class="margin-2 no-border">
-                        <a href="#" id="help-move-next"><i class="ace-icon fa fa-chevron-right"></i></a>
-                    </li>
+                <li class="grey">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-tasks"></i>
+                        <span class="badge badge-grey">4</span>
+                    </a>
+
+                    <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-check"></i>
+                            4 Tasks to complete
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Software Update</span>
+                                    <span class="pull-right">65%</span>
+                                </div>
+
+                                <div class="progress progress-mini">
+                                    <div style="width:65%" class="progress-bar"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Hardware Upgrade</span>
+                                    <span class="pull-right">35%</span>
+                                </div>
+
+                                <div class="progress progress-mini">
+                                    <div style="width:35%" class="progress-bar progress-bar-danger"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Unit Testing</span>
+                                    <span class="pull-right">15%</span>
+                                </div>
+
+                                <div class="progress progress-mini">
+                                    <div style="width:15%" class="progress-bar progress-bar-warning"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">Bug Fixes</span>
+                                    <span class="pull-right">90%</span>
+                                </div>
+
+                                <div class="progress progress-mini progress-striped active">
+                                    <div style="width:90%" class="progress-bar progress-bar-success"></div>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="dropdown-footer">
+                            <a href="#">
+                                See tasks with details
+                                <i class="ace-icon fa fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="purple">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                        <span class="badge badge-important">8</span>
+                    </a>
+
+                    <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-exclamation-triangle"></i>
+                            8 Notifications
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">
+                                        <i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+                                        New Comments
+                                    </span>
+                                    <span class="pull-right badge badge-info">+12</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="btn btn-xs btn-primary fa fa-user"></i>
+                                Bob just signed up as an editor ...
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">
+                                        <i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+                                        New Orders
+                                    </span>
+                                    <span class="pull-right badge badge-success">+8</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">
+                                        <i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+                                        Followers
+                                    </span>
+                                    <span class="pull-right badge badge-info">+11</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="dropdown-footer">
+                            <a href="#">
+                                See all notifications
+                                <i class="ace-icon fa fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="green">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                        <span class="badge badge-success">5</span>
+                    </a>
+
+                    <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-envelope-o"></i>
+                            5 Messages
+                        </li>
+
+                        <li class="dropdown-content">
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li>
+                                    <a href="#">
+                                        <img src="../assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+                                                                <span class="msg-body">
+                                                                    <span class="msg-title">
+                                                                        <span class="blue">Alex:</span>
+                                                                        Ciao sociis natoque penatibus et auctor ...
+                                                                    </span>
+
+                                                                    <span class="msg-time">
+                                                                        <i class="ace-icon fa fa-clock-o"></i>
+                                                                        <span>a moment ago</span>
+                                                                    </span>
+                                                                </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <img src="../assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+                                                                <span class="msg-body">
+                                                                    <span class="msg-title">
+                                                                        <span class="blue">Susan:</span>
+                                                                        Vestibulum id ligula porta felis euismod ...
+                                                                    </span>
+
+                                                                    <span class="msg-time">
+                                                                        <i class="ace-icon fa fa-clock-o"></i>
+                                                                        <span>20 minutes ago</span>
+                                                                    </span>
+                                                                </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <img src="../assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+                                                                <span class="msg-body">
+                                                                    <span class="msg-title">
+                                                                        <span class="blue">Bob:</span>
+                                                                        Nullam quis risus eget urna mollis ornare ...
+                                                                    </span>
+
+                                                                    <span class="msg-time">
+                                                                        <i class="ace-icon fa fa-clock-o"></i>
+                                                                        <span>3:15 pm</span>
+                                                                    </span>
+                                                                </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <img src="../assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+                                                                <span class="msg-body">
+                                                                    <span class="msg-title">
+                                                                        <span class="blue">Kate:</span>
+                                                                        Ciao sociis natoque eget urna mollis ornare ...
+                                                                    </span>
+
+                                                                    <span class="msg-time">
+                                                                        <i class="ace-icon fa fa-clock-o"></i>
+                                                                        <span>1:33 pm</span>
+                                                                    </span>
+                                                                </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        <img src="../assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+                                                                <span class="msg-body">
+                                                                    <span class="msg-title">
+                                                                        <span class="blue">Fred:</span>
+                                                                        Vestibulum id penatibus et auctor  ...
+                                                                    </span>
+
+                                                                    <span class="msg-time">
+                                                                        <i class="ace-icon fa fa-clock-o"></i>
+                                                                        <span>10:09 am</span>
+                                                                    </span>
+                                                                </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown-footer">
+                            <a href="inbox.html">
+                                See all messages
+                                <i class="ace-icon fa fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- #section:basics/navbar.user_menu -->
+                <li class="light-blue">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                        <img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="Jason's Photo" />
+                                                <span class="user-info">
+                                                    <small>Welcome,</small>
+                                                    Jason
+                                                </span>
+
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+
+                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="profile.html">
+                                <i class="ace-icon fa fa-user"></i>
+                                Profile
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- /section:basics/navbar.user_menu -->
                 </ul>
             </div>
-        </div>
-    </div>
-    <div  class="main-container container">
-        1
-    </div><!-- /.main-content -->
 
+            <!-- /section:basics/navbar.dropdown -->
+        </div><!-- /.navbar-container -->
+    </div>
+
+    <!-- /section:basics/navbar.layout -->
+    <div class="main-container container" id="main-container">
+        <script type="text/javascript">
+            try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+        </script>
+
+        <div class="row clearfix">
+            <div class="col-md-4 column">
+                <img src="http://www.sneaker-mission.com/uploads/3/1/2/7/31279819/5617441.png" style="width: 100px; height: 100px" class="img-rounded">
+            </div>
+            <div class="col-md-2 column"></div>
+            <div class="col-md-6 column">
+                <br/>
+                <form class="form-group" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control search-query" placeholder="Search" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-purple btn-sm" type="button">
+                                Search
+                                <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+                            </button>
+                            <button class="btn btn-yellow btn-sm" type="button">
+                                Shop Cart
+                                <i class="ace-icon fa fa-shopping-cart icon-on-right bigger-110"></i>
+                            </button>
+                        </span>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        <div class="navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">全部商品列表</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">首页</a></li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+
+                        </li>
+                        <li><a href="#">小米手机</a></li>
+                        <li><a href="#">红米</a></li>
+                        <li><a href="#">小米平板</a></li>
+                        <li><a href="#">小米电视</a></li>
+                        <li><a href="#">小米盒子</a></li>
+                        <li><a href="#">路由器</a></li>
+                        <li><a href="#">合约机</a></li>
+                        <li><a href="#">服务</a></li>
+                        <li><a href="#">社区</a></li>
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown mega-dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                            <div class="dropdown-menu mega-dropdown-menu">
+                                <div class="container-fluid">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="men">
+                                            <ul class="nav-list list-inline">
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Running.png"><span>Running</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Basketball.png"><span>Basketball</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Football.png"><span>Football</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png"><span>Soccer</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_MensTraining.png"><span>Men's Training</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_WomensTraining.png"><span>Women's Training</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" id="women">
+                                            <ul class="nav-list list-inline">
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Running.png"><span>Running</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Basketball.png"><span>Basketball</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Football.png"><span>Football</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png"><span>Soccer</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" id="kids">
+                                            <ul class="nav-list list-inline">
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Running.png"><span>Running</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Basketball.png"><span>Basketball</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Football.png"><span>Football</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png"><span>Soccer</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_MensTraining.png"><span>Men's Training</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_WomensTraining.png"><span>Women's Training</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" id="sports">
+                                            <ul class="nav-list list-inline">
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Basketball.png"><span>Basketball</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Football.png"><span>Football</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png"><span>Soccer</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_MensTraining.png"><span>Men's Training</span></a></li>
+                                                <li><a href="#"><img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_WomensTraining.png"><span>Women's Training</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="active"><a href="#men" role="tab" data-toggle="tab">Men</a></li>
+                                    <li><a href="#women" role="tab" data-toggle="tab">Women</a></li>
+                                    <li><a href="#kids" role="tab" data-toggle="tab">Kids</a></li>
+                                    <li><a href="#sports" role="tab" data-toggle="tab">Sports</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="footer">
+            <div class="footer-inner">
+                <!-- #section:basics/footer -->
+                <div class="footer-content">
+                                <span class="bigger-120">
+                                    <span class="blue bolder">Ace</span>
+                                    Application &copy; 2013-2014
+                                </span>
+
+                    &nbsp; &nbsp;
+                                <span class="action-buttons">
+                                    <a href="#">
+                                        <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                                    </a>
+
+                                    <a href="#">
+                                        <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                                    </a>
+
+                                    <a href="#">
+                                        <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                                    </a>
+                                </span>
+                </div>
+                <!-- /section:basics/footer -->
+            </div>
+        </div>
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
 
     <!-- basic scripts -->
 
@@ -291,5 +647,19 @@
     <script src="../docs/assets/js/language/html.js"></script>
     <script src="../docs/assets/js/language/css.js"></script>
     <script src="../docs/assets/js/language/javascript.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".dropdown").hover(
+                    function() {
+                        $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+                        $(this).toggleClass('open');
+                    },
+                    function() {
+                        $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+                        $(this).toggleClass('open');
+                    }
+            );
+        });
+    </script>
 </body>
 </html>
