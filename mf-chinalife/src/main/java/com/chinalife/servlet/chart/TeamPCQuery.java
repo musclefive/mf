@@ -42,20 +42,22 @@ public class TeamPCQuery extends BaseServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
-//            String startDate = "2014-09-18 8:00";
-//            String endDate = "2014-09-19 8:00";
+            String startDate = "2014-09-18 8:00";
+            String endDate = "2014-09-19 8:00";
+            String queryDay = "2014-09-18";
+
 //            String tmp_startDate = getParam(request , "startDate");
             //tmp_startDate 为查询的起始日期 10-13， 结束时期10-14
-            String tmp_startDate = getParam(request , "endDate");
-
-            //处理时间 传入参数格式为2014-09-18 转化成 2014-09-18 8:00
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            long millionStart = sdf.parse(tmp_startDate).getTime();//毫秒
-            long millionEnd = millionStart + 86400000;
-            String endDate = sdf.format(new java.util.Date(millionEnd));
-            String queryDay = tmp_startDate;
-            String startDate = tmp_startDate + " 8:00";
-            endDate = endDate + " 8:00";
+//            String tmp_startDate = getParam(request , "endDate");
+//
+//            //处理时间 传入参数格式为2014-09-18 转化成 2014-09-18 8:00
+//            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+//            long millionStart = sdf.parse(tmp_startDate).getTime();//毫秒
+//            long millionEnd = millionStart + 86400000;
+//            String endDate = sdf.format(new java.util.Date(millionEnd));
+//            String queryDay = tmp_startDate;
+//            String startDate = tmp_startDate + " 8:00";
+//            endDate = endDate + " 8:00";
 
             logger.error("query startDate:" + startDate + "  endDate" + endDate);
             //pic price area bed baths carport district status title address
