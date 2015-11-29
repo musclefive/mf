@@ -1,10 +1,6 @@
 package com.chinalife.servlet.chart;
 
-import com.chinalife.dao.TeamDAO;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mf.dal.Converter;
-import com.mf.dal.DAOFacade;
 import com.mf.util.servlet.BaseServlet;
 import org.apache.log4j.Logger;
 
@@ -13,12 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Chao.Cui.VWED on 14-9-16.

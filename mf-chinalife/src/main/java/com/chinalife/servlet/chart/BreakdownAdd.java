@@ -1,28 +1,18 @@
 package com.chinalife.servlet.chart;
 
 import com.chinalife.dao.BreakdownDAO;
-import com.chinalife.dao.TeamDAO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mf.dal.DAOException;
 import com.mf.dal.DAOFacade;
-import com.mf.dal.DBAccesser;
 import com.mf.util.servlet.BaseServlet;
-import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
 
 /**
  * Created by Chao.Cui.VWED on 14-9-16.

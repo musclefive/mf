@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>mf</artifactId>
+        <groupId>mf</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>mf-momo</artifactId>
+    <packaging>war</packaging>
+    <name>mf-momo Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <!--崔超，你需要改的基于你自己开发环境的变量都在这里, 然后使用‘mvn -DC=true clean packge’就可以编译-->
+        <!--这里要配置成你自己的需要放log的目录-->
+        <log4j_path>D:\bin\apache-tomcat-7.0.52\logs</log4j_path>
+        <log4j_level>INFO</log4j_level>
+        <!--<db_user>root</db_user>
+        <db_password>root</db_password>-->
+        <tmp_path>D:\bin\apache-tomcat-7.0.52\temp</tmp_path>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>mf-momo</finalName>
+    </build>
+</project>

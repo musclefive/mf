@@ -1,7 +1,6 @@
 package com.chinalife.servlet.admin;
 
 import com.chinalife.dao.HouseSaleDAO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mf.dal.Converter;
 import com.mf.dal.DAOException;

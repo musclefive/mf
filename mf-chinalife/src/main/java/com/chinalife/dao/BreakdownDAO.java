@@ -6,7 +6,6 @@ import com.mf.dal.annotation.SQL;
 import com.mf.dal.annotation.SQLControl;
 import com.mf.dal.annotation.Table;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @DAO

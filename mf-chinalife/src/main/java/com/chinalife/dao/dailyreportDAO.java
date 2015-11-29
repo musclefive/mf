@@ -3,10 +3,8 @@ import com.mf.dal.Converter;
 import com.mf.dal.DAOException;
 import com.mf.dal.annotation.DAO;
 import com.mf.dal.annotation.SQL;
-import com.mf.dal.annotation.SQLControl;
 import com.mf.dal.annotation.Table;
 
-import java.sql.Timestamp;
 import java.util.List;
 @DAO
 public interface DailyReportDAO {

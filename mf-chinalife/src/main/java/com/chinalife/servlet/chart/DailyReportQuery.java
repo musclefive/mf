@@ -1,8 +1,6 @@
 package com.chinalife.servlet.chart;
 
 import com.chinalife.dao.DailyReportDAO;
-import com.chinalife.dao.TeamDAO;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mf.dal.Converter;
@@ -20,7 +18,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 /**
