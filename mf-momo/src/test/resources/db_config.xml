@@ -1,0 +1,49 @@
+<!--<database>
+    <connections>
+        <connection name="chinalife"
+                    url="jdbc:mysql://localhost/chinalife?useUnicode=true&amp;characterEncoding=utf-8"
+                    user="root"
+                    pwd="root"
+                    role="master"/>
+    </connections>
+    <tables>
+        <table name="user" con_refs="chinalife"></table>
+        <table name="user_info" con_refs="chinalife"></table>
+    </tables>
+</database>-->
+<database>
+    <connections>
+        <connection name="chart"
+                    url="jdbc:sqlserver://10.120.78.71:1433;DatabaseName=chart"
+                    user="root"
+                    pwd="root"
+                    role="master"/>
+        <connection name="master"
+                    url="jdbc:sqlserver://10.120.78.71:1433;DatabaseName=master"
+                    user="root"
+                    pwd="root"
+                    role="master"/>
+    </connections>
+    <tables>
+        <table name="Data2014" con_refs="chart"></table>
+        <table name="teampc11" con_refs="master"></table>
+        <table name="DailyProData" con_refs="chart"></table>
+        <table name="breakdown" con_refs="chart"></table>
+    </tables>
+</database>
+<!--<database>
+    <connections>
+        <connection name="chart"
+                    url="jdbc:sqlserver://10.120.78.100:54914;DatabaseName=chart"
+                    user="root"
+                    pwd="root"
+                    role="master"/>
+    </connections>
+    <tables>
+        &lt;!&ndash;<table name="teampc11" con_refs="chart"></table>&ndash;&gt;
+        <table name="DailyProData" con_refs="chart"></table>
+        <table name="breakdown" con_refs="chart"></table>
+        <table name="user" con_refs="chart"></table>
+
+    </tables>
+</database>-->

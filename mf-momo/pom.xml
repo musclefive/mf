@@ -13,11 +13,11 @@
     <properties>
         <!--崔超，你需要改的基于你自己开发环境的变量都在这里, 然后使用‘mvn -DC=true clean packge’就可以编译-->
         <!--这里要配置成你自己的需要放log的目录-->
-        <log4j_path>D:\bin\apache-tomcat-7.0.52\logs</log4j_path>
+        <log4j_path>\cuichao</log4j_path>
         <log4j_level>INFO</log4j_level>
         <!--<db_user>root</db_user>
         <db_password>root</db_password>-->
-        <tmp_path>D:\bin\apache-tomcat-7.0.52\temp</tmp_path>
+        <tmp_path>\cuichao</tmp_path>
     </properties>
     <dependencies>
         <dependency>
