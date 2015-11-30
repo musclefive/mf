@@ -44,7 +44,7 @@
 		<![endif]-->
 
 		<link rel="stylesheet" href="../css/bootstrap-datetimepicker.css">
-
+		<link href="../css/jquery.raty.css" rel="stylesheet" type="text/css"/>
 	</head>
 
 	<body class="no-skin">
@@ -523,18 +523,24 @@
 		<script src="../docs/assets/js/language/css.js"></script>
 		<script src="../docs/assets/js/language/javascript.js"></script>
 		<script src="../js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			$(function(){
-				$('#date-timepicker1').datetimepicker({
-					viewMode : 'days',
-					showTodayButton : true,
-					showClose : true,
-					disabledHours : true,
-					sideBySide : true,
-					calendarWeeks : true
-				});
+		<script src="../js/jquery.raty.js" type="text/javascript"></script>
 
-			});
+		<script type="text/javascript">
+			var star;
+			var options = {
+				score: 3,
+				path:  "../../img",
+				hints: ['一般','严重', '一般严重', '非常严重', '极其严重'],
+				target : '#hint',
+				targetKeep : true,
+				click: function(score, evt) {
+					alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
+					$("#breakLevel").val(score);
+				}
+			};
+			$(function () {
+				star = $("#divRating").raty(options);
+			})
 
 		</script>
 	</body>
