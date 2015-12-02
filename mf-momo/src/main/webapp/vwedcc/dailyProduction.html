@@ -677,11 +677,130 @@
 				};
 
 				queryData(options, "2014-09-18");
+
+				//按钮注册事件 包含提交插入停台, 更新 删除 操作
+				$("#btnClose").click(function(e){
+					//重置评分控件 默认是三颗星
+					starOptions.score = 3;
+					$("#divRating").raty(starOptions);
+					$("#breakModal").modal('hide');
+					$("#formBreakdown")[0].reset();
+				});
+				//提交插入停台信息
+				$('#btnSubmit').click(function(e){
+					this.disabled = 'disabled';
+					var vals = $("#formBreakdown").serialize();
+					vals = "method=add&" + vals;
+//                alert(vals);
+					var queryDate = $("#breakDayInfo").text();
+					$.ajax({
+						url:"/mf-chinalife/addBreakdown",
+						type:'post',
+						dataType: "text",
+						data: vals,
+						contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+						complete : function(xhr, textStatus){
+							console.info("btn add ajax complete,textStatus:" + textStatus + " data:" + this.data);
+						},
+						error : function (xhr, textStatus){
+							console.info("btn add ajax error,textStatus:" + textStatus);
+						},
+						success:function(data){
+//                        alert("submit: " + data);
+							if(data == "success"){
+								//成功插入信息 隐藏Model 清空数据 并且刷新数据
+								$("#breakModal").modal('hide');
+								//回复disabled状态
+								$('#btnSubmit').removeAttr("disabled");
+								starOptions.score = 3;
+								$("#divRating").raty(starOptions);
+								$("#formBreakdown")[0].reset();
+								queryData(options , queryDate);
+							}else{
+								alert("some bad happens");
+							}
+						}});
+				});
+
+				//点击更新按钮
+				$("#btnUpdate").click(function (e){
+					this.disabled = 'disabled';
+					var no = $("#btnUpdate").val();
+					var vals = $("#formBreakdown").serialize();
+					vals = "method=update&no=" + no + "&" + vals;
+//                alert(vals);
+					var queryDate = $("#breakDayInfo").text();
+					if(no != ""){
+						$.ajax({
+							url:"/mf-chinalife/addBreakdown",
+							type:'post',
+							dataType: "text",
+							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+							data: vals,
+							complete : function(xhr, textStatus){
+								console.info("btn update ajax complete,textStatus:" + textStatus + " data:" + this.data);
+							},
+							error : function (xhr, textStatus){
+								console.info("btn update ajax error,textStatus:" + textStatus);
+							},
+							success: function(data){
+//                            alert(data);
+								if(data == "success"){
+									$("#breakModal").modal('hide');
+									$('#btnUpdate').removeAttr("disabled");
+									starOptions.score = 3;
+									$("#divRating").raty(starOptions);
+									$("#formBreakdown")[0].reset();
+									queryData(options , queryDate);
+								}
+							}
+						});
+					}
+				});
+
+
+				//点击删除按钮
+				$("#btnDelete").click(function (e){
+					this.disabled = 'disabled';
+					var no = $("#btnDelete").val();
+					var queryDate = $("#breakDayInfo").text();
+					if(no != ""){
+						$.ajax({
+							url:"/mf-chinalife/addBreakdown",
+							type:'post',
+							dataType: "text",
+							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+							data: {no:no,method:'delete'},
+							complete : function(xhr, textStatus){
+								console.info("btn delete ajax complete,textStatus:" + textStatus + " data:" + this.data);
+							},
+							error : function (xhr, textStatus){
+								console.info("btn delete ajax error,textStatus:" + textStatus);
+							},
+							success: function(data){
+//                            alert(data);
+								if(data == "success"){
+									$("#breakModal").modal('hide');
+									$('#btnDelete').removeAttr("disabled");
+									starOptions.score = 3;
+									$("#divRating").raty(starOptions);
+									$("#formBreakdown")[0].reset();
+									queryData(options , queryDate);
+								}
+							}
+						});
+					}
+				});
+
+				//停台信息中 严重级别 更新输入信息
+				$("#starBreakLevel").on('starrr:change', function(e, value){
+					$("#breakLevel").val(value);
+				});
 			});
 			//ajax获取选定日期（queryDate)产量，并绘制图表
 			function queryData(options ,queryDate){
 				$.ajax({
-					url:"/mf-chinalife/queryTeamPC",
+					url:"/momo/queryTeamPC",
 					type:'post',
 					data: {endDate:queryDate},
 					dataType: "json",
@@ -765,14 +884,15 @@
 							};
 							//注册点击事件，显示模态对话框，并且给对话框内元素赋值。
 							options.plotOptions.series.events.click = function (event){
-//                             alert("x:"+event.point.x+" y:" + event.point.y + " no:" + event.point.no + " actual:" + event.point.y);
-//                             alert("time length: " + options.xAxis.categories.length + " val_time:" + options.xAxis.categories[event.point.x]);
-//                             alert("break_records_num:" + break_records_num);
+                             	console.info("the selected point x:"+event.point.x+" y:" + event.point.y + " no:" + event.point.no + " actual:" + event.point.y);
+								console.info("time length: " + options.xAxis.categories.length + " val_time:" + options.xAxis.categories[event.point.x]);
+								console.info("break_records_num:" + break_records_num);
 								if ( break_records_num < 3)
 								{
 									//设置Model 中的日期时间 以及NO
 									$("#breakModal").modal('show');
 									var breakStartTime = getFormatUTCTime(eval(options.xAxis.categories[event.point.x]));
+									console.info("breakStartTime:" + breakStartTime)
 									var duration = setTimerDate(queryDate, options.xAxis.categories[event.point.x]);
 
 									$("#breakDayInfo").html(queryDate);
