@@ -185,8 +185,8 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="">
-						<a href="" class="active open">
+					<li class="active open">
+						<a href="dailyProduction.html" >
 							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text"> 每日产量图表 </span>
 						</a>
@@ -195,7 +195,7 @@
 					</li>
 
 					<li class="">
-						<a href="#" class="">
+						<a href="historyProduction.html" class="">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> 历史产量图表 </span>
 						</a>
@@ -204,7 +204,7 @@
 					</li>
 
 					<li class="">
-						<a href="#" class="">
+						<a href="planProduction.html" class="">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 生产计划维护 </span>
 
@@ -270,7 +270,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">Blank Page</li>
+						<li class="active">每日产量图表</li>
 					</ul><!-- /.breadcrumb -->
 				</div>
 
@@ -377,7 +377,7 @@
 										<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-search" id="btnSearch"></span></span>
 									</div>
-									<input type="hidden" id="query_date" name="query_date" value="" /><br/><br/>
+									<input type="hidden" id="query_date" name="query_date" value="" />
 								</form>
 								<div id="chartPanel"></div>
 								<!-- PAGE CONTENT ENDS -->
@@ -530,7 +530,21 @@
 			var val_roa = new Array();
 			var val_time = new Array();
 			var val_time_int = new Array();
-
+			//评分插件
+			var starOptions = {
+				score: 3,
+				path:  "../img",
+				hints: ['一般','严重', '一般严重', '非常严重', '极其严重'],
+				target : '#hint',
+				targetKeep : true,
+				click: function(score, evt) {
+//                    alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
+					$("#breakLevel").val(score);
+				}
+			};
+			$.blockUI.defaults.message = '<h4><img style="height: 30px;width: 30px" src="../img/loading.gif" /> Just a moment...</h4>';
+			$.blockUI.defaults.overlayCSS.opacity = .2;
+			$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 			$(function () {
 				val_actual = [];
 				val_opr = [];
@@ -543,18 +557,16 @@
 				var endDate = yesterday.getFullYear()+"-"+month+"-"+yesterday.getDate();
 				var startYear = today.getFullYear() + "-01-01";
 				var endYear = today.getFullYear() + "-12-31";
-
-				var starOptions = {
-					score: 3,
-					path:  "../img",
-					hints: ['一般','严重', '一般严重', '非常严重', '极其严重'],
-					target : '#hint',
-					targetKeep : true,
-					click: function(score, evt) {
-//                    alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
-						$("#breakLevel").val(score);
-					}
-				};
+				$('#date-timepicker2').datetimepicker({
+					format : 'YYYY-MM-DD HH:mm',
+//					defaultDate : moment(),
+					sideBySide : true,
+					minDate : '2014-09-18 08:00',
+					maxDate : '2014-09-25 08:00',
+//					maxDate : endYear,
+//					minDate : startYear,
+					focusOnShow : false
+				});
 				//评分插件
 				$("#divRating").raty(starOptions);
 				$("#btnSearch").click(function(){
@@ -575,8 +587,8 @@
 					maxDate : endYear,
 					minDate : startYear
 				}).on("dp.change", function (e){
-					console.info("datetimepicker on change event: " + moment(e.date).format("YYYY-MM-DD"));
 					$("#query_date").val(moment(e.date).format("YYYY-MM-DD"));
+					console.info("datetimepicker on change event: " + moment(e.date).format("YYYY-MM-DD"));
 				});
 
 				var options = {
@@ -694,7 +706,7 @@
 //                alert(vals);
 					var queryDate = $("#breakDayInfo").text();
 					$.ajax({
-						url:"/mf-chinalife/addBreakdown",
+						url:"/momo/addBreakdown",
 						type:'post',
 						dataType: "text",
 						data: vals,
@@ -732,7 +744,7 @@
 					var queryDate = $("#breakDayInfo").text();
 					if(no != ""){
 						$.ajax({
-							url:"/mf-chinalife/addBreakdown",
+							url:"/momo/addBreakdown",
 							type:'post',
 							dataType: "text",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -766,7 +778,7 @@
 					var queryDate = $("#breakDayInfo").text();
 					if(no != ""){
 						$.ajax({
-							url:"/mf-chinalife/addBreakdown",
+							url:"/momo/addBreakdown",
 							type:'post',
 							dataType: "text",
 							contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -1010,14 +1022,15 @@
 				var selectedFormatDay = getQueryTodayTimeSpecify(selectedDate);
 				var selectedFormatTomorrow = getQueryTomorrowTimeSpecify(selectedDate);
 				var selectedDuration = "";
-//            alert(selectedDate + " " + selectedFormatDay + " " + selectedFormatTomorrow);
-				//日期插件 格式10:28
+            	console.info("Method:setTimerDate()--selectedDate:" + selectedDate + " selectedFormatDay:" +
+						selectedFormatDay + " selectedFormatTomorrow:" + selectedFormatTomorrow);
+//				//日期插件 格式10:28
 				$('#date-timepicker3').datetimepicker({
 					format : 'YYYY-MM-DD HH:mm',
-					defaultDate : moment(),
+//					defaultDate : moment(),
 					sideBySide : true,
-					minDate : getQueryTodayTimeSpecify(selectedFormatDay),
-					maxDate : getQueryTomorrowTimeSpecify(selectedFormatTomorrow),
+					minDate : selectedFormatDay,
+					maxDate : selectedFormatTomorrow,
 					focusOnShow : false
 				}).on('dp.change', function(event){
 					$("#breakEndTime").val(moment(event.date).format("YYYY-MM-DD HH:mm"));
@@ -1031,6 +1044,7 @@
 					$("#duration").val(mm + " Minute");
 					$("#breakDuration").val(selectedDuration);
 				});
+				$('#date-timepicker3').val("");
 				return selectedDuration;
 			}
 

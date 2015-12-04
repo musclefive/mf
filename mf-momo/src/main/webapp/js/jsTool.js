@@ -111,14 +111,14 @@ function getQueryTodayTimeSpecify(str){
     var today = new Date(str);
     var month = today.getMonth() + 1;
     var formatToday = today.getFullYear()+"-"+month+"-"+today.getDate() + " " + hourandminute;
-    console.info("formatToday :" + formatToday);
+    console.info("Method:getQueryTodayTimeSpecify()--formatToday :" + formatToday);
 
     return formatToday;
 }
 //获取指定日期后一天的时间格式 返回值2014-11-13 08:00
 function getQueryTomorrowTimeSpecify(str){
-    //var hourandminute = "08:00";
-    var hourandminute = "23:59";
+    var hourandminute = "08:00";
+    //var hourandminute = "23:59";
 
     var today = new Date(str);
     var month = today.getMonth() + 1;
@@ -135,7 +135,7 @@ function getQueryTomorrowTimeSpecify(str){
     }*/
     var month_1 = selectedTomorrow.getMonth() + 1;
     var selectedFormatTomorrow = selectedTomorrow.getFullYear()+"-"+month_1+"-"+selectedTomorrow.getDate() +  " " + hourandminute;
-    console.info("selectedFormatTomorrow :" + selectedFormatTomorrow);
+    console.info("Method:getQueryTomorrowTimeSpecify()--selectedFormatTomorrow :" + selectedFormatTomorrow);
     return selectedFormatTomorrow;
 }
 

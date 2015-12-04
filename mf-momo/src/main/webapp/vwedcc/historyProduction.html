@@ -193,8 +193,8 @@
 
 					</li>
 
-					<li class="">
-						<a href="#" >
+					<li class="active">
+						<a href="historyProduction.html"  >
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> 历史产量图表 </span>
 						</a>
@@ -232,7 +232,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="active open">
+					<li class="">
 						<a href="blank.html" >
 							<i class="menu-icon fa fa-file-o"></i>
 
@@ -269,7 +269,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">Blank Page</li>
+						<li class="active">历史产量图表</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- #section:basics/content.searchbox -->
@@ -381,7 +381,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								test
+								<div id="stockPanel"></div>
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -450,17 +450,144 @@
 
 		<!-- inline scripts related to this page -->
 
-		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
-		<link rel="stylesheet" href="../assets/css/ace.onpage-help.css" />
-		<link rel="stylesheet" href="../docs/assets/js/themes/sunburst.css" />
+		<script src="../js/highstock.src.js" type="text/javascript"></script>
+		<script src="../js/jsTool.js" type="text/javascript"></script>
+		<script src="../js/jquery.blockUI.js" type="text/javascript"></script>
+		<!-- user define js script -->
+		<script type="text/javascript">
+			var chartStock;
+			var val_actual = new Array();
+			var val_plan = new Array();
+			var val_time = new Array();
+			//图表属性，不包含数据
+			var options = {
+				chart: {
+					renderTo: 'stockPanel'//指向的div的id属性
+				},
+				exporting: {
+					enabled: false //是否能导出趋势图图片
+				},
+				title : {
+					text : 'MOMO生产报表'//图表标题
+				},
+				xAxis: {
+					tickPixelInterval: 200,//x轴上的间隔
+					//  title :{
+					//      text:"title"
+					//  },
+					type: 'datetime', //定义x轴上日期的显示格式
+					labels: {
+						formatter: function() {
+							var vDate = new Date(this.value);
+//                        alert(this.value + " vDate  " + vDate);
+							console.info(this.value + "Date:" + vDate);
+							return vDate.getFullYear()+"-"+(vDate.getMonth()+1)+"-"+vDate.getUTCDate();
+//                        return this.value;
+						},
+						align: 'center'
+					}
+				},
+				yAxis : {
+					title: {
+						text: '计划产量与实际产量'  //y轴上的标题
+					}
+				},
+				tooltip: {
+					xDateFormat: '%Y-%m-%d, %A',//鼠标移动到趋势线上时显示的日期格式
+					valueSuffix: '台'
+				},
+				rangeSelector: {
+					buttons: [{//定义一组buttons,下标从0开始
+						type: 'week',
+						count: 1,
+						text: '1w'
+					},{
+						type: 'month',
+						count: 1,
+						text: '1m'
+					}, {
+						type: 'month',
+						count: 3,
+						text: '3m'
+					}, {
+						type: 'month',
+						count: 6,
+						text: '6m'
+					}, {
+						type: 'ytd',
+						text: 'YTD'
+					}, {
+						type: 'year',
+						count: 1,
+						text: '1y'
+					}, {
+						type: 'all',
+						text: 'All'
+					}],
+					selected: 1//表示以上定义button的index,从0开始
+				},
 
-		<script type="text/javascript"> ace.vars['base'] = '..'; </script>
-		<script src="../assets/js/ace/elements.onpage-help.js"></script>
-		<script src="../assets/js/ace/ace.onpage-help.js"></script>
-		<script src="../docs/assets/js/rainbow.js"></script>
-		<script src="../docs/assets/js/language/generic.js"></script>
-		<script src="../docs/assets/js/language/html.js"></script>
-		<script src="../docs/assets/js/language/css.js"></script>
-		<script src="../docs/assets/js/language/javascript.js"></script>
+				series: [
+					{
+						name: 'Plan Output',//鼠标移到趋势线上时显示的属性名
+//                data: usdeur , //属性值
+						marker : {
+							enabled : true,
+							radius : 1
+						},
+						shadow : true
+					},
+					{
+						name: 'Actual Output',//鼠标移到趋势线上时显示的属性名
+//                data: usdeur , //属性值
+						marker : {
+							enabled : true,
+							radius : 1
+						},
+						shadow : true
+					}]
+			};
+			$.blockUI.defaults.message = '<h4><img style="height: 30px;width: 30px" src="../img/loading.gif" /> Just a moment...</h4>';
+			$.blockUI.defaults.overlayCSS.opacity = .2;
+			$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+			$(function() {
+				var strTempPlan;
+				var strTempActual;
+//            options.series[0].data =  usdeur;
+//            chartStock = new Highcharts.StockChart(options);
+				$.ajax({
+					url:"/momo/queryDailyReport",
+					type:'post',
+					dataType: "json",
+					complete : function(xhr, textStatus){
+						console.info("productivity ajax complete,textStatus:" + textStatus);
+					},
+					error : function (xhr, textStatus){
+						console.info("productivity ajax error,textStatus:" + textStatus);
+					},
+					success:function(data){
+//                    	console.info(data.items + "plan" + data.items[0]["plan"]);
+						var production = data.items;
+//                    var plan = data.items[0]["plan"];
+						for(var w=0;w<production.length;w++){
+//                        strTempPlan = "[Date.UTC(" + production[w]["dateLong"] + ")," + production[w]["planG"] + "]";
+//                        strTempActual = "[Date.UTC(" +production[w]["dateLong"] + ")," + production[w]["actualG"]+ "]";
+							strTempPlan = "[" + production[w]["dateLong"] + "," + production[w]["planG"] + "]";
+							strTempActual = "[" +production[w]["dateLong"] + "," + production[w]["actualG"]+ "]";
+							val_actual.push(strTempActual);
+							val_plan.push(strTempPlan);
+//                        console.info("dateLong from server :" + production[w]["dateLong"]);
+//                        val_time.push("'" + production[w]["catchTime"] + "'");
+						}
+//                    options.series[0].name = "Actual ";
+						console.info("On Ajax Successfuly returned val_plan:" + val_plan + " val_actual:" + val_actual);
+						options.series[0].data = eval('['+ val_plan +']');
+						options.series[1].data = eval('['+ val_actual +']');
+						Highcharts.setOptions({ global : { useUTC : false } });
+						chartStock = new Highcharts.StockChart(options);
+					}});
+
+			});
+		</script>
 	</body>
 </html>
