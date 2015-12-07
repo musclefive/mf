@@ -59,7 +59,7 @@ public class UserSingleQuery extends BaseServlet {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class JsonUser {
-        private Long id;
+        private Long DT_RowId;
         private String nickname;
         private String email;
         private String password;
@@ -67,8 +67,8 @@ public class UserSingleQuery extends BaseServlet {
         private Timestamp createTime;
         private Timestamp updateTime;
 
-        public Long getId() {
-            return id;
+        public Long getDT_RowId() {
+            return DT_RowId;
         }
 
         public String getNickname() {
@@ -95,8 +95,8 @@ public class UserSingleQuery extends BaseServlet {
             return updateTime;
         }
 
-        public void setId(Long id) {
-            this.id = id;
+        public void setDT_RowId(Long DT_RowId) {
+            this.DT_RowId = DT_RowId;
         }
 
         public void setNickname(String nickname) {

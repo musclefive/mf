@@ -16,6 +16,8 @@
 		<!-- page specific plugin styles -->
 		<link rel="stylesheet" href="../css/jquery.dataTables.css" />
 		<link rel="stylesheet" href="../css/editor.dataTables.css" />
+		<link rel="stylesheet" href="../css/buttons.dataTables.css" />
+		<link rel="stylesheet" href="../css/select.dataTables.css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
@@ -387,13 +389,13 @@
 								<table class="display" id="userList">
 									<thead>
 									<tr>
-										<th>序号</th>
+										<!--<th>序号</th>-->
 										<th>用户名</th>
 										<th>邮箱</th>
 										<th>密码</th>
 										<th>角色</th>
 										<th>注册时间</th>
-										<th>操作</th>
+										<!--<th>操作</th>-->
 									</tr>
 									</thead>
 									<tbody>
@@ -468,72 +470,78 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript"  src="../js/jquery.dataTables.js"></script>
 		<script type="text/javascript"  src="../js/dataTables.editor.js"></script>
+		<script type="text/javascript"  src="../js/dataTables.buttons.js"></script>
+		<script type="text/javascript"  src="../js/dataTables.select.js"></script>
+
 
 		<script type="text/javascript">
-
+			var editor;
 			$(function () {
-				var table = $('#userList').DataTable({
-//					"bProcessing": true,
-					"ajax": {
+//				var table = $('#userList').DataTable({
+////					"bProcessing": true,
+//					"ajax": {
+//						"url" : "/mf-chinalife/queryUsers",
+//						"dataSrc" : "items"
+//					},
+//					"columns": [
+//						{ "data": "id" },
+//						{ "data": "nickname" },
+//						{ "data": "email" },
+//						{ "data": "password" },
+//						{ "data": "user_category" },
+//						{ "data": "createTime" },
+//						{
+//							"targets": -1,
+//							"data": null,
+////                        "defaultContent": "<button>Click!</button>"
+//							"defaultContent": "<input type='checkbox' name='topOnMainPage'  checked/>&nbsp;" +
+//							"<button class='btn btn-primary btn-xs' title='View' type='button'>" +
+//							"<span class='glyphicon glyphicon-eye-open'></span></button>&nbsp;" +
+//							"<button class='btn btn-danger btn-xs' title='Delete' type='button'>" +
+//							"<span class='glyphicon glyphicon-trash'></span></button>"
+//						}
+//					]
+//				})
+
+				editor = new $.fn.dataTable.Editor( {
+					ajax: {
 						"url" : "/mf-chinalife/queryUsers",
 						"dataSrc" : "items"
 					},
-					"columns": [
-						{ "data": "id" },
+					table: "#userList",
+					fields: [ {
+						label: "Nickname:",
+						name: "nickname"
+					}, {
+						label: "Email:",
+						name: "email"
+					}, {
+						label: "Password:",
+						name: "password"
+					}, {
+						label: "User category:",
+						name: "user_category"
+					}, {
+						label: "Create Time:",
+						name: "createTime",
+						type: "datetime"
+
+					}
+					]
+				} );
+				$('#userList').DataTable( {
+					dom: "Bfrtip",
+					ajax: {
+						"url" : "/mf-chinalife/queryUsers",
+						"dataSrc" : "items"
+					},
+					columns: [
+//						{ "data": "id" },
 						{ "data": "nickname" },
 						{ "data": "email" },
 						{ "data": "password" },
 						{ "data": "user_category" },
-						{ "data": "createTime" },
-						{
-							"targets": -1,
-							"data": null,
-//                        "defaultContent": "<button>Click!</button>"
-							"defaultContent": "<input type='checkbox' name='topOnMainPage'  checked/>&nbsp;" +
-							"<button class='btn btn-primary btn-xs' title='View' type='button'>" +
-							"<span class='glyphicon glyphicon-eye-open'></span></button>&nbsp;" +
-							"<button class='btn btn-danger btn-xs' title='Delete' type='button'>" +
-							"<span class='glyphicon glyphicon-trash'></span></button>"
-						}
-					]
-//					stateSave: true,
-//					"drawCallback": function( settings ) {
-//						$("button[title='Delete']").on('click', function(){
-//							var data = table.row( $(this).parents('tr') ).data();
-////                        if(confirm("确定要删除")){
-////                            table.row( $(this).parents('tr') ).remove().draw( false );
-////                        }
-//							$.ajax({
-//								url: "/mf-chinalife/queryUser?type=delete&user_id="+data["id"],
-//								type:"get",
-////                            dateType : "json",
-//								success:function(msg){
-//									table.row( $(this).parents('tr') ).remove().draw( false );
-//									alert(msg);
-////                                alert("删除成功");
-//								},
-//								error : function(textStatus){
-//									alert("error:" + textStatus.error);
-//								}
-//							});
-//
-//						} );
-//					}
-				})
-
-				$('#userList').DataTable( {
-					dom: "Bfrtip",
-					ajax: "/mf-chinalife/queryUsers",
-					columns: [
-						{ data: null, render: function ( data, type, row ) {
-							// Combine the first and last names into a single table field
-							return data.first_name+' '+data.last_name;
-						} },
-						{ data: "position" },
-						{ data: "office" },
-						{ data: "extn" },
-						{ data: "start_date" },
-						{ data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+						{ "data": "createTime" }
 					],
 					select: true,
 					buttons: [

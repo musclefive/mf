@@ -37,7 +37,8 @@ public class UserMultiQuery extends BaseServlet {
                 @Override
                 public UserSingleQuery.JsonUser convert(ResultSet resultSet) throws SQLException {
                     UserSingleQuery.JsonUser user = new UserSingleQuery.JsonUser();
-                    user.setId(resultSet.getLong("user_id"));
+                    user.setDT_RowId(resultSet.getLong("user_id"));
+                    logger.info("User GetDT_RowID:" + user.getDT_RowId());
                     user.setNickname(resultSet.getString("user_nickname"));
                     user.setEmail(resultSet.getString("user_email"));
                     user.setPassword(resultSet.getString("user_pwd"));
@@ -49,7 +50,7 @@ public class UserMultiQuery extends BaseServlet {
             ObjectMapper objectMapper = new ObjectMapper();
             String ret = objectMapper.writeValueAsString(users);
             ret = "{\"items\":" + ret + "}";
-            logger.error("Result : " + ret);
+            logger.info("Result : " + ret);
             printWriter.write(ret);
         } catch (DAOException e) {
             logger.error("Failed to query all users.", e);
