@@ -37,8 +37,8 @@ public class UserMultiQuery extends BaseServlet {
                 @Override
                 public UserSingleQuery.JsonUser convert(ResultSet resultSet) throws SQLException {
                     UserSingleQuery.JsonUser user = new UserSingleQuery.JsonUser();
-                    user.setDT_RowId(resultSet.getLong("user_id"));
-                    logger.info("User GetDT_RowID:" + user.getDT_RowId());
+                    user.setdT_RowId(resultSet.getLong("user_id"));
+                    logger.info("User GetDT_RowID:" + user.getdT_RowId());
                     user.setNickname(resultSet.getString("user_nickname"));
                     user.setEmail(resultSet.getString("user_email"));
                     user.setPassword(resultSet.getString("user_pwd"));

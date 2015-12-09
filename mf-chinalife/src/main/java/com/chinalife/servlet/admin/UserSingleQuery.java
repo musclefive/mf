@@ -2,6 +2,7 @@ package com.chinalife.servlet.admin;
 
 import com.chinalife.dao.UserDAO;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mf.dal.DAOException;
 import com.mf.dal.DAOFacade;
 import com.mf.util.servlet.BaseServlet;
@@ -59,16 +60,35 @@ public class UserSingleQuery extends BaseServlet {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public static class JsonUser {
-        private Long DT_RowId;
+
+        @JsonProperty(value = "DT_RowId")
+        private Long dT_RowId;
+
+        @JsonProperty(value = "nickname")
         private String nickname;
+
+        @JsonProperty(value = "email")
         private String email;
+
+        @JsonProperty(value = "password")
         private String password;
+
+        @JsonProperty(value = "user_category")
         private String user_category;
+
+        @JsonProperty(value = "createTime")
         private Timestamp createTime;
+
+        @JsonProperty(value = "updateTime")
         private Timestamp updateTime;
 
-        public Long getDT_RowId() {
-            return DT_RowId;
+
+        public Long getdT_RowId() {
+            return dT_RowId;
+        }
+
+        public void setdT_RowId(Long dT_RowId) {
+            this.dT_RowId = dT_RowId;
         }
 
         public String getNickname() {
@@ -93,10 +113,6 @@ public class UserSingleQuery extends BaseServlet {
 
         public Timestamp getUpdateTime() {
             return updateTime;
-        }
-
-        public void setDT_RowId(Long DT_RowId) {
-            this.DT_RowId = DT_RowId;
         }
 
         public void setNickname(String nickname) {
