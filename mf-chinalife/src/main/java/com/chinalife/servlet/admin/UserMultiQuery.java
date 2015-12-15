@@ -28,6 +28,27 @@ public class UserMultiQuery extends BaseServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("Enter UserMultiQuery servlet.");
 
+        String type = getParam(request, "action");
+        logger.info("The action type is :" + type);
+
+        if ("query".equals(type)) {
+            queryItem(request,response);
+        } else if ("remove".equals(type)) {
+            deleteItem(request,response);
+        } else if ("create".equals(type)) {
+            createItem(request,response);
+        } else if ("edit".equals(type)) {
+            editItem(request, response);
+        }
+
+
+
+    }
+
+    protected void deleteItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+    protected void queryItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -56,5 +77,30 @@ public class UserMultiQuery extends BaseServlet {
             logger.error("Failed to query all users.", e);
             throw new ServletException(e);
         }
+    }
+
+    protected void createItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    protected void editItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        try {
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            PrintWriter printWriter = response.getWriter();
+//
+//            String type = getParam(request, "action");
+//
+//
+//        } catch (DAOException e) {
+//            logger.error("Failed to query all users.", e);
+//            throw new ServletException(e);
+//        }
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter printWriter = response.getWriter();
+
+        String data_0 = getParam(request, "action");
     }
 }
