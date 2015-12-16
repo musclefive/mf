@@ -2,7 +2,8 @@ package com.momo.servlet.chart;
 
 import com.momo.dao.BreakdownDAO;
 import com.momo.dao.TeamDAO;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.momo.bean.JsonBreakdown;
+import com.momo.bean.JsonTeamPC;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mf.dal.Converter;
 import com.mf.dal.DAOFacade;
@@ -56,12 +57,12 @@ public class TeamPCQuery extends BaseServlet {
             //pic price area bed baths carport district status title address
             List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryDataPerDay(startDate,endDate,new Converter<JsonTeamPC>() {
                 @Override
-                public TeamPCQuery.JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
 //                    SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
                     SimpleDateFormat sdf_1=new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     long millionSeconds = 0;
-                    TeamPCQuery.JsonTeamPC pro = new TeamPCQuery.JsonTeamPC();
+                    JsonTeamPC pro = new JsonTeamPC();
 //                    pro.setStationId(resultSet.getString("station_id"));
                     String roa = resultSet.getString("roa").trim();
                     if(roa.length() != 1 ){
@@ -102,11 +103,11 @@ public class TeamPCQuery extends BaseServlet {
             });
 
             //查询当日所有的breakdown record
-            List<BreakdownAdd.JsonBreakdown> breakdowns = DAOFacade.getDAO(BreakdownDAO.class).queryBreakdownPerDay(queryDay, new Converter<BreakdownAdd.JsonBreakdown>() {
+            List<JsonBreakdown> breakdowns = DAOFacade.getDAO(BreakdownDAO.class).queryBreakdownPerDay(queryDay, new Converter<JsonBreakdown>() {
                 @Override
-                public BreakdownAdd.JsonBreakdown convert(ResultSet resultSet) throws SQLException {
+                public JsonBreakdown convert(ResultSet resultSet) throws SQLException {
 
-                    BreakdownAdd.JsonBreakdown record = new BreakdownAdd.JsonBreakdown();
+                    JsonBreakdown record = new JsonBreakdown();
                     String NO = resultSet.getString("No").trim();
                     String break_no = resultSet.getString("break_no").trim();
                     String break_level = resultSet.getString("break_level").trim();
@@ -157,90 +158,5 @@ public class TeamPCQuery extends BaseServlet {
             logger.error("Failed to query all houses.", e);
             throw new ServletException(e);
         }
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public static class JsonTeamPC {
-        private String NO;
-        private String stationId;
-        private String plan;
-        private String actual;
-        private String roa;
-        private String opr;
-        private String catchTime;
-        private String num;
-//        private String flag;
-
-        public String getNO() {
-            return NO;
-        }
-
-        public void setNO(String NO) {
-            this.NO = NO;
-        }
-
-        public String getStationId() {
-            return stationId;
-        }
-
-        public void setStationId(String stationId) {
-            this.stationId = stationId;
-        }
-
-        public String getPlan() {
-            return plan;
-        }
-
-        public void setPlan(String plan) {
-            this.plan = plan;
-        }
-
-        public String getActual() {
-            return actual;
-        }
-
-        public void setActual(String actual) {
-            this.actual = actual;
-        }
-
-        public String getRoa() {
-            return roa;
-        }
-
-        public void setRoa(String roa) {
-            this.roa = roa;
-        }
-
-        public String getOpr() {
-            return opr;
-        }
-
-        public void setOpr(String opr) {
-            this.opr = opr;
-        }
-
-        public String getCatchTime() {
-            return catchTime;
-        }
-
-        public void setCatchTime(String catchTime) {
-            this.catchTime = catchTime;
-        }
-
-        public String getNum() {
-            return num;
-        }
-
-        public void setNum(String num) {
-            this.num = num;
-        }
-
-/*        public String getFlag() {
-            return flag;
-        }
-
-        public void setFlag(String flag) {
-            this.flag = flag;
-        }*/
     }
 }

@@ -1,5 +1,6 @@
 package com.momo.servlet.chart;
 
+import com.momo.bean.JsonTeamPC;
 import com.momo.dao.TeamDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mf.dal.Converter;
@@ -39,12 +40,12 @@ public class TeamPCLiveSingleQuery extends BaseServlet {
 
             PrintWriter printWriter = response.getWriter();
 
-            TeamPCQuery.JsonTeamPC production = DAOFacade.getDAO(TeamDAO.class).querySingleData(number, new Converter<TeamPCQuery.JsonTeamPC>() {
+            JsonTeamPC production = DAOFacade.getDAO(TeamDAO.class).querySingleData(number, new Converter<JsonTeamPC>() {
                 @Override
-                public TeamPCQuery.JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     long millionSeconds = 0;
-                    TeamPCQuery.JsonTeamPC temp = new TeamPCQuery.JsonTeamPC();
+                    JsonTeamPC temp = new JsonTeamPC();
                     temp.setNO(resultSet.getString("NO"));
                     temp.setActual(resultSet.getString("actual_output"));
 //                     temp.setActual("68");

@@ -11,9 +11,9 @@
     <name>mf-momo Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <log4j_path>\cuichao</log4j_path>
+        <log4j_path>D:\bin\apache-tomcat-7.0.52\logs</log4j_path>
         <log4j_level>INFO</log4j_level>
-        <tmp_path>\cuichao</tmp_path>
+        <tmp_path>D:\bin\apache-tomcat-7.0.52\logs</tmp_path>
     </properties>
     <dependencies>
         <dependency>

@@ -7,6 +7,7 @@ import com.mf.dal.annotation.Table;
 
 import java.util.List;
 
+/*每日累计产量查询*/
 @DAO
 public interface DailyReportDAO {
     @Table("DailyProData")
