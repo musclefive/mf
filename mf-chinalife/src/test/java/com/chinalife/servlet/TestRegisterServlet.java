@@ -24,9 +24,8 @@ public class TestRegisterServlet {
 /*    private static String log4jFileUbuntu = "/home/shixin/workspace/chinalife/src/test/resources/log4j.properties";
     private static String dbFileUbuntu = "/home/shixin/workspace/chinalife/src/test/resources/db_config.xml";*/
 
-    private static String dbFileUbuntu = "D:\\project\\mf\\mf-chinalife\\src\\test\\resources\\db_config.xml";
-    private static String log4jFileUbuntu= "D:\\project\\mf\\mf-chinalife\\src\\test\\resources\\log4j.properties";
-
+    private static String dbFileUbuntu = "E:\\develop\\mf\\mf-chinalife\\src\\test\\resources\\db_config.xml";
+    private static String log4jFileUbuntu= "E:\\develop\\mf\\mf-chinalife\\src\\test\\resources\\log4j.properties";
     @Before
     public void init() throws FileNotFoundException {
         PropertyConfigurator.configure(log4jFileUbuntu);

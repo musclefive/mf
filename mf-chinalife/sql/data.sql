@@ -23,3 +23,48 @@ update production set create_time = '2014-09-15 08:40:35.000' where house_id = 1
 update production set create_time = '2014-09-15 08:41:35.000' where house_id = 166858;
 update production set create_time = '2014-09-15 08:42:35.000' where house_id = 166859;
 update production set create_time = '2014-09-15 08:43:35.000' where house_id = 166860;
+
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('cuichao', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('mf', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('mzhe', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('m1', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('fadf', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('fa', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('adf', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('df', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('fadf', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('fdad', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('fda', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('hh', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('hh', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
+
+insert into user (user_nickname, user_pwd, user_email, user_category, create_time)
+values('daf', '12345', '43531994848@qq.com', '1', '2014-11-10 08:08:01');
