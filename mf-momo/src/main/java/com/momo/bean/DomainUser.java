@@ -3,6 +3,8 @@ package com.momo.bean;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * Created by Chao.Cui.VWED on 2015/12/14.
  * 同步的jvap 域中用户信息
@@ -63,8 +65,25 @@ public class DomainUser {
     private String userRole;
     @JsonProperty(value = "userGroup")
     private String userGroup;
+
+    @JsonProperty(value = "userDescript")
+    private String userDescript;
+
     @JsonProperty(value = "objectGUID")
     private String objectGUID;
+
+//    /*left join with table UserPermission*/
+//    @JsonProperty(value = "permissionRole")
+//    private String permissionRole;
+//
+//    @JsonProperty(value = "createTime")
+//    private String createTime;
+//
+//    @JsonProperty(value = "updateTime")
+//    private String updateTime;
+//
+//    @JsonProperty(value = "permissionDescript")
+//    private String permissionDescript;
 
     public String getsAMAccountName() {
         return sAMAccountName;
@@ -264,5 +283,13 @@ public class DomainUser {
 
     public void setObjectGUID(String objectGUID) {
         this.objectGUID = objectGUID;
+    }
+
+    public String getUserDescript() {
+        return userDescript;
+    }
+
+    public void setUserDescript(String userDescript) {
+        this.userDescript = userDescript;
     }
 }

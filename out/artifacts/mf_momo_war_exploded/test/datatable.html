@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<HTML>
+<HEAD>
+    <TITLE>WMI Scripting HTML</TITLE>
+</HEAD>
+<BODY>
+<script language=javascript>
+    try {
+        var WshShell = new ActiveXObject("WScript.Shell");
+        document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%COMPUTERNAME%") + "<br/>");
+        document.write("登录用户名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
+    }catch(e){
+        alert(e);
+    }
+</script>
+</BODY>
+</HTML>
+<!--http://blog.csdn.net/zyw_anquan/article/details/7970869
+-->

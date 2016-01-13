@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../../css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>-->
+    <script src="../../js/jquery-1.10.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../js/highstock.src.js" type="text/javascript"></script>
+    <script src="../../js/exporting.src.js" type="text/javascript"></script>
+
+    <script language="javascript">
+        $(function() {
+
+            $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function(data) {
+//            $.getJSON('highstock-basic-data.json', function(data) {
+                // Create the chart
+                $('#container').highcharts('StockChart', {
+                    rangeSelector : {
+                        selected : 1,
+                        inputEnabled: $('#container').width() > 480
+                    },
+                    title : {
+                        text : 'AAPL Stock Price'
+                    },
+                    series : [{
+                        name : 'AAPL',
+                        data : data,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    }]
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="container" style="height: 400px; min-width: 310px"></div>
+</body>
+</html>

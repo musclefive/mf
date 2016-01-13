@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script src="../../js/jquery-1.10.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../js/highcharts.src.js" type="text/javascript"></script>
+    <script src="../../js/exporting.src.js" type="text/javascript"></script>
+    <script src="../../js/jsTool.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap-datetimepicker.css">
+    <script src="../../js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+
+    <script language="javascript">
+        $(function(){
+            var x = 0;
+
+            requestData(x);
+        })
+
+        function requestData(x){
+            alert(x);
+            x = x + 1;
+            $("#span1").html(x);
+
+            var  IntRun = setInterval(requestData(), 3000);
+            if(x == 10){
+                clearInterval(IntRun);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <span style="margin:0 0px 0 10px;" id="span1"></span><br>
+
+</div>
+
+</body>
+</html>

@@ -121,6 +121,10 @@ class DBClient {
         try {
             connection = dbConnectionPool.borrowObject();
             logger.info("Method(executeQuery) create db connection pool :" + connection );
+            logger.info("ConnectionPool Info-" + "BorrowedCount:" + dbConnectionPool.getBorrowedCount() + "" +
+                    " getNumActive:" + dbConnectionPool.getNumActive() + " getNumIdle:" + dbConnectionPool.getNumIdle() + "" +
+                    " getMaxTotal:" + dbConnectionPool.getMaxTotal() + " getMaxIdle:" + dbConnectionPool.getMaxIdle() + " " +
+                    " getMinIdle:" + dbConnectionPool.getMinIdle());
 
             preparedStatement = connection.prepareStatement(sql);
 
@@ -132,7 +136,11 @@ class DBClient {
             logger.info("Method(resultSet) create executeQuery :" + resultSet);
 
             return resultSetVisitor.visit(resultSet, converter);
-        } finally {
+        }catch (Exception e){
+            logger.error("connection borrow wrong: " + e.toString());
+            throw  e;
+        }
+        finally {
             if (null != preparedStatement) {
                 preparedStatement.close();
             }

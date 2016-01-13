@@ -1,6 +1,3 @@
-
-//根据指定的时间格式 得到日期对象 在IE、 FF、Chrome下兼容
-//str 格式 "2014-10-12 09:05"
 function NewDate(str) {
     str = str.split(' ');
     var years = str[0];
@@ -12,7 +9,20 @@ function NewDate(str) {
     date.setHours(hour[0], hour[1], 0, 0);
     return date;
 }
+//根据指定的时间格式 得到日期对象 在IE、 FF、Chrome下兼容
+//str 格式 "2014-10-12 09:05"
 
+//获取指定日期的时间格式 str = 2014-11-12 返回值2014-11-12 08:00
+function getQueryTodayTimeSpecify(str){
+
+    var hourandminute = "08:00";
+    var today = new Date(str);
+    var month = today.getMonth() + 1;
+    var formatToday = today.getFullYear()+"-"+month+"-"+today.getDate() + " " + hourandminute;
+    console.info("Method:getQueryTodayTimeSpecify()--formatToday :" + formatToday);
+
+    return formatToday;
+}
 //根据毫秒数，获取格式化的时间 2014-11-24 08:55 ；如果获取当前时间
 // longTime  = new Date().getTime())
 function getFormatDate(longTime){
@@ -83,6 +93,7 @@ function getQueryTodayTime(){
 
     return formatToday;
 }
+
 //获取当前日期后一天的时间格式 返回值2014-11-13 08:00
 function getQueryTomorrowTime(){
     var hourandminute = "08:00";
@@ -103,17 +114,6 @@ function getQueryTomorrowTime(){
     var month_1 = selectedTomorrow.getMonth() + 1;
     var selectedFormatTomorrow = selectedTomorrow.getFullYear()+"-"+month_1+"-"+selectedTomorrow.getDate() +  " " + hourandminute;
     return selectedFormatTomorrow;
-}
-
-//获取指定日期的时间格式 str = 2014-11-12 返回值2014-11-12 08:00
-function getQueryTodayTimeSpecify(str){
-    var hourandminute = "08:00";
-    var today = new Date(str);
-    var month = today.getMonth() + 1;
-    var formatToday = today.getFullYear()+"-"+month+"-"+today.getDate() + " " + hourandminute;
-    console.info("Method:getQueryTodayTimeSpecify()--formatToday :" + formatToday);
-
-    return formatToday;
 }
 //获取指定日期后一天的时间格式 返回值2014-11-13 08:00
 function getQueryTomorrowTimeSpecify(str){

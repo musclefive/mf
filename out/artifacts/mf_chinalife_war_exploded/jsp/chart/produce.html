@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../../css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>-->
+    <script src="../../js/jquery-1.10.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../js/highcharts.src.js" type="text/javascript"></script>
+    <script src="../../js/exporting.src.js" type="text/javascript"></script>
+    <script language="javascript">
+        var int=self.setInterval("clock()",50)
+        function clock()
+        {
+            var t=new Date()
+            document.getElementById("clock").value=t
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="clock" size="35" />
+<script language=javascript>
+
+</script>
+</form>
+<button onclick="int=window.clearInterval(int)">
+    Stop interval</button>
+
+</div>
+</body>
+</html>

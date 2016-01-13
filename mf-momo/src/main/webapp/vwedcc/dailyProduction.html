@@ -234,6 +234,17 @@
 					</li>
 
 					<li class="">
+						<a href="userList.html" class="">
+							<i class="menu-icon ace-icon fa fa-user"></i>
+							<span class="menu-text"> 用户权限维护 </span>
+
+						</a>
+
+						<b class="arrow"></b>
+
+					</li>
+
+					<li class="">
 						<a href="blank.html" >
 							<i class="menu-icon fa fa-file-o"></i>
 
@@ -401,7 +412,7 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<label for="endTime" class="col-md-3 control-label">End Time</label>
+															<label for="timePickerBreakEndTime" class="col-md-3 control-label">End Time</label>
 															<div class="col-md-9">
 																<!--<div class="input-group date form_time col-md-6" id="timePicker"-->
 																<!--data-date="" data-date-format="yyyy-mm-dd hh:ii"-->
@@ -410,7 +421,7 @@
 																<!--<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>-->
 																<!--</div>-->
 																<div class="input-group col-md-6" >
-																	<input id="date-timepicker3" type="text" class="form-control" id="endTime"/>
+																	<input id="timePickerBreakEndTime" type="text" class="form-control"/>
 																	<span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
 																</div>
 																<input type="hidden" id="breakEndTime" value=""  name="breakEndTime"/>
@@ -904,13 +915,15 @@
 									//设置Model 中的日期时间 以及NO
 									$("#breakModal").modal('show');
 									var breakStartTime = getFormatUTCTime(eval(options.xAxis.categories[event.point.x]));
-									console.info("breakStartTime:" + breakStartTime)
 									var duration = setTimerDate(queryDate, options.xAxis.categories[event.point.x]);
 
 									$("#breakDayInfo").html(queryDate);
 									$("#breakScope").val(queryDate);
 									$("#breakStartTime").val(breakStartTime);
 									$("#breakNO").val(event.point.no);
+									console.info("Onclick open modal add new breakdown record-breakStartTime:" + breakStartTime +" duration:" + duration + " " +
+											"queryDate:" + queryDate);
+
 									//绘制评分，设置当前评分
 									starOptions.score = 3;
 									$("#divRating").raty(starOptions);
@@ -959,6 +972,7 @@
 									var p = w;
 									options.xAxis.plotBands[w].events.click = function(e){
 										$("#breakModal").modal('show');
+										console.info("Enter plotBands click event");
 										var startTime = break_records[p]["startTime"];
 										var endTime = break_records[p]["endTime"];
 										var breakType = break_records[p]["breakType"];
@@ -968,14 +982,14 @@
 										var no = break_records[p]["no"]; // breakdown 的自增 主键
 										var breakNO = break_records[p]["breakNO"];
 										var breakLevel = break_records[p]["breakLevel"];
-//                                   为弹出的模态框一一赋值.
+                                   		/*为弹出的模态框一一赋值.*/
 										$("#duration").val(eval(duration/60000) + " Minute");
 										$("#breakDayInfo").html(queryDate);
 										$("#breakScope").val(queryDate);
 										$("#breakStartTime").val(getFormatUTCTime(eval(startTime)));
-										//breakEndTime 实际与endTime 控件表示一个值
+										//breakEndTime 实际与timePickerBreakEndTime 控件表示一个值
 										$("#breakEndTime").val(getFormatUTCTime(eval(endTime)));
-										$("#endTime").val(getFormatUTCTime(eval(endTime)));
+										$("#timePickerBreakEndTime").val(getFormatUTCTime(eval(endTime)));
 										$("#breakNO").val(breakNO);
 										$("#breakReason").val(breakReason);
 										$("#breakType option[value=" +breakType + "]").prop("selected",true);
@@ -991,10 +1005,11 @@
 										$("#btnDelete").val(no);
 										$("#btnUpdate").val(no);
 
-										console.info("startTime:" + startTime + " endTime:" + endTime + " breakType:"+breakType + " breakName:" +
+										console.info("click model startTime:" + startTime + " endTime:" + endTime + " breakType:"+breakType + " breakName:" +
 												breakName + " breakReason:" + breakReason + " duration:" + duration + " no:" + no +
 												" breakNO:" + breakNO + " index:" + p + " breakLevel" + breakLevel);
 									};
+
 								})();
 							}
 							new Highcharts.Chart(options);
@@ -1025,26 +1040,41 @@
             	console.info("Method:setTimerDate()--selectedDate:" + selectedDate + " selectedFormatDay:" +
 						selectedFormatDay + " selectedFormatTomorrow:" + selectedFormatTomorrow);
 //				//日期插件 格式10:28
-				$('#date-timepicker3').datetimepicker({
+				$("#timePickerBreakEndTime").datetimepicker({
 					format : 'YYYY-MM-DD HH:mm',
-//					defaultDate : moment(),
+					defaultDate : selectedDate,
 					sideBySide : true,
-					minDate : selectedFormatDay,
-					maxDate : selectedFormatTomorrow,
+//					minDate : selectedFormatDay,
+//					maxDate : selectedFormatTomorrow,
+//					maxDate : "2014-09-19",
 					focusOnShow : false
 				}).on('dp.change', function(event){
-					$("#breakEndTime").val(moment(event.date).format("YYYY-MM-DD HH:mm"));
+					/*点击选则故障截止日期;如果选中的日期不在selectedFormatDay 与 selectedFormatTomorrow 之间
+					* 则自动将日期添加为selectedFormatDay 或selectedFormatTomorrow*/
+					var endSelectedTime;
+					console.info("event.date:"+ event.date + "momment:" + moment(event.date,"YYYY-MM-DD HH:mm"));
+					if(event.date <= NewDate(selectedFormatDay).getTime()){
+						//选中的日期小于今天早班开始时间
+						endSelectedTime = selectedFormatDay;
+						$("#timePickerBreakEndTime").val(endSelectedTime);
+					}else if(event.date >= NewDate(selectedFormatTomorrow).getTime()){
+						endSelectedTime = selectedFormatTomorrow;
+						$("#timePickerBreakEndTime").val(endSelectedTime);
+					}else{
+						endSelectedTime = moment(event.date).format("YYYY-MM-DD HH:mm");
+					}
+					$("#breakEndTime").val(endSelectedTime);
 					var startTimer = $("#breakStartTime").val();
-					var endTimer = $("#breakEndTime").val();
+//					var endTimer = $("#breakEndTime").val();
 					var longStartTime = NewDate(startTimer).getTime();
-					var longEndTime = NewDate(endTimer).getTime();
+					var longEndTime = NewDate(endSelectedTime).getTime();
 					var selectedDuration = eval(longEndTime - longStartTime);
 					var mm = eval(selectedDuration/60000);
-					console.info("breakEndTime:" + endTimer + " duration:" + mm);
+					console.info("breakEndTime:" + endSelectedTime + " duration:" + mm + " longStartTime:" + longStartTime +" longEndTime:" + longEndTime);
 					$("#duration").val(mm + " Minute");
 					$("#breakDuration").val(selectedDuration);
 				});
-				$('#date-timepicker3').val("");
+				$("#timePickerBreakEndTime").val("");
 				return selectedDuration;
 			}
 

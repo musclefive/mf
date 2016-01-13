@@ -1,11 +1,7 @@
 package com.chinalife.servlet;
 
-import com.momo.dao.BreakdownDAO;
-import com.momo.dao.DailyReportDAO;
-import com.momo.dao.TeamDAO;
-import com.momo.servlet.chart.BreakdownAdd;
-import com.momo.servlet.chart.DailyReportQuery;
-import com.momo.servlet.chart.TeamPCQuery;
+import com.momo.bean.*;
+import com.momo.dao.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mf.dal.Converter;
 import com.mf.dal.DAOFacade;
@@ -20,10 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Properties;
-import java.util.TimeZone;
+import java.util.*;
 
 /**9
  * Created by Chao.Cui.VWED on 14-9-18.
@@ -38,8 +31,10 @@ public class TestDBSql {
 //        testJson();
 //        testJsonPerDay();
 //        testJsonLive();
-        testJsonLivePart();
+//        testJsonLivePart();
 //        testHighStock();
+//        testUserPermission();
+        testPermission();
 
        /* String JDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver";//SQL数据库引擎
         String connectDB="jdbc:sqlserver://10.120.78.100:54914;DatabaseName=chart";//数据源
@@ -140,11 +135,11 @@ public class TestDBSql {
         try {
             DBAccesser.createInstance(new FileInputStream(confFile), properties);
 
-            List<TeamPCQuery.JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryAllProduction(new Converter<TeamPCQuery.JsonTeamPC>() {
+            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryAllProduction(new Converter<JsonTeamPC>() {
                 @Override
-                public TeamPCQuery.JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    TeamPCQuery.JsonTeamPC pro = new TeamPCQuery.JsonTeamPC();
+                    JsonTeamPC pro = new JsonTeamPC();
                     pro.setStationId(resultSet.getString("station_id"));
                     pro.setPlan(resultSet.getString("plan_output"));
                     pro.setActual(resultSet.getString("actual_output"));
@@ -185,14 +180,14 @@ public class TestDBSql {
             String startDate = "2014-11-18 8:00";
             String endDate = "2014-11-19 8:00";
             String queryDay = "2014-11-18";
-            List<TeamPCQuery.JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryDataPerDay(startDate,endDate,new Converter<TeamPCQuery.JsonTeamPC>() {
+            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryDataPerDay(startDate,endDate,new Converter<JsonTeamPC>() {
                 @Override
-                public TeamPCQuery.JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
 //                    SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
                     SimpleDateFormat sdf_1=new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     long millionSeconds = 0;
-                    TeamPCQuery.JsonTeamPC pro = new TeamPCQuery.JsonTeamPC();
+                    JsonTeamPC pro = new JsonTeamPC();
 //                    pro.setStationId(resultSet.getString("station_id"));
                     String roa = resultSet.getString("roa").trim();
                     if(roa.length() != 1 ){
@@ -233,11 +228,11 @@ public class TestDBSql {
             });
 
             //查询当日所有的breakdown record
-            List<BreakdownAdd.JsonBreakdown> breakdowns = DAOFacade.getDAO(BreakdownDAO.class).queryBreakdownPerDay(queryDay, new Converter<BreakdownAdd.JsonBreakdown>() {
+            List<JsonBreakdown> breakdowns = DAOFacade.getDAO(BreakdownDAO.class).queryBreakdownPerDay(queryDay, new Converter<JsonBreakdown>() {
                 @Override
-                public BreakdownAdd.JsonBreakdown convert(ResultSet resultSet) throws SQLException {
+                public JsonBreakdown convert(ResultSet resultSet) throws SQLException {
 
-                    BreakdownAdd.JsonBreakdown record = new BreakdownAdd.JsonBreakdown();
+                    JsonBreakdown record = new JsonBreakdown();
                     String NO = resultSet.getString("No").trim();
                     String break_no = resultSet.getString("break_no").trim();
                     String break_level = resultSet.getString("break_level").trim();
@@ -301,12 +296,12 @@ public class TestDBSql {
             DBAccesser.createInstance(new FileInputStream(confFile), properties);
             String strNumber = "182268";
             int number = Integer.valueOf(strNumber);
-            TeamPCQuery.JsonTeamPC production = DAOFacade.getDAO(TeamDAO.class).querySingleData(number, new Converter<TeamPCQuery.JsonTeamPC>() {
+            JsonTeamPC production = DAOFacade.getDAO(TeamDAO.class).querySingleData(number, new Converter<JsonTeamPC>() {
                 @Override
-                public TeamPCQuery.JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     SimpleDateFormat sdf = new SimpleDateFormat("yy,MM,dd HH:mm");
 
-                    TeamPCQuery.JsonTeamPC temp = new TeamPCQuery.JsonTeamPC();
+                    JsonTeamPC temp = new JsonTeamPC();
                     temp.setNO(resultSet.getString("NO"));
                     temp.setActual(resultSet.getString("actual_output"));
                     temp.setPlan(resultSet.getString("plan_output"));
@@ -357,13 +352,13 @@ public class TestDBSql {
         System.out.println("int and string :" + strNumber + "  " + number);
         try {
             DBAccesser.createInstance(new FileInputStream(confFile), properties);
-            List<TeamPCQuery.JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryDataLive(startDate, endDate, new Converter<TeamPCQuery.JsonTeamPC>() {
+            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryDataLive(startDate, endDate, new Converter<JsonTeamPC>() {
                 @Override
-                public TeamPCQuery.JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     long millionSeconds = 0;
                     //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
                     SimpleDateFormat sdf_1=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    TeamPCQuery.JsonTeamPC pro = new TeamPCQuery.JsonTeamPC();
+                    JsonTeamPC pro = new JsonTeamPC();
 //                    pro.setStationId(resultSet.getString("station_id"));
                     pro.setPlan(resultSet.getString("plan_output"));
                     pro.setActual(resultSet.getString("actual_output"));
@@ -413,15 +408,15 @@ public class TestDBSql {
 
         try {
             DBAccesser.createInstance(new FileInputStream(confFile), properties);
-            List<DailyReportQuery.DailyReportJson> dailyReportsList = DAOFacade.getDAO(DailyReportDAO.class).queryDailyReport(new Converter<DailyReportQuery.DailyReportJson>() {
+            List<DailyReportJson> dailyReportsList = DAOFacade.getDAO(DailyReportDAO.class).queryDailyReport(new Converter<DailyReportJson>() {
                 @Override
-                public DailyReportQuery.DailyReportJson convert(ResultSet resultSet) throws SQLException {
+                public DailyReportJson convert(ResultSet resultSet) throws SQLException {
                     //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
                     logger.error("enter queryDataPerDay : " + resultSet);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                     long millionSeconds = 0;
-                    DailyReportQuery.DailyReportJson temp = new DailyReportQuery.DailyReportJson();
+                    DailyReportJson temp = new DailyReportJson();
 //                    pro.setStationId(resultSet.getString("station_id"));
                     temp.setPlanG(resultSet.getString("plan_output").trim());
                     temp.setActualG(resultSet.getString("actual_output").trim());
@@ -451,6 +446,105 @@ public class TestDBSql {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+//    public static void testUserPermission(){
+//        PropertyConfigurator.configure(log4jFileUbuntu);
+//
+//        File confFile = new File(dbFileUbuntu);
+//        Validate.isTrue(confFile.exists());
+//
+//        Properties properties = new Properties();
+//        properties.put("max.total", 50);
+//        String distinguishedName = "CN=Cui\\, Chao (VWEDII TL),OU=Users,OU=VWED,OU=Mail Hosting,OU=Domain Users,DC=jvap,DC=com";
+//        List<UserPermission> userPermission = null;
+//
+//        try {
+//            DBAccesser.createInstance(new FileInputStream(confFile), properties);
+//            userPermission = DAOFacade.getDAO(UserPermissionDAO.class).queryUserPermission(distinguishedName, new Converter<UserPermission>() {
+//                @Override
+//                public UserPermission convert(ResultSet resultSet) throws SQLException {
+//                    UserPermission userPermision = new UserPermission();
+//                    userPermision.setId(resultSet.getLong("id"));
+//                    userPermision.setUserRole(resultSet.getString("userRole"));
+//                    userPermision.setCreateTime(resultSet.getString("createTime"));
+//                    userPermision.setUpdateTime(resultSet.getString("updateTime"));
+//                    userPermision.setUserDescript(resultSet.getString("userDescript"));
+//                    return userPermision;
+//                }
+//            });
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            objectMapper.writeValue(System.out, userPermission);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+    public static void testPermission() {
+        PropertyConfigurator.configure(log4jFileUbuntu);
+
+        File confFile = new File(dbFileUbuntu);
+        Validate.isTrue(confFile.exists());
+
+        Properties properties = new Properties();
+        properties.put("max.total", 500);
+
+//        String distinguishedName = "CN=Cui\\, Chao (VWEDII TL),OU=Users,OU=VWED,OU=Mail Hosting,OU=Domain Users,DC=jvap,DC=com";
+        try {
+            DBAccesser.createInstance(new FileInputStream(confFile), properties);
+
+            List<DomainUser> domainUserList = DAOFacade.getDAO(DomainUserDAO.class).queryDomainUserListwithPermission(new Converter<DomainUser>() {
+                @Override
+                public DomainUser convert(ResultSet resultSet) throws SQLException {
+                    DomainUser domainUser = new DomainUser();
+                    domainUser.setId(resultSet.getLong("id"));
+                    String distinguishedName = resultSet.getString("distinguishedName").equals("") ? " " : resultSet.getString("distinguishedName");
+//                    String permissionRole;
+//                    String permissionDescript;
+                    domainUser.setDistinguishedName(distinguishedName);
+                    domainUser.setsAMAccountName(resultSet.getString("sAMAccountName").equals("") ? " " : resultSet.getString("sAMAccountName"));
+                    domainUser.setMail(resultSet.getString("mail").equals("") ? " " : resultSet.getString("mail"));
+                    domainUser.setTitle(resultSet.getString("title").equals("") ? " " : resultSet.getString("title"));
+                    domainUser.setTelephoneNumber(resultSet.getString("telephoneNumber").equals("") ? " " : resultSet.getString("telephoneNumber"));
+                    domainUser.setWhenCreated(resultSet.getString("whenCreated").equals("") ? " " : resultSet.getString("whenCreated"));
+                    domainUser.setWhenChanged(resultSet.getString("whenChanged").equals("") ? " " : resultSet.getString("whenChanged"));
+                    domainUser.setPhysicalDeliveryOfficeName(resultSet.getString("physicalDeliveryOfficeName").equals("") ? " " : resultSet.getString("physicalDeliveryOfficeName"));
+                    domainUser.setName(resultSet.getString("name").equals("") ? " " : resultSet.getString("name"));
+                    domainUser.setMailNickname(resultSet.getString("mailNickname").equals("") ? " " : resultSet.getString("mailNickname"));
+                    domainUser.setCn(resultSet.getString("cn").equals("") ? " " : resultSet.getString("cn"));
+                    domainUser.setUserAccountControl(resultSet.getString("userAccountControl").equals("") ? " " : resultSet.getString("userAccountControl"));
+                    domainUser.setDepartment(resultSet.getString("displayName").equals("") ? " " : resultSet.getString("displayName"));
+                    domainUser.setUserRole(resultSet.getString("userRole").equals("") ? " " : resultSet.getString("userRole"));
+                    domainUser.setUserGroup(resultSet.getString("userGroup").equals("") ? " " : resultSet.getString("userGroup"));
+                    domainUser.setObjectGUID(resultSet.getString("objectGUID").equals("") ? " " : resultSet.getString("objectGUID"));
+
+                    //left join with table UserPermission get the permission status
+                    //默认用户的权限是0，为user；1为管理员admin
+                    //如果DomainUser & UserPermission 左链接中permissionRole为null 则设置为默认用户
+//                    if(resultSet.getString("permissionRole") != null){
+//                        permissionRole = resultSet.getString("permissionRole");
+//                    }else{
+//                        permissionRole = "0";
+//                    }
+//                    if(resultSet.getString("permissionDescript") != null){
+//                        permissionDescript = resultSet.getString("permissionDescript");
+//                    }else{
+//                        permissionDescript = "user";
+//                    }
+//                    domainUser.setPermissionRole(permissionRole);
+//                    domainUser.setPermissionDescript(permissionDescript);
+
+                    return domainUser;
+                }
+            });
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(System.out, domainUserList);
+        } catch (Exception e) {
+            logger.error("Failed to query all Domain Users.", e);
         }
     }
 }

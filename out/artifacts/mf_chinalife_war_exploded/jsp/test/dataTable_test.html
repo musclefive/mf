@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title>DataTables test</title>
+
+    <link href="../../css/demo_table.css" rel="stylesheet" type="text/css"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" language="javascript" src="../../js/jquery-1.10.1.js"></script>
+    <!--<script type="text/javascript" language="javascript" src="../../js/jquery.dataTables.js"></script>-->
+    <script type="text/javascript" language="javascript" src="../../js/jquery.dataTables1.10.js"></script>
+    <script type="text/javascript" language="javascript" src="../../js/holder.js"></script>
+    <script src="../../js/bootstrap.js" type="text/javascript"></script>
+
+    <!--<script src="../../js/jquery.tmpl.js"></script>-->
+    <script src="../../js/jquery.tmpl.js"></script>
+    <script type="text/javascript" charset="utf-8">
+/*        $(document).ready(function() {
+            $('#example').dataTable( {
+                "sPaginationType": "full_numbers",
+                "bLengthChange": false, //改变每页显示数据数量
+                "bFilter": false,
+                "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+//                     Append the grade to the default row class name
+                    if ( aData[4] == "A" )
+                    {
+                        $('td:eq(4)', nRow).html( '<b>A</b>' );
+                    }
+                }
+            } );
+            $('#example tbody tr').on('click', function () {
+                var stitle;
+                var nTds = $('td', this);
+                var sBrowser = $(nTds[1]).text();
+                var sGrade = $(nTds[2]).text();
+                alert( sBrowser + " :" + sGrade )
+            } );
+        } );*/
+
+    </script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div id="container" style="width:70%">
+<table class="table table-hover" id="example">
+<thead>
+<tr>
+    <th width="20%">Rendering engine</th>
+    <th width="80%">Browser</th>
+</tr>
+</thead>
+<tbody id="houseSellBody" class="cuichao">
+    <script id="houseSellTemplate" type="text/x-tmpl">
+        <tr>
+        <td><img data-src="{{= pic}}" class="img-rounded"></td>
+        <td>
+            <h3>{{= title}}</h3>
+            <ul class="list-inline">
+                <li>{{= price}}</li>
+                <li>{{= area}}</li>
+                <li>{{= status}}</li>
+            </ul>
+            <ul class="list-inline">
+                <li>地址:</li>
+                <li>{{= address}}</li>
+            </ul>
+            <ul class="list-inline">
+                <li>简介:</li>
+                <li>{{= description}}</li>
+            </ul>
+            <p><a href="#" class="btn btn-primary" role="button">点击查看详情</a></p>
+        </td>
+    </tr>
+    </script>
+    <script type="text/javascript">
+
+/*                var houseData = [
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"},
+         { id: "1", pic: "holder.js/250x200", title: "万达广场真正的一室一厅，设施全，看好来电", price: "500W", area: "100平方米", status: "正在出售", address: "捷达大路1777号", description: "捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号捷达大路1777号"}
+         ];
+//         alert("tmpl:"+ $("houseSellingTemplate").tmpl.this);
+         $("#houseSellTemplate").tmpl(houseData).appendTo(".cuichao");
+                $("#houseSellTemplate").test();*/
+         var ccObject = $("#houseSellTemplate");
+         alert("ccObject:" + ccObject);
+         $.ajax({
+             url:"/mf-chinalife/queryHouses",
+             type:'post',
+             dataType: "json",
+             success:function(data){
+             //                alert("tmpl:"+ $("houseSellingTemplate").tmpl[0]);
+             ccObject.tmpl(data.items).appendTo( ".cuichao" );
+             //                ccObject.test();
+             }
+         });
+        $('#example').dataTable( {
+//            "sPaginationType": "full_numbers",
+//            "bLengthChange": false, //改变每页显示数据数量
+//            "bFilter": false,
+//            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+//        //                     Append the grade to the default row class name
+//                if ( aData[4] == "A" )
+//                {
+//                    $('td:eq(4)', nRow).html( '<b>A</b>' );
+//                }
+//            }
+        } );
+
+        /*var ccObject = $("#houseSellTemplate");
+        $('#example').dataTable( {
+             "sPaginationType": "full_numbers",
+             "bLengthChange": false, //改变每页显示数据数量
+             "bFilter": false,
+             "sAjaxSource": "houseSecond.txt",
+             "fnServerData": function (sSource, aoData, fnCallback){
+             $.ajax({
+                 "dataType" : "json",
+                 "type" : "POST",
+                 "url" : sSource,
+                 "data" : aoData,
+                 "success" : function (data, textStatus, jqXHR) {
+                 //                    var jsonEmpresa = $.parseJSON(data.d);
+                 //                    $("#companyTemplate").tmpl(jsonEmpresa.listEmpresa).appendTo("#tbl_companyList tbody");
+                 //                    alert(data.items);
+                     ccObject.tmpl(data.items).appendTo("#houseSellBody");
+                 }
+             });
+         }
+         } );*/
+        /*var ccObject = $("#houseSellTemplate");
+        alert("ccObject:" + ccObject);
+        $.ajax({
+            url:"/mf-chinalife/cuichao",
+            type:'post',
+            dataType: "json",
+            success:function(data){
+//                alert("tmpl:"+ $("houseSellingTemplate").tmpl[0]);
+                ccObject.tmpl(data.items).appendTo( ".cuichao" );
+//                ccObject.test();
+            }
+        });*/
+
+    </script>
+</tbody>
+</table>
+</div>
+cuichao
+<div id="houseSellBodyTest">
+</div>
+
+</body>
+</html>

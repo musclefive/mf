@@ -36,6 +36,8 @@
         <table name="DailyProData" con_refs="chart"></table>
         <table name="breakdown" con_refs="chart"></table>
         <table name="DomainUser" con_refs="chart"></table>
+        <table name="UserPermission" con_refs="chart"></table>
+
 
     </tables>
 </database>

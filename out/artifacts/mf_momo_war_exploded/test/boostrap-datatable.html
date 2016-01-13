@@ -16,17 +16,9 @@
     <script src="../js/datatable/jquery.dataTables.js" type="text/javascript"></script>
     <script src="../js/datatable/dataTables.bootstrap.js" type="text/javascript"></script>
 
-    <!--<script type="text/javascript"  src="../js/datatable/dataTables.editor.js"></script>-->
-    <!--<script type="text/javascript"  src="../js/datatable/dataTables.buttons.js"></script>-->
-    <!--<script type="text/javascript"  src="../js/datatable/dataTables.select.js"></script>-->
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/datatable/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/datatable/buttons.bootstrap.css">
-
-    <!--<link rel="stylesheet" type="text/css" href="../css/datatable/jquery.dataTables.css" />-->
-    <!--<link rel="stylesheet" href="../css/datatable/editor.dataTables.css" />-->
-    <!--<link rel="stylesheet" href="../css/datatable/buttons.dataTables.css" />-->
-    <!--<link rel="stylesheet" href="../css/datatable/select.dataTables.css" />-->
 
     <script language="javascript">
         $(document).ready(function() {
@@ -46,8 +38,19 @@
                     { "data": "whenCreated" },
 //                    { "data": "physicalDeliveryOfficeName" },
 //                    { "data": "name" },
-                    { "data": "mailNickname" },
-                    { "data": "department" }
+//                    { "data": "mailNickname" },
+                    { "data": "department" },
+                    {
+                        "data" : "userDescript"
+                    },
+                    {
+                        "targets": -1,
+                        "data": null,
+//                        "defaultContent": "<button>Click!</button>"
+                        "defaultContent": "<button class='btn btn-primary btn-xs' title='View' type='button'>" +
+                        "<span class='glyphicon glyphicon-eye-open'></span></button>&nbsp;"
+                    }
+
                 ]
             })
         });
@@ -95,9 +98,11 @@
                     <th>whenCreated</th>
                     <!--<th>physicalDeliveryOfficeName</th>-->
                     <!--<th>name</th>-->
-                    <th>mailNickname</th>
+                    <!--<th>mailNickname</th>-->
                     <th>department</th>
-                    <!--<th>操作</th>-->
+                    <th>Role</th>
+
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
