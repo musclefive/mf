@@ -14,9 +14,8 @@
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="../css/datatable/dataTables.bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="../css/datatable/buttons.bootstrap.css">
+		<link rel="stylesheet" href="../assets/css/select2.css" />
+
 		<!-- text fonts -->
 		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
 
@@ -234,18 +233,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="active">
-						<a href="userList.html" class="">
-							<i class="menu-icon ace-icon fa fa-user"></i>
-							<span class="menu-text"> 用户权限维护 </span>
-
-						</a>
-
-						<b class="arrow"></b>
-
-					</li>
-
-					<li class="">
+					<li class="active open">
 						<a href="blank.html" >
 							<i class="menu-icon fa fa-file-o"></i>
 
@@ -282,7 +270,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">用户权限维护</li>
+						<li class="active">Blank Page</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- #section:basics/content.searchbox -->
@@ -394,112 +382,176 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<div class="tabbable">
-									<ul class="nav nav-tabs" id="myTab">
-										<li class="active">
-											<a data-toggle="tab" href="#user">
-												<i class="green ace-icon fa fa-home bigger-120"></i>
-												用户权限列表
-											</a>
-										</li>
+								test
+								<form class="form-horizontal" id="validation-form" method="get">
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Email Address:</label>
 
-										<li class="">
-											<a data-toggle="tab" href="#group">
-												组权限列表
-											</a>
-										</li>
-
-									</ul>
-
-									<div class="tab-content">
-										<div id="user" class="tab-pane fade active in">
-											<table class="table table-striped table-bordered" id="userList" width="100%" cellspacing="0">
-												<thead>
-												<tr>
-													<!--<th>序号</th>-->
-													<!--<th>distinguishedName</th>-->
-													<th>sAMAccountName</th>
-													<th>mail</th>
-													<!--<th>title</th>-->
-													<!--<th>telephoneNumber</th>-->
-													<!--<th>whenCreated</th>-->
-													<!--<th>physicalDeliveryOfficeName</th>-->
-													<!--<th>name</th>-->
-													<!--<th>mailNickname</th>-->
-													<th>department</th>
-													<th>Role</th>
-
-													<th>操作</th>
-												</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
-										</div>
-										<div id="group" class="tab-pane fade">
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<input type="email" name="email" id="email" class="col-xs-12 col-sm-6" />
+											</div>
 										</div>
 									</div>
-								</div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<input type="password" name="password" id="password" class="col-xs-12 col-sm-4" />
+											</div>
+										</div>
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password2">Confirm Password:</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<input type="password" name="password2" id="password2" class="col-xs-12 col-sm-4" />
+											</div>
+										</div>
+									</div>
+
+									<div class="hr hr-dotted"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Company Name:</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<input type="text" id="name" name="name" class="col-xs-12 col-sm-5" />
+											</div>
+										</div>
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="phone">Phone Number:</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="input-group">
+																	<span class="input-group-addon">
+																		<i class="ace-icon fa fa-phone"></i>
+																	</span>
+
+												<input type="tel" id="phone" name="phone" />
+											</div>
+										</div>
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="url">Company URL:</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<input type="url" id="url" name="url" class="col-xs-12 col-sm-8" />
+											</div>
+										</div>
+									</div>
+
+									<div class="hr hr-dotted"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right">Subscribe to</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div>
+												<label>
+													<input name="subscription" value="1" type="checkbox" class="ace" />
+													<span class="lbl"> Latest news and announcements</span>
+												</label>
+											</div>
+
+											<div>
+												<label>
+													<input name="subscription" value="2" type="checkbox" class="ace" />
+													<span class="lbl"> Product offers and discounts</span>
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right">Gender</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div>
+												<label class="line-height-1 blue">
+													<input name="gender" value="1" type="radio" class="ace" />
+													<span class="lbl"> Male</span>
+												</label>
+											</div>
+
+											<div>
+												<label class="line-height-1 blue">
+													<input name="gender" value="2" type="radio" class="ace" />
+													<span class="lbl"> Female</span>
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<div class="hr hr-dotted"></div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="platform">Platform</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<select class="input-medium" id="platform" name="platform">
+													<option value="">------------------</option>
+													<option value="linux">Linux</option>
+													<option value="windows">Windows</option>
+													<option value="mac">Mac OS</option>
+													<option value="ios">iOS</option>
+													<option value="android">Android</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div class="space-2"></div>
+
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="comment">Comment</label>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="clearfix">
+												<textarea class="input-xlarge" name="comment" id="comment"></textarea>
+											</div>
+										</div>
+									</div>
+
+									<div class="space-8"></div>
+
+									<div class="form-group">
+										<div class="col-xs-12 col-sm-4 col-sm-offset-3">
+											<button class="btn btn-success btn-next" data-last="Finish" id="btnSubmit">
+												Next
+												<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+											</button>
+											<button class="btn-danger btn-large" id="btnUpdate" name="btnUpdate" >
+												UPdate
+											</button>
+										</div>
+									</div>
+								</form>
 								<!-- PAGE CONTENT ENDS -->
-								<!--Model for break down information Start-->
-								<div class="modal fade" id="updatePermission" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-												<h4 class="modal-title" id="myModalLabel">
-													<label id="breakDayInfo"></label> 修改权限
-												</h4>
-											</div>
-											<div class="modal-body">
-												<form action="" class="form-horizontal" id="formUserPermission" method="post"  role="form">
-													<fieldset>
-														<div class="form-group">
-															<label for="userName" class="col-md-3 control-label">姓名</label>
-															<div class="col-md-6">
-																<input class="form-control" id="userName" name="userName" type="text" value="" readonly/>
-																<input type="hidden" id="distinguishedName" name="distinguishedName" value=""/>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userMail" class="col-md-3 control-label">邮箱</label>
-															<div class="col-md-9">
-																<div class="input-group col-md-6" >
-																	<input class="form-control" id="userMail" name="userMail" type="text" value="" readonly/>
-																</div>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userDepartment" class="col-md-3 control-label">部门</label>
-															<div class="col-md-6">
-																<input class="form-control" id="userDepartment" name="userDepartment" type="text" disabled/>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userPermission" class="col-md-3 control-label">权限</label>
-															<div class="col-md-6">
-																<select id="userPermission" name="userPermission" class="form-control">
-																	<option value="0">User</option>
-																	<option value="1">Admin</option>
-																	<option value="2">Operator</option>
-																</select>
-																<input type="hidden" id="userRoleOriginal" name="userRoleOriginal" value=""/>
-
-															</div>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn " data-dismiss="modal" id="btnClose">Close</button>
-												<button type="button" class="btn btn-danger" id="btnUpdate"  value="">Update</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--Model for break down information End-->
-							</div>
-						</div>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
 					</div><!-- /.page-content-area -->
 				</div><!-- /.page-content -->
 			</div><!-- /.main-content -->
@@ -555,115 +607,126 @@
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<!--<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>-->
+		<script src="../assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
-		<script src="../js/jquery-2.1.1.js"></script>
-		<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="../js/jsTool.js" type="text/javascript"></script>
-		<script src="../js/jquery.blockUI.js" type="text/javascript"></script>
-		<script src="../js/datatable/jquery.dataTables.js" type="text/javascript"></script>
-		<script src="../js/datatable/dataTables.bootstrap.js" type="text/javascript"></script>
+		<script src="../js/jquery.validate.js" type="text/javascript"></script>
+
+
 		<!-- ace scripts -->
 		<script src="../assets/js/ace-elements.min.js"></script>
 		<script src="../assets/js/ace.min.js"></script>
 
 		<!-- inline scripts related to this page -->
-		<script language="javascript">
-			$(document).ready(function() {
-				initDomainUserList();
-			});
-
-			//点击更新按钮，更改用户权限admin/user/other/
-			//数据库表UserPermission;修改成admin|other则增加一条记录；修改成user则删除该条记录
-			$("#btnUpdate").click(function (e){
-				var vals = $("#formUserPermission").serialize();
-				var userRoleOriginal = $("#userRoleOriginal").val();
-				var userRoleChanged = $("#userPermission").find("option:selected").val();
-				var userRoleDescript = $("#userPermission").find("option:selected").text();
-				console.info("update permission method val: " + vals);
-				console.info("user role comparation userRoleOriginal:" + userRoleOriginal +
-						" userRoleChanged:" + userRoleChanged + " userRoleDescript:" + userRoleDescript);
-				vals = vals + "&userDescript=" +userRoleDescript;
-				if(userRoleOriginal == userRoleChanged){
-					//如果用户前后的权限值没有变化，则点击update后不执行任何操作
-					$("#updatePermission").modal('hide');
-				}else{
-					this.disabled = 'disabled';
-					//执行更新权限操作
-					$.ajax({
-						"url" : "/momo/queryDomainUser?method=update",
-						type:'post',
-						dataType: "text",
-						contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-						data: vals,
-						complete : function(xhr, textStatus){
-							console.info("btn update ajax complete,textStatus:" + textStatus + " data:" + this.data);
+		<script type="text/javascript">
+			$(function(){
+				var validator = $('#validation-form').validate({
+					errorElement: 'div',
+					errorClass: 'help-block',
+					focusInvalid: false,
+					rules: {
+						email: {
+							required: true,
+							email:true
 						},
-						error : function (xhr, textStatus){
-							console.info("btn update ajax error,textStatus:" + textStatus);
+						password: {
+							required: true,
+							minlength: 5
 						},
-						success: function(data){
-							if(data == "success"){
-								$("#updatePermission").modal('hide');
-								$('#btnUpdate').removeAttr("disabled");
-//								initDomainUserList();
-								console.info("successfully update user role permission");
-								//重新刷新datatable
-								$('#userList').DataTable().ajax.reload();
-							}
+						password2: {
+							required: true,
+							minlength: 5,
+							equalTo: "#password"
+						},
+						name: {
+							required: true
+						},
+						phone: {
+							required: true,
+							phone: 'required'
+						},
+						url: {
+							required: true,
+							url: true
+						},
+						comment: {
+							required: true
+						},
+						state: {
+							required: true
+						},
+						platform: {
+							required: true
+						},
+						subscription: {
+							required: true
+						},
+						gender: {
+							required: true
+						},
+						agree: {
+							required: true
 						}
-					});
-
-				}
-			});
-
-			function initDomainUserList(){
-				var table = $('#userList').DataTable({
-					"bProcessing": true,
-					"ajax": {
-						"url" : "/momo/queryDomainUser?method=query",
-						"dataSrc" : "items"
 					},
-					stateSave: true,
-					//根据第四列用户的权限进行默认排序
-					aaSorting : [[4, 'desc']],
-					"columns": [
-						{ "data": "sAMAccountName" },
-						{ "data": "mail" },
-//						{ "data": "whenCreated" },
-						{ "data": "department" },
-						{
-							"data": "userDescript",
+
+					messages: {
+						email: {
+							required: "Please provide a valid email.",
+							email: "Please provide a valid email."
 						},
-						{
-							"targets": -1,
-							"data": null,
-							"defaultContent": "<button class='btn btn-xs btn-info' title='updatePermission'><i class='ace-icon fa fa-pencil bigger-120'></i></button>"
+						password: {
+							required: "Please specify a password.",
+							minlength: "Please specify a secure password."
+						},
+						state: "Please choose state",
+						subscription: "Please choose at least one option",
+						gender: "Please choose gender",
+						agree: "Please accept our policy"
+					},
+
+
+					highlight: function (e) {
+						$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+					},
+
+					success: function (e) {
+						$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+						$(e).remove();
+					},
+
+					errorPlacement: function (error, element) {
+						if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+							var controls = element.closest('div[class*="col-"]');
+							if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+							else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
 						}
-					],
-					"drawCallback": function( settings ) {
-						$("button[title='updatePermission']").on('click', function(){
-							var data = table.row( $(this).parents('tr') ).data();
-//							alert(data["sAMAccountName"] + data);
-							console.info("dataDetail sAMAccountName:" + data["sAMAccountName"] + " Mail:" + data["mail"] + " " +
-									" Department:" + data["department"] + " Role:" + data["userRole"] + " " +
-									" Descript:" + data["userDescript"] + " distinguishedName:" + data["distinguishedName"]);
-							$("#userName").val(data["sAMAccountName"]);
-							$("#userMail").val(data["mail"]);
-							$("#distinguishedName").val(data["distinguishedName"]);
-							//获取初始状态下userRole的值，为了和改变后的值进行比较，如果没有变化则不执行update操作。
-							$("#userRoleOriginal").val(data["userRole"]);
-							$("#userDepartment").val(data["department"]);
-							$("#userPermission option[value=" +data["userRole"] + "]").prop("selected",true);
-							$("#updatePermission").modal('show');
+						else if(element.is('.select2')) {
+							error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+						}
+						else if(element.is('.chosen-select')) {
+							error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+						}
+						else error.insertAfter(element.parent());
+					},
 
-						} );
+					submitHandler: function (form) {
+					},
+					invalidHandler: function (form) {
 					}
-				})
+				});
 
-			}
+				$("#btnSumbit").click(function (e){
+//					var flag = validator.validate();
+					console.info("submit validate flag:" + flag);
+				});
+
+				$("#btnUpdate").click(function (e){
+					validator.resetForm();
+				});
+
+			})
 		</script>
+
 
 	</body>
 </html>
