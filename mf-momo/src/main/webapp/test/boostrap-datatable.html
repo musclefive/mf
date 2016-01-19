@@ -56,7 +56,7 @@
                         "bSortable": false,
                         "targets": -1,
                         "data": null,
-                        "defaultContent": "<button class='btn btn-xs btn-info' title='updatePermission'><i class='ace-icon fa fa-pencil bigger-120'></i></button>"
+                        "defaultContent": "<button class='btn btn-xs btn-info btn-edit' title='updatePermission'>编辑</button>"
                     }
                 ],
                 "fnCreatedRow": function( nRow, aData, iDataIndex ) {
@@ -72,8 +72,8 @@
 
             $("#btnTest").click(function (e){
                 var alldata=$('#userList').dataTable().fnGetData();
-                console.info(alldata);
-                console.info($("tr"));
+//                console.info(alldata);
+//                console.info($("tr"));
             });
 
             $(document).on('click', 'th input:checkbox' , function(){
@@ -83,6 +83,38 @@
                             this.checked = that.checked;
                             $(this).closest('tr').toggleClass('selected');
                         });
+            });
+
+            $("#userList tbody").on("click",'.btn-edit',function(){
+//                var row=table.row($(this).parents("tr"));
+//                var tds=$(this).parents("tr").children();
+//                var data=row.data();
+                var data = table.row( $(this).parents('tr') ).data();
+                console.info(data["userDescript"]+ " " );
+//                $.each(tds, function(i,val){
+//                    var jqob=$(val);
+//                    //把input变为字符串
+//                    if(!jqob.has('button').length){
+//                        var txt=jqob.children("input").val();
+//                        jqob.html(txt);
+//                        table.cell(jqob).data(txt);//修改DataTables对象的数据
+//                    }
+//                });
+//                var data=row.data();
+//                $.ajax({
+//                    "url":"/example/resources/user_share/inline_edit_no_plugin/edit.php",
+//                    "data":data,
+//                    "type":"post",
+//                    "error":function(){
+//                        alert("服务器未正常响应，请重试");
+//                    },
+//                    "success":function(response){
+//                        alert(response);
+//                    }
+//                });
+//                $(this).html("编辑");
+//                $(this).toggleClass("edit-btn");
+//                $(this).toggleClass("save-btn");
             });
 
         });
