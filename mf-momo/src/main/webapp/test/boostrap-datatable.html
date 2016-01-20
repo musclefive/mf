@@ -19,7 +19,11 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/datatable/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/datatable/buttons.bootstrap.css">
-
+    <style type="text/css">
+        .blur {
+            border: 1px solid red;
+        }
+    </style>
     <script language="javascript">
         var table;
         $(document).ready(function() {
@@ -85,12 +89,52 @@
                         });
             });
 
-            $("#userList tbody").on("click",'.btn-edit',function(){
+            $("#btnTest").on("click",function(){
 //                var row=table.row($(this).parents("tr"));
 //                var tds=$(this).parents("tr").children();
 //                var data=row.data();
-                var data = table.row( $(this).parents('tr') ).data();
-                console.info(data["userDescript"]+ " " );
+//                var data = table.row( $(this).parents('tr') ).data();
+                $('#userList').find('tr > td:first-child input:checkbox').each(function(){
+                    if(this.checked == true){
+                        //构建jquery datatable row 数据
+                        var tr = $(this).closest("tr");
+                        //包含input的cell
+                        var cell = tr.find("input:last").closest("td");
+                        //新录入的input text
+                        var inputVal = tr.find("input:last").val();
+                        //将新录入的文字转换到jquery datatable
+//                        cell.html(inputVal);
+//                        table.cell(cell).data(inputVal);
+
+                        //获取改行的数据
+                        var data = table.row(tr).data();
+                        console.info(data["userDescript"]+ " inputVal:" + inputVal);
+
+                        var jsonData = "DT_RowId="+data["DT_RowId"] + "&userDescript="+inputVal;
+
+                        $.ajax({
+                            "url":"/momo/shiftManage",
+                            "data":jsonData,
+                            "type":"post",
+                            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                            error : function (xhr, textStatus){
+                                console.info("ajax error,textStatus:" + textStatus);
+                            },
+                            "success":function(data){
+                                console.info("success" + data);
+                                tr.find("input:last").addClass("blur");
+                            }
+                        });
+
+                    }else{
+                        console.info("no checked");
+                    }
+                });
+
+
+//                var data = table.row( $(this)).data();
+//
+//                console.info(data["userDescript"]+ " " );
 //                $.each(tds, function(i,val){
 //                    var jqob=$(val);
 //                    //把input变为字符串

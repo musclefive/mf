@@ -234,7 +234,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="">
+					<li class="active open">
 						<a href="shiftManage.html" >
 							<i class="menu-icon fa fa-tag"></i>
 
@@ -245,7 +245,7 @@
 						</a>
 					</li>
 
-					<li class="active">
+					<li class="">
 						<a href="userList.html" class="">
 							<i class="menu-icon ace-icon fa fa-user"></i>
 							<span class="menu-text"> 用户权限维护 </span>
@@ -254,17 +254,6 @@
 
 						<b class="arrow"></b>
 
-					</li>
-
-					<li class="">
-						<a href="blank.html" >
-							<i class="menu-icon fa fa-file-o"></i>
-
-							<span class="menu-text">
-								Other Pages
-							</span>
-
-						</a>
 					</li>
 				</ul><!-- /.nav-list -->
 
@@ -293,7 +282,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">用户权限维护</li>
+						<li class="active">班次信息维护</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- #section:basics/content.searchbox -->
@@ -405,112 +394,18 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<div class="tabbable">
-									<ul class="nav nav-tabs" id="myTab">
-										<li class="active">
-											<a data-toggle="tab" href="#user">
-												<i class="green ace-icon fa fa-home bigger-120"></i>
-												用户权限列表
-											</a>
-										</li>
-
-										<li class="">
-											<a data-toggle="tab" href="#group">
-												组权限列表
-											</a>
-										</li>
-
-									</ul>
-
-									<div class="tab-content">
-										<div id="user" class="tab-pane fade active in">
-											<table class="table table-striped table-bordered" id="userList" width="100%" cellspacing="0">
-												<thead>
-												<tr>
-													<!--<th>序号</th>-->
-													<!--<th>distinguishedName</th>-->
-													<th>sAMAccountName</th>
-													<th>mail</th>
-													<!--<th>title</th>-->
-													<!--<th>telephoneNumber</th>-->
-													<!--<th>whenCreated</th>-->
-													<!--<th>physicalDeliveryOfficeName</th>-->
-													<!--<th>name</th>-->
-													<!--<th>mailNickname</th>-->
-													<th>department</th>
-													<th>Role</th>
-
-													<th>操作</th>
-												</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
-										</div>
-										<div id="group" class="tab-pane fade">
-										</div>
-									</div>
-								</div>
+								<table class="table table-striped table-bordered" id="shiftType" width="100%" cellspacing="0">
+								<!--<table class="stripe" id="shiftType" width="100%" cellspacing="0">-->
+									<thead>
+									<tr>
+									</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
 								<!-- PAGE CONTENT ENDS -->
-								<!--Model for break down information Start-->
-								<div class="modal fade" id="updatePermission" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-												<h4 class="modal-title" id="myModalLabel">
-													<label id="breakDayInfo"></label> 修改权限
-												</h4>
-											</div>
-											<div class="modal-body">
-												<form action="" class="form-horizontal" id="formUserPermission" method="post"  role="form">
-													<fieldset>
-														<div class="form-group">
-															<label for="userName" class="col-md-3 control-label">姓名</label>
-															<div class="col-md-6">
-																<input class="form-control" id="userName" name="userName" type="text" value="" readonly/>
-																<input type="hidden" id="distinguishedName" name="distinguishedName" value=""/>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userMail" class="col-md-3 control-label">邮箱</label>
-															<div class="col-md-9">
-																<div class="input-group col-md-6" >
-																	<input class="form-control" id="userMail" name="userMail" type="text" value="" readonly/>
-																</div>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userDepartment" class="col-md-3 control-label">部门</label>
-															<div class="col-md-6">
-																<input class="form-control" id="userDepartment" name="userDepartment" type="text" disabled/>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userPermission" class="col-md-3 control-label">权限</label>
-															<div class="col-md-6">
-																<select id="userPermission" name="userPermission" class="form-control">
-																	<option value="0">User</option>
-																	<option value="1">Admin</option>
-																	<option value="2">Operator</option>
-																</select>
-																<input type="hidden" id="userRoleOriginal" name="userRoleOriginal" value=""/>
-
-															</div>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn " data-dismiss="modal" id="btnClose">Close</button>
-												<button type="button" class="btn btn-danger" id="btnUpdate"  value="">Update</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--Model for break down information End-->
-							</div>
-						</div>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
 					</div><!-- /.page-content-area -->
 				</div><!-- /.page-content -->
 			</div><!-- /.main-content -->
@@ -586,94 +481,95 @@
 
 			//点击更新按钮，更改用户权限admin/user/other/
 			//数据库表UserPermission;修改成admin|other则增加一条记录；修改成user则删除该条记录
-			$("#btnUpdate").click(function (e){
-				var vals = $("#formUserPermission").serialize();
-				var userRoleOriginal = $("#userRoleOriginal").val();
-				var userRoleChanged = $("#userPermission").find("option:selected").val();
-				var userRoleDescript = $("#userPermission").find("option:selected").text();
-				console.info("update permission method val: " + vals);
-				console.info("user role comparation userRoleOriginal:" + userRoleOriginal +
-						" userRoleChanged:" + userRoleChanged + " userRoleDescript:" + userRoleDescript);
-				vals = vals + "&userDescript=" +userRoleDescript;
-				if(userRoleOriginal == userRoleChanged){
-					//如果用户前后的权限值没有变化，则点击update后不执行任何操作
-					$("#updatePermission").modal('hide');
-				}else{
-					this.disabled = 'disabled';
-					//执行更新权限操作
-					$.ajax({
-						"url" : "/momo/queryDomainUser?method=update",
-						type:'post',
-						dataType: "text",
-						contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-						data: vals,
-						complete : function(xhr, textStatus){
-							console.info("btn update ajax complete,textStatus:" + textStatus + " data:" + this.data);
-						},
-						error : function (xhr, textStatus){
-							console.info("btn update ajax error,textStatus:" + textStatus);
-						},
-						success: function(data){
-							if(data == "success"){
-								$("#updatePermission").modal('hide');
-								$('#btnUpdate').removeAttr("disabled");
-//								initDomainUserList();
-								console.info("successfully update user role permission");
-								//重新刷新datatable
-								$('#userList').DataTable().ajax.reload();
-							}
-						}
-					});
-
-				}
-			});
 
 			function initDomainUserList(){
-				var table = $('#userList').DataTable({
-					"bProcessing": true,
+				console.info("CCCCC");
+				var table = $('#shiftType').DataTable({
 					"ajax": {
-						"url" : "/momo/queryDomainUser?method=query",
+						"url" : "/momo/shiftManage",
 						"dataSrc" : "items"
 					},
-					stateSave: true,
+//					"bFilter" : false, //是否启动过滤、搜索功能
+//					"bPaginate" : false, //是否显示（应用）分页器
+//					"bInfo" : false, //是否显示页脚信息，DataTables插件左下角显示记录数
 					//根据第四列用户的权限进行默认排序
-					aaSorting : [[4, 'desc']],
+//					"bSortClasses": true,
+					"bSort" : false, //是否启动各个字段的排序功能
+					aaSorting : [[0, 'asc']],
 					"columns": [
-						{ "data": "sAMAccountName" },
-						{ "data": "mail" },
-//						{ "data": "whenCreated" },
-						{ "data": "department" },
 						{
-							"data": "userDescript",
+							"data": "row_id",
+							"sTitle" : "ID",
+							"bVisible" : false
+						},
+						{
+							"data": "Shift_type",
+							"sTitle" : "班次类型"
+						},
+						{
+							"data": "Shift",
+							"sTitle" : "班次"
+						},
+						{
+							"data": "Shift_start_time",
+							"sTitle" : "开始时间"
+						},
+						{
+							"data": "Shift_end_time",
+							"sTitle" : "结束时间"
+						},
+						{
+							"data": "Lunch_start_time",
+							"sTitle" : "吃饭时间"
+
+						},
+						{
+							"data": "Lunch_end_time",
+							"sTitle" : "吃饭结束时间"
+						},
+						{
+							"data": "Break_start_time",
+							"sTitle" : "停台开始时间"
+
+						},
+						{
+							"data": "Break_end_time",
+							"sTitle" : "停台结束时间"
+						},
+						{
+							"data": "Work_second",
+							"sTitle" : "节拍"
 						},
 						{
 							"targets": -1,
+							"sTitle" : "操作",
 							"data": null,
 							"defaultContent": "<button class='btn btn-xs btn-info' title='updatePermission'><i class='ace-icon fa fa-pencil bigger-120'></i></button>"
 						}
-					],
-					"drawCallback": function( settings ) {
-						$("button[title='updatePermission']").on('click', function(){
-							var data = table.row( $(this).parents('tr') ).data();
-//							alert(data["sAMAccountName"] + data);
-							console.info("dataDetail sAMAccountName:" + data["sAMAccountName"] + " Mail:" + data["mail"] + " " +
-									" Department:" + data["department"] + " Role:" + data["userRole"] + " " +
-									" Descript:" + data["userDescript"] + " distinguishedName:" + data["distinguishedName"]);
-							$("#userName").val(data["sAMAccountName"]);
-							$("#userMail").val(data["mail"]);
-							$("#distinguishedName").val(data["distinguishedName"]);
-							//获取初始状态下userRole的值，为了和改变后的值进行比较，如果没有变化则不执行update操作。
-							$("#userRoleOriginal").val(data["userRole"]);
-							$("#userDepartment").val(data["department"]);
-							$("#userPermission option[value=" +data["userRole"] + "]").prop("selected",true);
-							$("#updatePermission").modal('show');
-
-						} );
-					}
+					]
+//					"drawCallback": function( settings ) {
+//						$("button[title='updatePermission']").on('click', function(){
+//							var data = table.row( $(this).parents('tr') ).data();
+////							alert(data["sAMAccountName"] + data);
+//							console.info("dataDetail sAMAccountName:" + data["sAMAccountName"] + " Mail:" + data["mail"] + " " +
+//									" Department:" + data["department"] + " Role:" + data["userRole"] + " " +
+//									" Descript:" + data["userDescript"] + " distinguishedName:" + data["distinguishedName"]);
+//							$("#userName").val(data["sAMAccountName"]);
+//							$("#userMail").val(data["mail"]);
+//							$("#distinguishedName").val(data["distinguishedName"]);
+//							//获取初始状态下userRole的值，为了和改变后的值进行比较，如果没有变化则不执行update操作。
+//							$("#userRoleOriginal").val(data["userRole"]);
+//							$("#userDepartment").val(data["department"]);
+//							$("#userPermission option[value=" +data["userRole"] + "]").prop("selected",true);
+//							$("#updatePermission").modal('show');
+//
+//						} );
+//					}
 				})
 
 			}
 		</script>
+
 
 	</body>
 </html>

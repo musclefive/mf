@@ -20,7 +20,7 @@
 <database>
     <connections>
         <connection name="chart"
-                    url="jdbc:sqlserver://10.120.78.71:1433;DatabaseName=chart"
+                    url="jdbc:sqlserver://10.120.78.71:1433;DatabaseName=chart;useunicode=true;characterEncoding=UTF-8"
                     user="root"
                     pwd="root"
                     role="master"/>
@@ -37,6 +37,7 @@
         <table name="breakdown" con_refs="chart"></table>
         <table name="DomainUser" con_refs="chart"></table>
         <table name="UserPermission" con_refs="chart"></table>
+        <table name="ShiftType" con_refs="chart"></table>
 
 
     </tables>

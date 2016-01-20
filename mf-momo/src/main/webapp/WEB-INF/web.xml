@@ -63,6 +63,10 @@
         <servlet-name>BreakdownAdd</servlet-name>
         <servlet-class>com.momo.servlet.chart.BreakdownAdd</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShiftManage</servlet-name>
+        <servlet-class>com.momo.servlet.planout.ShiftManage</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -92,6 +96,10 @@
     <servlet-mapping>
         <servlet-name>BreakdownAdd</servlet-name>
         <url-pattern>/addBreakdown</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShiftManage</servlet-name>
+        <url-pattern>/shiftManage</url-pattern>
     </servlet-mapping>
 
     <jsp-config>

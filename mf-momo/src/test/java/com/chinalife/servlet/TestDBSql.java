@@ -12,6 +12,8 @@ import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -34,8 +36,8 @@ public class TestDBSql {
 //        testJsonLivePart();
 //        testHighStock();
 //        testUserPermission();
-        testPermission();
-
+//        testPermission();
+        testShiftManage();
        /* String JDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver";//SQL数据库引擎
         String connectDB="jdbc:sqlserver://10.120.78.100:54914;DatabaseName=chart";//数据源
 
@@ -543,6 +545,63 @@ public class TestDBSql {
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(System.out, domainUserList);
+        } catch (Exception e) {
+            logger.error("Failed to query all Domain Users.", e);
+        }
+    }
+
+    public static void testShiftManage() {
+        PropertyConfigurator.configure(log4jFileUbuntu);
+
+        File confFile = new File(dbFileUbuntu);
+        Validate.isTrue(confFile.exists());
+
+        Properties properties = new Properties();
+        properties.put("max.total", 500);
+        try {
+            DBAccesser.createInstance(new FileInputStream(confFile), properties);
+            List<ShiftType> shiftTypeList = DAOFacade.getDAO(ShiftManageDAO.class).queryShiftTypeList(new Converter<ShiftType>() {
+                @Override
+                public ShiftType convert(ResultSet resultSet) throws SQLException {
+                    ShiftType shiftType = new ShiftType();
+                    shiftType.setRow_id(resultSet.getLong("Row_id"));
+                    shiftType.setShift_type_id(resultSet.getString("Shift_type_id"));
+                    shiftType.setShift_type(resultSet.getString("Shift_type"));
+                    shiftType.setShift_id(resultSet.getString("Shift_id"));
+                    shiftType.setShift(resultSet.getString("Shift"));
+
+//                    try {
+//                        shiftType.setShift(new String(resultSet.getString("Shift").getBytes(),"UTF-8"));
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
+                    shiftType.setShift(resultSet.getString("Shift"));
+                    shiftType.setShift_start_time(resultSet.getTime("Shift_start_time"));
+                    shiftType.setShift_start_time(resultSet.getTime("Shift_start_time"));
+                    shiftType.setShift_end_time(resultSet.getTime("Shift_end_time"));
+                    shiftType.setLunch_start_time(resultSet.getTime("Lunch_start_time"));
+                    shiftType.setLunch_end_time(resultSet.getTime("Lunch_end_time"));
+                    if(resultSet.getTime("Break_start_time") != null){
+                        shiftType.setBreak_start_time(resultSet.getTime("Break_start_time"));
+                    }
+                    if(resultSet.getTime("Break_end_time") != null){
+                        shiftType.setBreak_end_time(resultSet.getTime("Break_end_time"));
+
+                    }
+                    shiftType.setEarliest_time(resultSet.getTime("Earliest_time"));
+                    shiftType.setLatest_time(resultSet.getTime("Latest_time"));
+                    shiftType.setWork_second(resultSet.getString("Work_second"));
+
+                    return shiftType;
+                }
+            });
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(System.out, shiftTypeList);
+
+
+        }catch (IOException e) {
+            logger.error("Failed to query all Domain Users.", e);
         } catch (Exception e) {
             logger.error("Failed to query all Domain Users.", e);
         }
