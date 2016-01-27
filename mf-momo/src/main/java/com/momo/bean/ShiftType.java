@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -58,6 +59,9 @@ public class ShiftType {
 
     @JsonProperty(value = "Work_second")
     private String Work_second;
+
+    @JsonProperty(value = "Work_time")
+    private String work_time;
 
     public Long getRow_id() {
         return Row_id;
@@ -177,5 +181,13 @@ public class ShiftType {
 
     public void setWork_second(String work_second) {
         Work_second = work_second;
+    }
+
+    public String getWork_time() {
+        return work_time;
+    }
+
+    public void setWork_time(String work_time) {
+        this.work_time = work_time;
     }
 }

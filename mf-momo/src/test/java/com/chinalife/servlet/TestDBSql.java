@@ -1,5 +1,6 @@
 package com.chinalife.servlet;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.momo.bean.*;
 import com.momo.dao.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,7 +39,10 @@ public class TestDBSql {
 //        testHighStock();
 //        testUserPermission();
 //        testPermission();
-        testShiftManage();
+//        testShiftManage();
+        testShiftManageWithWorkTime();
+//        testQueryPlanning();
+//        testPlanningAutoInsert();
        /* String JDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver";//SQL数据库引擎
         String connectDB="jdbc:sqlserver://10.120.78.100:54914;DatabaseName=chart";//数据源
 
@@ -542,12 +547,51 @@ public class TestDBSql {
                     return domainUser;
                 }
             });
-
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+
             objectMapper.writeValue(System.out, domainUserList);
         } catch (Exception e) {
             logger.error("Failed to query all Domain Users.", e);
         }
+    }
+
+    /*
+    * 测试SQL 语句为：
+    * select Shift_type_id, Shift_type, sum(cast(Work_second as bigint)) as work_time from ShiftType group by Shift_type_id, Shift_type
+    * order by Shift_type_id
+    * */
+    public static void testShiftManageWithWorkTime(){
+        PropertyConfigurator.configure(log4jFileUbuntu);
+
+        File confFile = new File(dbFileUbuntu);
+        Validate.isTrue(confFile.exists());
+
+        Properties properties = new Properties();
+        properties.put("max.total", 500);
+        try {
+            DBAccesser.createInstance(new FileInputStream(confFile), properties);
+            List<ShiftType> shiftTypeListWithWorkTime = DAOFacade.getDAO(ShiftManageDAO.class).queryShiftWithWorkTime(new Converter<ShiftType>() {
+                @Override
+                public ShiftType convert(ResultSet resultSet) throws SQLException {
+                    ShiftType shiftType = new ShiftType();
+                    shiftType.setShift_type_id(resultSet.getString("Shift_type_id").trim());
+                    shiftType.setShift_type(resultSet.getString("Shift_type").trim());
+                    shiftType.setWork_time(resultSet.getString("work_time").trim());
+                    return shiftType;
+                }
+            });
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(System.out, shiftTypeListWithWorkTime);
+
+
+        }catch (IOException e) {
+            logger.error("Failed to query all Domain Users.", e);
+        } catch (Exception e) {
+            logger.error("Failed to query all Domain Users.", e);
+        }
+
     }
 
     public static void testShiftManage() {
@@ -558,6 +602,12 @@ public class TestDBSql {
 
         Properties properties = new Properties();
         properties.put("max.total", 500);
+
+
+//        String cc = "10:00:00";
+//        Time time= Time.valueOf(cc);
+//        System.out.println("Time:" + time.toString());
+
         try {
             DBAccesser.createInstance(new FileInputStream(confFile), properties);
             List<ShiftType> shiftTypeList = DAOFacade.getDAO(ShiftManageDAO.class).queryShiftTypeList(new Converter<ShiftType>() {
@@ -581,10 +631,10 @@ public class TestDBSql {
                     shiftType.setShift_end_time(resultSet.getTime("Shift_end_time"));
                     shiftType.setLunch_start_time(resultSet.getTime("Lunch_start_time"));
                     shiftType.setLunch_end_time(resultSet.getTime("Lunch_end_time"));
-                    if(resultSet.getTime("Break_start_time") != null){
+                    if (resultSet.getTime("Break_start_time") != null) {
                         shiftType.setBreak_start_time(resultSet.getTime("Break_start_time"));
                     }
-                    if(resultSet.getTime("Break_end_time") != null){
+                    if (resultSet.getTime("Break_end_time") != null) {
                         shiftType.setBreak_end_time(resultSet.getTime("Break_end_time"));
 
                     }
@@ -605,5 +655,125 @@ public class TestDBSql {
         } catch (Exception e) {
             logger.error("Failed to query all Domain Users.", e);
         }
+    }
+
+
+    public static void testQueryPlanning() {
+        PropertyConfigurator.configure(log4jFileUbuntu);
+
+        File confFile = new File(dbFileUbuntu);
+        Validate.isTrue(confFile.exists());
+
+        Properties properties = new Properties();
+        properties.put("max.total", 500);
+        String today;
+
+        Calendar rightNow = Calendar.getInstance();
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+
+        today =  sim.format(rightNow.getTime());
+        String lastPlannedDay;
+        int twoWeekDays = 10;
+        int count = 0;
+        try {
+            DBAccesser.createInstance(new FileInputStream(confFile), properties);
+            List<Planning> planningList = DAOFacade.getDAO(PlanningManage.class).queryPlanningListAfterToday(today, new Converter<Planning>() {
+                @Override
+                public Planning convert(ResultSet resultSet) throws SQLException {
+                    Planning planning = new Planning();
+                    planning.setP_Row_id(resultSet.getLong("P_Row_id"));
+                    planning.setPlanning_date(resultSet.getDate("Planning_date"));
+                    planning.setPlanning_qty(resultSet.getInt("Planning_qty"));
+                    planning.setCycle_time(resultSet.getFloat("Cycle_time"));
+                    if (resultSet.getString("P_Shift_type_id") != null) {
+                        planning.setP_Shift_type_id(resultSet.getString("P_Shift_type_id").trim());
+                    } else {
+                        planning.setP_Shift_type_id("0");
+                    }
+                    if (resultSet.getString("P_Shift_type") != null) {
+                        planning.setP_Shift_type(resultSet.getString("P_Shift_type").trim());
+                    } else {
+                        planning.setP_Shift_type(" ");
+                    }
+                    if (resultSet.getString("cw") != null) {
+                        planning.setCw(resultSet.getString("cw").trim());
+                    } else {
+                        planning.setCw(" ");
+
+                    }
+                    return planning;
+                }
+            });
+            count = planningList.size();
+            /*
+            *如果当天日期01-22 count=3 则数据库中已存在的日期01-22 01-23 01-24 3条数据 则设置righNow时间为
+            * 01-24
+            */
+            rightNow.add(Calendar.DAY_OF_MONTH, count - 1);
+            System.out.println("count:" + count + " day:" + sim.format(rightNow.getTime()));
+
+            //自动补充数据库记录中没有的数据
+            for(int k = 0; k <= twoWeekDays - count; k++){
+                Long recordId;
+                rightNow.add(Calendar.DAY_OF_MONTH, k);
+                String plannedDate = sim.format(rightNow.getTime());
+                System.out.println("insert days:" + plannedDate);
+                recordId = DAOFacade.getDAO(PlanningManage.class).insertPlanning(plannedDate);
+                if(recordId == 0){
+                    //插入失败
+//                    throw new Exception("Failed to insert to the Planning Table plannedDate:" + plannedDate);
+                    break;
+                } else {
+                    System.out.println("Inserted RecordID:" + recordId);
+//                    break;
+                    Planning planning = new Planning();
+
+                    planning.setP_Row_id(recordId);
+                    planning.setPlanning_date(java.sql.Date.valueOf(plannedDate));
+                    planning.setPlanning_qty(0);
+                    planning.setCycle_time(Float.valueOf("0"));
+                    planning.setP_Shift_type_id("0");
+                    planning.setP_Shift_type(" ");
+                    planning.setCw(" ");
+
+                    planningList.add(planning);
+                }
+            }
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+
+            objectMapper.writeValue(System.out, planningList);
+
+
+        }catch (IOException e) {
+            logger.error("Failed to query all Domain Users.", e);
+        } catch (Exception e) {
+            logger.error("Failed to query all Domain Users.", e);
+        }
+    }
+
+    public static void testPlanningAutoInsert() {
+        SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-dd");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        String cc = df.format(new Date());
+        System.out.println(cc);// new Date()
+
+        Calendar rightNow = Calendar.getInstance();
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+
+        System.out.println("Today" + sim.format(rightNow.getTime()));
+
+        //得到当前时间，+3天
+//        rightNow.add(Calendar.DAY_OF_MONTH, 3);
+
+//        System.out.println("After" + sim.format(rightNow.getTime()));
+
+        //如果是后退几天，就写 -天数 例如：
+        rightNow.add(Calendar.DAY_OF_MONTH, 10);
+
+        System.out.println("Before" + sim.format(rightNow.getTime()));
+
     }
 }

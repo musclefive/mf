@@ -38,8 +38,7 @@
         <table name="DomainUser" con_refs="chart"></table>
         <table name="UserPermission" con_refs="chart"></table>
         <table name="ShiftType" con_refs="chart"></table>
-
-
+        <table name="Planning" con_refs="chart"></table>
     </tables>
 </database>
 

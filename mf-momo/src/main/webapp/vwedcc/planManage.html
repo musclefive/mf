@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="../css/bootstrap-datetimepicker.css" />
 		<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/datatable/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="../css/datatable/buttons.bootstrap.css">
@@ -34,7 +35,11 @@
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
-
+		<style type="text/css">
+			.blur {
+				border: 1px solid #7dff21;
+			}
+		</style>
 		<!-- ace settings handler -->
 		<script src="../assets/js/ace-extra.min.js"></script>
 
@@ -204,7 +209,7 @@
 
 					</li>
 
-					<li class="">
+					<li class="active">
 						<a href="planManage.html">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 生产计划维护 </span>
@@ -245,7 +250,7 @@
 						</a>
 					</li>
 
-					<li class="active">
+					<li class="">
 						<a href="userList.html" class="">
 							<i class="menu-icon ace-icon fa fa-user"></i>
 							<span class="menu-text"> 用户权限维护 </span>
@@ -293,7 +298,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">用户权限维护</li>
+						<li class="active">Blank Page</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- #section:basics/content.searchbox -->
@@ -405,18 +410,35 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
+								<!--弹出的信息框 错误与成功-->
+								<div class="alert alert-danger" id="errorDiv" style="display: none;" >
+									<button type="button" class="close" onclick="$('#errorDiv').hide()">
+										<i class="ace-icon fa fa-times"></i>
+									</button>
+
+									<strong>
+										<i class="ace-icon fa fa-times"></i>
+										出错了！
+									</strong>
+
+									请联系统管理员
+									<br />
+								</div>
+								<div class="alert alert-success" id="successDiv" style="display: none;" >
+									操作成功!
+								</div>
 								<div class="tabbable">
 									<ul class="nav nav-tabs" id="myTab">
 										<li class="active">
 											<a data-toggle="tab" href="#user">
 												<i class="green ace-icon fa fa-home bigger-120"></i>
-												用户权限列表
+												当前生产计划
 											</a>
 										</li>
 
 										<li class="">
 											<a data-toggle="tab" href="#group">
-												组权限列表
+												历史生产计划
 											</a>
 										</li>
 
@@ -424,93 +446,36 @@
 
 									<div class="tab-content">
 										<div id="user" class="tab-pane fade active in">
-											<table class="table table-striped table-bordered" id="userList" width="100%" cellspacing="0">
+											<table id="planning" class="table table-striped table-bordered" cellspacing="0" width="100%">
 												<thead>
 												<tr>
-													<!--<th>序号</th>-->
-													<!--<th>distinguishedName</th>-->
-													<th>sAMAccountName</th>
-													<th>mail</th>
-													<!--<th>title</th>-->
-													<!--<th>telephoneNumber</th>-->
-													<!--<th>whenCreated</th>-->
-													<!--<th>physicalDeliveryOfficeName</th>-->
-													<!--<th>name</th>-->
-													<!--<th>mailNickname</th>-->
-													<th>department</th>
-													<th>Role</th>
-
+													<th class="center">
+														<label class="position-relative">
+															<input type="checkbox" class="ace" />
+															<span class="lbl"></span>
+														</label>
+													</th>
+													<th>ID</th>
+													<th>生产周数</th>
+													<th>生产日期</th>
+													<th>计划产量</th>
+													<th>班次类型</th>
+													<th>节拍</th>
 													<th>操作</th>
 												</tr>
 												</thead>
-												<tbody>
-												</tbody>
 											</table>
 										</div>
 										<div id="group" class="tab-pane fade">
+											<table id="plannedTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+											</table>
 										</div>
 									</div>
 								</div>
-								<!-- PAGE CONTENT ENDS -->
-								<!--Model for break down information Start-->
-								<div class="modal fade" id="updatePermission" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-												<h4 class="modal-title" id="myModalLabel">
-													<label id="breakDayInfo"></label> 修改权限
-												</h4>
-											</div>
-											<div class="modal-body">
-												<form action="" class="form-horizontal" id="formUserPermission" method="post"  role="form">
-													<fieldset>
-														<div class="form-group">
-															<label for="userName" class="col-md-3 control-label">姓名</label>
-															<div class="col-md-6">
-																<input class="form-control" id="userName" name="userName" type="text" value="" readonly/>
-																<input type="hidden" id="distinguishedName" name="distinguishedName" value=""/>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userMail" class="col-md-3 control-label">邮箱</label>
-															<div class="col-md-9">
-																<div class="input-group col-md-6" >
-																	<input class="form-control" id="userMail" name="userMail" type="text" value="" readonly/>
-																</div>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userDepartment" class="col-md-3 control-label">部门</label>
-															<div class="col-md-6">
-																<input class="form-control" id="userDepartment" name="userDepartment" type="text" disabled/>
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="userPermission" class="col-md-3 control-label">权限</label>
-															<div class="col-md-6">
-																<select id="userPermission" name="userPermission" class="form-control">
-																	<option value="0">User</option>
-																	<option value="1">Admin</option>
-																	<option value="2">Operator</option>
-																</select>
-																<input type="hidden" id="userRoleOriginal" name="userRoleOriginal" value=""/>
 
-															</div>
-														</div>
-													</fieldset>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn " data-dismiss="modal" id="btnClose">Close</button>
-												<button type="button" class="btn btn-danger" id="btnUpdate"  value="">Update</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--Model for break down information End-->
-							</div>
-						</div>
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
 					</div><!-- /.page-content-area -->
 				</div><!-- /.page-content -->
 			</div><!-- /.main-content -->
@@ -572,6 +537,8 @@
 		<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="../js/jsTool.js" type="text/javascript"></script>
 		<script src="../js/jquery.blockUI.js" type="text/javascript"></script>
+		<script src="../assets/js/date-time/moment.js" type="text/javascript"></script>
+
 		<script src="../js/datatable/jquery.dataTables.js" type="text/javascript"></script>
 		<script src="../js/datatable/dataTables.bootstrap.js" type="text/javascript"></script>
 		<!-- ace scripts -->
@@ -580,98 +547,342 @@
 
 		<!-- inline scripts related to this page -->
 		<script language="javascript">
+			//保存数据库中所有shift type的类型
+			var shiftTypeList;
+			var validator;
+			var tablePlanning;
+			var tablePlanned;
+			var logFlag = false;
+			var today;
 			$(document).ready(function() {
-				initDomainUserList();
-			});
+				today = moment().format("YYYY-MM-DD");
+				initShiftTypeSelectedList();
 
-			//点击更新按钮，更改用户权限admin/user/other/
-			//数据库表UserPermission;修改成admin|other则增加一条记录；修改成user则删除该条记录
-			$("#btnUpdate").click(function (e){
-				var vals = $("#formUserPermission").serialize();
-				var userRoleOriginal = $("#userRoleOriginal").val();
-				var userRoleChanged = $("#userPermission").find("option:selected").val();
-				var userRoleDescript = $("#userPermission").find("option:selected").text();
-				console.info("update permission method val: " + vals);
-				console.info("user role comparation userRoleOriginal:" + userRoleOriginal +
-						" userRoleChanged:" + userRoleChanged + " userRoleDescript:" + userRoleDescript);
-				vals = vals + "&userDescript=" +userRoleDescript;
-				if(userRoleOriginal == userRoleChanged){
-					//如果用户前后的权限值没有变化，则点击update后不执行任何操作
-					$("#updatePermission").modal('hide');
-				}else{
-					this.disabled = 'disabled';
-					//执行更新权限操作
-					$.ajax({
-						"url" : "/momo/queryDomainUser?method=update",
-						type:'post',
-						dataType: "text",
-						contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-						data: vals,
-						complete : function(xhr, textStatus){
-							console.info("btn update ajax complete,textStatus:" + textStatus + " data:" + this.data);
-						},
-						error : function (xhr, textStatus){
-							console.info("btn update ajax error,textStatus:" + textStatus);
-						},
-						success: function(data){
-							if(data == "success"){
-								$("#updatePermission").modal('hide');
-								$('#btnUpdate').removeAttr("disabled");
-//								initDomainUserList();
-								console.info("successfully update user role permission");
-								//重新刷新datatable
-								$('#userList').DataTable().ajax.reload();
-							}
+				initTableList();
+
+				//创建提交按钮，用来一次性提交多条生产计划数据
+				var textButton = "<button class='btn btn-lg btn-success'><i class='ace-icon fa fa-check'></i>提交</button>";
+				var $btnSubmit = $(textButton);
+				$btnSubmit.click(function (){
+					console.info("btn submit all the selected checkbox");
+					$('#planning').find('tr > td:first-child input:checkbox').each(function(){
+						if(this.checked == true){
+							//构建jquery datatable row 数据
+
+
+						}else{
+							console.info("no checked");
 						}
 					});
+				});
+				$("div.toolbar").append($btnSubmit);
 
-				}
+				/*
+				* 单选框按钮，点击标题的单选框，则选择所有单选框
+				* */
+				$(document).on('click', 'th input:checkbox' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+							.each(function(){
+								this.checked = that.checked;
+								$(this).closest('tr').toggleClass('selected');
+							});
+				});
+				//在页面内第一个点击Tab 页 进行数据查询，并显示数据
+				$('a[href="#group"]').on('shown.bs.tab', function (e) {
+					if(logFlag == false){
+						logFlag = true;
+						console.info("First Click " + e.target + " " + e.relatedTarget);
+
+						initPlannedTableList();
+
+					}else{
+						//不再进行数据查询操作
+						console.info("Not first Time " + e.target + " " + e.relatedTarget);
+
+					}
+
+				});
 			});
-
-			function initDomainUserList(){
-				var table = $('#userList').DataTable({
-					"bProcessing": true,
+			/*
+			* 初始化当天（不含当天）以前的历史计划产量，只用于显示，不进行修改，当点击tab 页时进行ajax查询
+			* */
+			function initPlannedTableList(){
+				tablePlanned = $("#plannedTable").DataTable({
 					"ajax": {
-						"url" : "/momo/queryDomainUser?method=query",
+						"url" : "/momo/planManage?method=query&today="+today+"&type=planned",
 						"dataSrc" : "items"
 					},
-					stateSave: true,
+//					"bFilter" : false, //是否启动过滤、搜索功能
+//					"bPaginate" : false, //是否显示（应用）分页器
+//					"bInfo" : false, //是否显示页脚信息，DataTables插件左下角显示记录数
 					//根据第四列用户的权限进行默认排序
-					aaSorting : [[4, 'desc']],
+//					"bSortClasses": true,
+					"bProcessing":true,
+					"bSort" : false, //是否启动各个字段的排序功能
+					aaSorting : [[0, 'asc']],
 					"columns": [
-						{ "data": "sAMAccountName" },
-						{ "data": "mail" },
-//						{ "data": "whenCreated" },
-						{ "data": "department" },
 						{
-							"data": "userDescript",
+							"data": "p_Row_id",
+							"sTitle" : "ID",
+							"bVisible" : false
 						},
 						{
-							"targets": -1,
-							"data": null,
-							"defaultContent": "<button class='btn btn-xs btn-info' title='updatePermission'><i class='ace-icon fa fa-pencil bigger-120'></i></button>"
+							"data": "planning_date",
+							"sTitle" : "生产周数",
+							"render": function(data, type, row) {
+								var day = moment(data);
+								return "KW" + day.format("WW");
+							}
+						},
+						{
+							"data": "planning_date",
+							"sTitle" : "生产日期",
+							"render": function(data, type, row) {
+								var day = moment(data);
+								return day.format("YYYY-MM-DD ddd");
+							}
+						},
+						{
+							"data": "planning_qty",
+							"sTitle" : "计划产量"
+						},
+						{
+							"data": "p_Shift_type",
+							"sTitle" : "班次类型"
+
+						},
+						{
+							"data": "cycle_time",
+							"sTitle" : "节拍"
 						}
 					],
 					"drawCallback": function( settings ) {
-						$("button[title='updatePermission']").on('click', function(){
-							var data = table.row( $(this).parents('tr') ).data();
-//							alert(data["sAMAccountName"] + data);
-							console.info("dataDetail sAMAccountName:" + data["sAMAccountName"] + " Mail:" + data["mail"] + " " +
-									" Department:" + data["department"] + " Role:" + data["userRole"] + " " +
-									" Descript:" + data["userDescript"] + " distinguishedName:" + data["distinguishedName"]);
-							$("#userName").val(data["sAMAccountName"]);
-							$("#userMail").val(data["mail"]);
-							$("#distinguishedName").val(data["distinguishedName"]);
-							//获取初始状态下userRole的值，为了和改变后的值进行比较，如果没有变化则不执行update操作。
-							$("#userRoleOriginal").val(data["userRole"]);
-							$("#userDepartment").val(data["department"]);
-							$("#userPermission option[value=" +data["userRole"] + "]").prop("selected",true);
-							$("#updatePermission").modal('show');
+					}
+				});
+			}
+			/*
+			* 初始化当天以及以后每天计划的产量
+			* */
+			function initTableList(){
+				tablePlanning = $("#planning").DataTable({
+					"dom": '<"toolbar">frtip',
+					"ajax": {
+						"url" : "/momo/planManage?method=query&today="+today+"&type=planning",
+						"dataSrc" : "items"
+					},
+					"bFilter" : false, //是否启动过滤、搜索功能
+//					"bPaginate" : false, //是否显示（应用）分页器
+//					"bInfo" : false, //是否显示页脚信息，DataTables插件左下角显示记录数
+					//根据第四列用户的权限进行默认排序
+//					"bSortClasses": true,
+					"bProcessing":true,
+					"bSort" : false, //是否启动各个字段的排序功能
+					aaSorting : [[0, 'asc']],
+					"columns": [
+						{
+							"bSortable": false,
+							"data": null,
+							"defaultContent": "<label class='position-relative'><input type='checkbox' class='ace' /> " +
+							"<span class='lbl'></span></label>",
+							"sClass": "center"
+						},
+						{
+							"data": "p_Row_id",
+//							"sTitle" : "ID",
+							"bVisible" : false
+						},
+						{
+							"data": "planning_date",
+//							"sTitle" : "生产周数",
+							"render": function(data, type, row) {
+								var day = moment(data);
+								return "KW" + day.format("WW");
+							}
+						},
+						{
+							"data": "planning_date",
+//							"sTitle" : "生产日期",
+							"render": function(data, type, row) {
+								var day = moment(data);
+								return day.format("YYYY-MM-DD ddd");
+							}
+						},
+						{
+//							"sTitle" : "计划产量",
+							"data": "planning_qty"
+						},
+						{
+							"data": "p_Shift_type"
+//							"sTitle" : "班次类型"
+
+						},
+						{
+							"data": "cycle_time"
+//							"sTitle" : "节拍"
+						},
+						{
+							"targets": -1,
+//							"sTitle" : "操作",
+							"data": null,
+							"defaultContent": "<button class='btn btn-xs btn-success' title='updatePlanningInfo'><i class='ace-icon fa fa-check bigger-120'></i></button>"
+						}
+					],
+					"fnCreatedRow": function( nRow, aData, iDataIndex ) {
+						console.info( 'DataTables fnCreatedRow' + nRow + " " + iDataIndex);
+						//重点强调今天的数据显示
+						if(iDataIndex == 0){
+							$('td', nRow).eq(2).css('font-weight',"bold").css("color","red");
+						}
+						//初始化form input 控件的值
+						var txtPlanout = "<input class='form-control'  name='txtPlanout' type='text' value='"+aData["planning_qty"] + "'/>";
+						var $planText = $(txtPlanout);
+						$('td:eq(3)', nRow).html("").append($planText);
+
+						$planText.change(function (){
+							var planout = $(this);
+							var tr = $(this).closest("tr");
+							//一行又三个input 选择框；planout；cycleTime
+							var cycleTime = tr.find("input:eq(2)");
+							//选择已选择的班次类型，获取相应的工作时间
+							var worktime = tr.find("select:eq(0)").children('option:selected').attr("workTime");
+							//根据选择的班次，获取对应的worktime，计算当天的节拍
+							var valueForCycleTime = (parseFloat(worktime)/parseFloat(planout.val())).toFixed(2);
+							//设置改变后的节拍值
+							cycleTime.val(valueForCycleTime);
+							console.info("on change planout:" + worktime + " Planout:" + planout.val() + " " +
+									"cycleTime:" + cycleTime.val());
+						});
+						//初始化form select 控件
+						var select = "<select  name='selectShiftType' class='form-control'>";
+						$.each(shiftTypeList, function (i, item) {
+//                        .append('<option value="' + item["Shift_type_id"] + '" workTime="'+ item["Work_time"] +'">' +
+//                                item["Shift_type"] + '</option>');
+							var option;
+							if(aData["p_Shift_type_id"] == item["Shift_type_id"])
+							{
+								//如果与数据库传来的值相等，则为选中状态 selected
+								console.info("equal:" + aData["p_Shift_type_id"]);
+								option = '<option value="' + item["Shift_type_id"] + '" workTime="'+ item["Work_time"] +'" selected>' +
+										item["Shift_type"] + '</option>';
+							}else{
+								option = '<option value="' + item["Shift_type_id"] + '" workTime="'+ item["Work_time"] +'">' +
+										item["Shift_type"] + '</option>';
+							}
+							select = select + option;
+						});
+						select = select + "</select>";
+
+						var $select = $(select);
+						//注册select change 事件 根据变化修改节拍的值
+						$select.change(function (){
+							var value = $(this).children('option:selected').val();
+							var text = $(this).children('option:selected').text();
+							var worktime = $(this).children('option:selected').attr("workTime");
+
+							var tr = $(this).closest("tr");
+							//一行又三个input 选择框；planout；cycleTime
+							var planout = tr.find("input:eq(1)");
+							var cycleTime = tr.find("input:eq(2)");
+							//根据选择的班次，获取对应的worktime，计算当天的节拍
+
+							var valueForCycleTime = (parseFloat(worktime)/parseFloat(planout.val())).toFixed(2);
+							//设置改变后的节拍值
+							cycleTime.val(valueForCycleTime);
+							console.info("on change worktime:" + worktime + " Planout:" + planout.val() + " " +
+									"cycleTime:" + cycleTime.val());
+						});
+						$('td:eq(4)', nRow).html("").append( $select );
+
+						//初始化节拍 form input控件
+						var txtCycleTime = "<input class='form-control'  name='txtCycleTime' type='text' value='"+aData["cycle_time"] + "'/>";
+						var $cycleTimeText = $(txtCycleTime);
+						$('td:eq(5)', nRow).html("").append($cycleTimeText);
+
+					},
+					"drawCallback": function( settings ) {
+
+						//TODO 将以下代码函数化
+						$("button[title='updatePlanningInfo']").on('click', function(){
+
+							var tr = $(this).closest("tr");
+							//一行又三个input 选择框；planout；cycleTime
+							var inputPlanout = tr.find("input:eq(1)");
+							var inputCycleTime = tr.find("input:eq(2)");
+							var selectShift = tr.find("select:eq(0)");
+							var planout = inputPlanout.val();
+							var cycleTime = inputCycleTime.val();
+							var shift_type_id = selectShift.children('option:selected').val();
+							var shift_type = selectShift.children('option:selected').text();
+
+							var data = tablePlanning.row( $(this).parents('tr') ).data();
+							var p_Row_id = data["p_Row_id"];
+							var planning_date = data["planning_date"];
+
+							if(planning_date == today){
+								console.info("update today's planning out and cycletime ");
+								//TODO 修改当天计划时，需要执行额外的存储计划
+							}
+
+							var queryData = "planout="+planout+"&cycleTime="+cycleTime+"&shift_type_id=" +
+									""+shift_type_id+"&shift_type="+shift_type+"&p_Row_id="+p_Row_id +
+									"&planning_date="+planning_date;
+							console.info("on button click data:" + queryData);
+							$.ajax({
+								"url":"/momo/planManage?method=update",
+								"data":queryData,
+								"dataType": "text",
+								"type":"post",
+								contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+								error : function (xhr, textStatus){
+									console.info("ajax error,textStatus:" + textStatus);
+									$("#errorDiv").show();
+									inputPlanout.css("border-color","red");
+									inputCycleTime.css("border-color","red");
+								},
+								"success":function(data){
+									console.info("success" + data);
+									$("#errorDiv").hide();
+//									$("#successDiv").show();
+//
+//									setTimeout(function(){
+//										$("#successDiv").fadeOut();
+//									},2000);
+//									$("#errorDiv").show();
+
+									inputPlanout.css("border-color","#7dff21");
+									inputCycleTime.css("border-color","#7dff21");
+									selectShift.css("border-color","#7dff21");
+								}
+							});
 
 						} );
 					}
-				})
+				});
+			}
 
+
+
+			/*
+			* 初始化班次类型以及获得相应班次的工作时间
+			* */
+			function initShiftTypeSelectedList(){
+				$.ajax({
+					url:"/momo/shiftManage?method=shiftType",
+					type:'post',
+					dataType: "json",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					complete : function(xhr, textStatus){
+						console.info("btn delete ajax complete,textStatus:" + textStatus + " data:" + this.data);
+					},
+					error : function (xhr, textStatus){
+						console.info("btn delete ajax error,textStatus:" + textStatus);
+					},
+					success: function(data){
+						shiftTypeList = data.items;
+						console.info("data.items:" + data.items);
+					}
+				});
 			}
 		</script>
 

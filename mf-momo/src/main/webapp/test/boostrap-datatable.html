@@ -26,9 +26,10 @@
     </style>
     <script language="javascript">
         var table;
+        var shiftTypeList;
         $(document).ready(function() {
             table = $('#userList').DataTable({
-//                dom: "Bfrtip",
+                "dom": '<"toolbar">frtip',
                 "bProcessing": true,
                 "ajax": {
                     "url" : "/momo/queryDomainUser?method=query",
@@ -68,17 +69,29 @@
 //                    if ( aData["department"] == "VWED IT" )
 //                    {
                         var text = "<input class='form-control'  name='duration' type='text' value='"+aData["userDescript"] + "'/>";
-                        console.info("data:" + aData["userDescript"] + " " + nRow + " " + iDataIndex + " text: " + text);
-                        $('td:eq(3)', nRow).html( text );
-//                    }
-                }
-            });
+//                        console.info("data:" + aData["userDescript"] + " " + nRow + " " + iDataIndex + " text: " + text);
 
-            $("#btnTest").click(function (e){
-                var alldata=$('#userList').dataTable().fnGetData();
-//                console.info(alldata);
-//                console.info($("tr"));
+//                    <select id="selectShiftType" name="selectShiftType" class="form-control"> </select>
+                    var select = "<select  name='selectShiftType' class='form-control'>";
+
+
+                    $('td:eq(3)', nRow).html( text );
+
+                    $.each(shiftTypeList, function (i, item) {
+//                        .append('<option value="' + item["Shift_type_id"] + '" workTime="'+ item["Work_time"] +'">' +
+//                                item["Shift_type"] + '</option>');
+                        var option = '<option value="' + item["Shift_type_id"] + '" workTime="'+ item["Work_time"] +'">' +
+                                item["Shift_type"] + '</option>';
+                        select = select + option;
+                    });
+                    select = select + "</select>";
+
+                    $('td:eq(4)', nRow).html( select );
+
+                }
+
             });
+            $("div.toolbar").html('<b style="color:red">自定义文字、图片等等</b>');
 
             $(document).on('click', 'th input:checkbox' , function(){
                 var that = this;
@@ -106,19 +119,28 @@
 //                        cell.html(inputVal);
 //                        table.cell(cell).data(inputVal);
 
+                        var selectedTest = tr.find("select:last").find("option:selected").text();
+                        var selectedValue = tr.find("select:last").find("option:selected").val();
+                        var selectedWorktime = tr.find("select:last").find("option:selected").attr("workTime");
+
+
+
                         //获取改行的数据
                         var data = table.row(tr).data();
-                        console.info(data["userDescript"]+ " inputVal:" + inputVal);
+                        console.info(data["userDescript"]+ " inputVal:" + inputVal + " select:" + selectedTest + " " +
+                                " " + selectedValue + " " + selectedWorktime);
 
                         var jsonData = "DT_RowId="+data["DT_RowId"] + "&userDescript="+inputVal;
 
                         $.ajax({
-                            "url":"/momo/shiftManage",
+                            "url":"/momo/shiftManage?method=test",
                             "data":jsonData,
                             "type":"post",
                             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                             error : function (xhr, textStatus){
                                 console.info("ajax error,textStatus:" + textStatus);
+                                tr.find("input:eq(1)").addClass("blur");
+
                             },
                             "success":function(data){
                                 console.info("success" + data);
@@ -161,7 +183,39 @@
 //                $(this).toggleClass("save-btn");
             });
 
+            initShiftTypeSelectedList();
+
         });
+
+        function initShiftTypeSelectedList(){
+            $.ajax({
+                url:"/momo/shiftManage?method=shiftType",
+                type:'post',
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                complete : function(xhr, textStatus){
+                    console.info("btn delete ajax complete,textStatus:" + textStatus + " data:" + this.data);
+                },
+                error : function (xhr, textStatus){
+                    console.info("btn delete ajax error,textStatus:" + textStatus);
+                },
+                success: function(data){
+                    console.info(data.items + " length:" + data.items);
+                    shiftTypeList = data.items;
+                    $.each(data.items, function (i, item) {
+                        console.info("I:" + i + " Shift_type_id:" + item["Shift_type_id"] + " shift_type:" +
+                        item["Shift_type"] + " Work_time：" + item["Work_time"]);
+
+                        $("#selectShiftType").append('<option value="' + item["Shift_type_id"] + '" workTime="'+ item["Work_time"] +'">' +
+                                item["Shift_type"] + '</option>');
+                    });
+
+                    console.info("select " + $("select [name='selectShiftType']").length);
+
+                }
+            });
+
+        }
 
     </script>
 </head>
@@ -173,6 +227,9 @@
             <h1>
                 <span>日常量查询</span>
                 <button type="button" class="btn-default" value="Text" id="btnTest">CC</button>
+
+                <select id="selectShiftType" name="selectShiftType" class="form-control">
+                </select>
             </h1>
         </div>
         <div class="col-md-4">
@@ -201,15 +258,8 @@
                     <th class="center-block">
                         <input type="checkbox" class="ace">
                     </th>
-                    <!--<th>distinguishedName</th>-->
                     <th>sAMAccountName</th>
                     <th>mail</th>
-                    <!--<th>title</th>-->
-                    <!--<th>telephoneNumber</th>-->
-                    <!--<th>whenCreated</th>-->
-                    <!--<th>physicalDeliveryOfficeName</th>-->
-                    <!--<th>name</th>-->
-                    <!--<th>mailNickname</th>-->
                     <th>department</th>
                     <th>Role</th>
 

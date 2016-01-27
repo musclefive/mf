@@ -67,6 +67,10 @@
         <servlet-name>ShiftManage</servlet-name>
         <servlet-class>com.momo.servlet.planout.ShiftManage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlanManage</servlet-name>
+        <servlet-class>com.momo.servlet.planout.PlanManage</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -100,6 +104,10 @@
     <servlet-mapping>
         <servlet-name>ShiftManage</servlet-name>
         <url-pattern>/shiftManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanManage</servlet-name>
+        <url-pattern>/planManage</url-pattern>
     </servlet-mapping>
 
     <jsp-config>

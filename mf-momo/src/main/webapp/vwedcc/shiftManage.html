@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="../css/bootstrap-datetimepicker.css" />
 		<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/datatable/dataTables.bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="../css/datatable/buttons.bootstrap.css">
@@ -196,7 +197,7 @@
 					</li>
 
 					<li class="">
-						<a href="#" >
+						<a href="historyProduction.html" >
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> 历史产量图表 </span>
 						</a>
@@ -205,7 +206,7 @@
 					</li>
 
 					<li class="">
-						<a href="planProduction.html">
+						<a href="planManage.html">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 生产计划维护 </span>
 
@@ -254,6 +255,17 @@
 
 						<b class="arrow"></b>
 
+					</li>
+
+					<li class="">
+						<a href="blank.html" >
+							<i class="menu-icon fa fa-file-o"></i>
+
+							<span class="menu-text">
+								Other Pages
+							</span>
+
+						</a>
 					</li>
 				</ul><!-- /.nav-list -->
 
@@ -403,6 +415,92 @@
 									<tbody>
 									</tbody>
 								</table>
+								<!--Model for break down information Start-->
+								<div class="modal fade" id="modalShiftManage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+												<h4 class="modal-title" id="myModalLabel">
+													<label id="breakDayInfo"></label> 班次信息管理
+												</h4>
+											</div>
+											<div class="modal-body">
+												<form action="" class="form-horizontal" id="formShiftManage" method="post"  role="form">
+													<fieldset>
+														<div class="form-group">
+															<label for="shift_type" class="col-md-3 control-label">班次类型</label>
+															<div class="col-md-6">
+																<input class="form-control" id="shift_type" name="shift_type" type="text" value="" />
+																<input id="row_id" name="row_id" type="hidden" value="" />
+
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="shift" class="col-md-3 control-label">班次</label>
+															<div class="col-md-6">
+																<!--<div class="input-group col-md-6" >-->
+																<input class="form-control" id="shift" name="shift" type="text" value="" />
+																<!--</div>-->
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="shift_start_time" class="col-md-3 control-label">开始时间</label>
+															<div class="col-md-6">
+																<input class="form-control" id="shift_start_time" name="shift_start_time" type="text" />
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="shift_end_time" class="col-md-3 control-label">结束时间</label>
+															<div class="col-md-6">
+																<!--<div class="col-md-6">-->
+																<input class="form-control" id="shift_end_time" name="shift_end_time" type="text" />
+																<!--</div>-->
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="lunch_start_time" class="col-md-3 control-label">吃饭开始时间</label>
+															<div class="col-md-6">
+																<!--<div class="col-md-6">-->
+																<input class="form-control" id="lunch_start_time" name="lunch_start_time" type="text" />
+																<!--</div>-->
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="lunch_end_time" class="col-md-3 control-label">吃饭结束时间</label>
+															<div class="col-md-6">
+																<!--<div class="col-md-6">-->
+																<input class="form-control" id="lunch_end_time" name="lunch_end_time" type="text" />
+																<!--</div>-->
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="break_start_time" class="col-md-3 control-label">停台开始时间</label>
+															<div class="col-md-6">
+																<!--<div class="col-md-6">-->
+																<input class="form-control" id="break_start_time" name="break_start_time" type="text" />
+																<!--</div>-->
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="break_end_time" class="col-md-3 control-label">停台结束时间</label>
+															<div class="col-md-6">
+																<!--<div class="col-md-6">-->
+																<input class="form-control" id="break_end_time" name="break_end_time" type="text" />
+																<!--</div>-->
+															</div>
+														</div>
+													</fieldset>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn " data-dismiss="modal" id="btnClose">Close</button>
+												<button type="button" class="btn btn-danger" id="btnUpdate"  value="">Update</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--Model for break down information End-->
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -469,24 +567,132 @@
 		<script src="../js/jquery.blockUI.js" type="text/javascript"></script>
 		<script src="../js/datatable/jquery.dataTables.js" type="text/javascript"></script>
 		<script src="../js/datatable/dataTables.bootstrap.js" type="text/javascript"></script>
+		<script src="../js/jquery.validate.js" type="text/javascript"></script>
+
 		<!-- ace scripts -->
 		<script src="../assets/js/ace-elements.min.js"></script>
 		<script src="../assets/js/ace.min.js"></script>
 
 		<!-- inline scripts related to this page -->
 		<script language="javascript">
+			var validator;
+			var table;
 			$(document).ready(function() {
-				initDomainUserList();
+				initTableList();
+
+				//校验控件
+				$.validator.addMethod("isDateHHMM",function(value,element){
+					//正则表达式 格式为 HH:MM:SS
+					var rule = /^(?:[01]\d|2[0-3])(?::[0-5]\d){2}$/;
+					return this.optional(element) || (rule.test(value));
+				},"时间格式为HH:MM:SS");
+
+				validator = $('#formShiftManage').validate({
+					errorElement: 'div',
+					errorClass: 'help-block',
+					focusInvalid: false,
+					rules: {
+						shift_start_time: {
+							required: true,
+							isDateHHMM: true
+						},
+						shift_end_time: {
+							required: true,
+							isDateHHMM: true
+						},
+						lunch_start_time: {
+							required: true,
+							isDateHHMM: true
+						},
+						lunch_end_time: {
+							required: true,
+							isDateHHMM: true
+						},
+						shift_type: {
+							required: true
+						},
+						shift: {
+							required: true
+						}
+					},
+
+					messages: {
+						shift_type: {
+							required: "添加班次类型"
+						},
+						shift: {
+							required: "添加班次"
+						}
+					},
+
+					highlight: function (e) {
+						$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+					},
+
+					success: function (e) {
+						$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+						$(e).remove();
+					},
+
+					errorPlacement: function (error, element) {
+
+						error.insertAfter(element.parent());
+					},
+
+					submitHandler: function (form) {
+					},
+					invalidHandler: function (form) {
+					}
+				});
+
+				$("#btnTest").click(function(e){
+//					if(validator.form()){
+					console.info("Validator status:" + validator.form());
+				});
+
+
+				//点击更新按钮，更新当前班次记录
+				$("#btnUpdate").click(function (e) {
+
+					var vals = $("#formShiftManage").serialize();
+					if(validator.form()) {
+						this.disabled = 'disabled';
+						$.ajax({
+								url:"/momo/shiftManage?method=update",
+								type:'post',
+								dataType: "text",
+								contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+								data: vals,
+								complete : function(xhr, textStatus){
+									console.info("btn update ajax complete,textStatus:" + textStatus + " data:" + this.data);
+								},
+								error : function (xhr, textStatus){
+									console.info("btn update ajax error,textStatus:" + textStatus);
+									$('#btnUpdate').removeAttr("disabled");
+									alert("Error！ 请联系管理员")
+								},
+								success: function(data){
+									if(data == "success"){
+										$("#modalShiftManage").modal('hide');
+										$('#btnUpdate').removeAttr("disabled");
+										console.info("successfully update shift information");
+										//重新刷新datatable
+										$('#shiftType').DataTable().ajax.reload();
+									}
+								}
+							});
+					}
+				});
+
 			});
 
 			//点击更新按钮，更改用户权限admin/user/other/
 			//数据库表UserPermission;修改成admin|other则增加一条记录；修改成user则删除该条记录
 
-			function initDomainUserList(){
-				console.info("CCCCC");
-				var table = $('#shiftType').DataTable({
+			function initTableList(){
+				table = $('#shiftType').DataTable({
 					"ajax": {
-						"url" : "/momo/shiftManage",
+						"url" : "/momo/shiftManage?method=query",
 						"dataSrc" : "items"
 					},
 //					"bFilter" : false, //是否启动过滤、搜索功能
@@ -538,33 +744,36 @@
 						},
 						{
 							"data": "Work_second",
-							"sTitle" : "节拍"
+							"sTitle" : "工作时间(秒)"
 						},
 						{
 							"targets": -1,
 							"sTitle" : "操作",
 							"data": null,
-							"defaultContent": "<button class='btn btn-xs btn-info' title='updatePermission'><i class='ace-icon fa fa-pencil bigger-120'></i></button>"
+							"defaultContent": "<button class='btn btn-xs btn-info' title='updateShiftManage'><i class='ace-icon fa fa-pencil bigger-120'></i></button>" + "" +
+							" &nbsp; <button class='btn btn-xs btn-danger' title='deleteShiftManage'><i class='ace-icon fa fa-trash-o bigger-120'></i></button>"
 						}
-					]
-//					"drawCallback": function( settings ) {
-//						$("button[title='updatePermission']").on('click', function(){
-//							var data = table.row( $(this).parents('tr') ).data();
-////							alert(data["sAMAccountName"] + data);
-//							console.info("dataDetail sAMAccountName:" + data["sAMAccountName"] + " Mail:" + data["mail"] + " " +
-//									" Department:" + data["department"] + " Role:" + data["userRole"] + " " +
-//									" Descript:" + data["userDescript"] + " distinguishedName:" + data["distinguishedName"]);
-//							$("#userName").val(data["sAMAccountName"]);
-//							$("#userMail").val(data["mail"]);
-//							$("#distinguishedName").val(data["distinguishedName"]);
-//							//获取初始状态下userRole的值，为了和改变后的值进行比较，如果没有变化则不执行update操作。
-//							$("#userRoleOriginal").val(data["userRole"]);
-//							$("#userDepartment").val(data["department"]);
-//							$("#userPermission option[value=" +data["userRole"] + "]").prop("selected",true);
-//							$("#updatePermission").modal('show');
-//
-//						} );
-//					}
+					],
+					"drawCallback": function( settings ) {
+						$("button[title='updateShiftManage']").on('click', function(){
+							var data = table.row( $(this).parents('tr') ).data();
+							console.info("dataDetail row_id:" + data["row_id"] + " shift_type:" + data["shift_type"] + " " +
+									" Shift:" + data["shift"] + " shift_start_time:" + data["Shift_start_time"] + " " +
+									" shift_end_time:" + data["shift_end_time"] + " Lunch_start_time:" + data["Lunch_start_time"]);
+							$("#row_id").val(data["row_id"]);
+							$("#shift_type").val(data["Shift_type"]);
+							$("#shift").val(data["Shift"]);
+							$("#shift_start_time").val(data["Shift_start_time"]);
+							$("#shift_end_time").val(data["Shift_end_time"]);
+							$("#lunch_start_time").val(data["Lunch_start_time"]);
+							$("#lunch_end_time").val(data["Lunch_end_time"]);
+
+							$("#break_start_time").val(data["Break_start_time"]);
+							$("#break_end_time").val(data["Break_end_time"]);
+							$("#modalShiftManage").modal('show');
+
+						} );
+					}
 				})
 
 			}
