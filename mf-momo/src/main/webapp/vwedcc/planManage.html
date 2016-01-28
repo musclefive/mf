@@ -221,7 +221,7 @@
 					</li>
 
 					<li class="">
-						<a href="calendar.html">
+						<a href="breakQuery.html">
 							<i class="menu-icon fa fa-calendar"></i>
 
 							<span class="menu-text">
@@ -298,7 +298,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">Blank Page</li>
+						<li class="active">生产计划维护</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- #section:basics/content.searchbox -->
@@ -420,9 +420,7 @@
 										<i class="ace-icon fa fa-times"></i>
 										出错了！
 									</strong>
-
-									请联系统管理员
-									<br />
+									<div id="errorMsg"></div>
 								</div>
 								<div class="alert alert-success" id="successDiv" style="display: none;" >
 									操作成功!
@@ -431,13 +429,15 @@
 									<ul class="nav nav-tabs" id="myTab">
 										<li class="active">
 											<a data-toggle="tab" href="#user">
-												<i class="green ace-icon fa fa-home bigger-120"></i>
+												<i class="green ace-icon fa fa-pencil-square-o bigger-120"></i>
 												当前生产计划
 											</a>
 										</li>
 
 										<li class="">
+
 											<a data-toggle="tab" href="#group">
+												<i class="green ace-icon fa fa-arrow-circle-o-down bigger-120"></i>
 												历史生产计划
 											</a>
 										</li>
@@ -561,18 +561,27 @@
 				initTableList();
 
 				//创建提交按钮，用来一次性提交多条生产计划数据
-				var textButton = "<button class='btn btn-lg btn-success'><i class='ace-icon fa fa-check'></i>提交</button>";
+				var textButton = "<button class='btn  btn-success'><i class='ace-icon fa fa-check'></i><B>提交</B></button>";
 				var $btnSubmit = $(textButton);
 				$btnSubmit.click(function (){
+					var clickFlag = false;
 					console.info("btn submit all the selected checkbox");
-					$('#planning').find('tr > td:first-child input:checkbox').each(function(){
+					var selectGroup = $('#planning').find('tr > td:first-child input:checkbox');
+					selectGroup.each(function(){
 						if(this.checked == true){
 							//构建jquery datatable row 数据
-
-
-						}else{
-							console.info("no checked");
+							clickFlag = true;
+							var tr = $(this).closest("tr");
+							updatePlanning(tr);
 						}
+					});
+					if(clickFlag == false){
+						$("#errorDiv").show();
+						$("#errorMsg").html("请选择要提交的生产计划数据");
+					}
+					//提交后将所有checkbox 恢复初始状态
+					selectGroup.each(function(){
+						this.checked = false;
 					});
 				});
 				$("div.toolbar").append($btnSubmit);
@@ -672,13 +681,16 @@
 						"dataSrc" : "items"
 					},
 					"bFilter" : false, //是否启动过滤、搜索功能
-//					"bPaginate" : false, //是否显示（应用）分页器
+					"bPaginate" : false, //是否显示（应用）分页器
 //					"bInfo" : false, //是否显示页脚信息，DataTables插件左下角显示记录数
 					//根据第四列用户的权限进行默认排序
 //					"bSortClasses": true,
 					"bProcessing":true,
 					"bSort" : false, //是否启动各个字段的排序功能
 					aaSorting : [[0, 'asc']],
+					"oLanguage" : {
+						"sInfo" : "第 _START_ - _END_ 条 / 共 _TOTAL_ 条数据",
+					},
 					"columns": [
 						{
 							"bSortable": false,
@@ -732,7 +744,11 @@
 						console.info( 'DataTables fnCreatedRow' + nRow + " " + iDataIndex);
 						//重点强调今天的数据显示
 						if(iDataIndex == 0){
-							$('td', nRow).eq(2).css('font-weight',"bold").css("color","red");
+							$('td', nRow).eq(2).css('font-weight',"bold").css("color","red").css("font-size","14px").css("vertical-align","middle");
+							$('td', nRow).eq(1).css('font-weight',"bold").css("color","red").css("font-size","14px").css("vertical-align","middle");
+							$('td', nRow).eq(0).html("今天").css('font-weight',"bold").css("color","red").css("font-size","14px")
+									.css("text-align","center").css("vertical-align","middle");
+
 						}
 						//初始化form input 控件的值
 						var txtPlanout = "<input class='form-control'  name='txtPlanout' type='text' value='"+aData["planning_qty"] + "'/>";
@@ -802,66 +818,75 @@
 					},
 					"drawCallback": function( settings ) {
 
-						//TODO 将以下代码函数化
 						$("button[title='updatePlanningInfo']").on('click', function(){
+							updatePlanning($(this).closest("tr"));
+						} );
+					}
+				});
+			}
 
-							var tr = $(this).closest("tr");
-							//一行又三个input 选择框；planout；cycleTime
-							var inputPlanout = tr.find("input:eq(1)");
-							var inputCycleTime = tr.find("input:eq(2)");
-							var selectShift = tr.find("select:eq(0)");
-							var planout = inputPlanout.val();
-							var cycleTime = inputCycleTime.val();
-							var shift_type_id = selectShift.children('option:selected').val();
-							var shift_type = selectShift.children('option:selected').text();
+			/*
+			* 根据每行填写的信息，修改生产计划，如果点击修改当天的修改按钮，则需要执行额外的存储过程
+			* */
+			function updatePlanning(tr){
+				//一行有三个input 选择框；planout；cycleTime
+				var inputPlanout = tr.find("input:eq(1)");
+				var inputCycleTime = tr.find("input:eq(2)");
+				var selectShift = tr.find("select:eq(0)");
+				var planout = inputPlanout.val();
+				var cycleTime = inputCycleTime.val();
+				var shift_type_id = selectShift.children('option:selected').val();
+				var shift_type = selectShift.children('option:selected').text();
 
-							var data = tablePlanning.row( $(this).parents('tr') ).data();
-							var p_Row_id = data["p_Row_id"];
-							var planning_date = data["planning_date"];
+				var data = tablePlanning.row( tr ).data();
+				var p_Row_id = data["p_Row_id"];
+				var planning_date = data["planning_date"];
 
-							if(planning_date == today){
-								console.info("update today's planning out and cycletime ");
-								//TODO 修改当天计划时，需要执行额外的存储计划
-							}
+				if(planning_date == today){
+					console.info("update today's planning out and cycletime ");
+					//TODO 修改当天计划时，需要执行额外的存储计划
+				}
 
-							var queryData = "planout="+planout+"&cycleTime="+cycleTime+"&shift_type_id=" +
-									""+shift_type_id+"&shift_type="+shift_type+"&p_Row_id="+p_Row_id +
-									"&planning_date="+planning_date;
-							console.info("on button click data:" + queryData);
-							$.ajax({
-								"url":"/momo/planManage?method=update",
-								"data":queryData,
-								"dataType": "text",
-								"type":"post",
-								contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-								error : function (xhr, textStatus){
-									console.info("ajax error,textStatus:" + textStatus);
-									$("#errorDiv").show();
-									inputPlanout.css("border-color","red");
-									inputCycleTime.css("border-color","red");
-								},
-								"success":function(data){
-									console.info("success" + data);
-									$("#errorDiv").hide();
+				var queryData = "planout="+planout+"&cycleTime="+cycleTime+"&shift_type_id=" +
+						""+shift_type_id+"&shift_type="+shift_type+"&p_Row_id="+p_Row_id +
+						"&planning_date="+planning_date;
+				console.info("on button click data:" + queryData);
+				$.ajax({
+					"url":"/momo/planManage?method=update",
+					"data":queryData,
+					"dataType": "text",
+					"type":"post",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					error : function (xhr, textStatus){
+						console.info("ajax error,textStatus:" + textStatus);
+						$("#errorDiv").show();
+						$("#errorMsg").html("系统错误，请联系系统管理员！");
+						inputPlanout.css("border-color","red");
+						inputCycleTime.css("border-color","red");
+					},
+					"success":function(data){
+						if(data == "error"){
+							$("#errorDiv").show();
+							$("#errorMsg").html("请输入正确的格式！");
+							inputPlanout.css("border-color","red");
+							inputCycleTime.css("border-color","red");
+						}else{
+							console.info("success" + data);
+							$("#errorDiv").hide();
 //									$("#successDiv").show();
 //
 //									setTimeout(function(){
 //										$("#successDiv").fadeOut();
 //									},2000);
 //									$("#errorDiv").show();
+							inputPlanout.css("border-color","#7dff21");
+							inputCycleTime.css("border-color","#7dff21");
+							selectShift.css("border-color","#7dff21");
+						}
 
-									inputPlanout.css("border-color","#7dff21");
-									inputCycleTime.css("border-color","#7dff21");
-									selectShift.css("border-color","#7dff21");
-								}
-							});
-
-						} );
 					}
 				});
 			}
-
-
 
 			/*
 			* 初始化班次类型以及获得相应班次的工作时间

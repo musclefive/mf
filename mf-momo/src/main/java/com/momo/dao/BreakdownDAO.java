@@ -11,7 +11,7 @@ import java.util.List;
 @DAO
 public interface BreakdownDAO {
     @Table("breakdown")
-    @SQL("select * from breakdown")
+    @SQL("select * from breakdown order by break_scope desc")
     <T> List<T> queryAllBreakdown(Converter<T> converter) throws DAOException;
 
     @Table("breakdown")

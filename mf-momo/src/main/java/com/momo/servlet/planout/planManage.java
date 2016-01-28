@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -67,6 +68,11 @@ public class PlanManage extends BaseServlet {
     * */
     public void queryPlanningManageList(String today, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("Enter PlanManage servlet for queryPlannedManageList ");
+
+        int twoWeekDays = 10;
+        int count = 0;
+        Calendar rightNow = Calendar.getInstance();
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
         try {
 
             response.setContentType("application/json");
@@ -99,7 +105,36 @@ public class PlanManage extends BaseServlet {
                     return planning;
                 }
             });
+            //记录当前生产计划表中已有的数据量
+            count = planningList.size();
+            /*
+            *如果当天日期01-28 count=4 则数据库中已存在的日期01-28 01-29 01-30 01-31 4条数据 则设置righNow时间为
+            * 02-01
+            */
+            rightNow.add(Calendar.DAY_OF_MONTH, count - 1);
 
+            //自动补充数据库记录中没有的数据
+            for(int k = 0; k <= twoWeekDays - count; k++){
+                Long recordId;
+                rightNow.add(Calendar.DAY_OF_MONTH, 1);
+                String plannedDate = sim.format(rightNow.getTime());
+                System.out.println("insert days:" + plannedDate);
+                recordId = DAOFacade.getDAO(PlanningManage.class).insertPlanning(plannedDate);
+                if(recordId == 0){
+                    break;
+                } else {
+                    logger.info("queryPlanningManageList Inserted RecordID:" + recordId + "planning date:" + plannedDate);
+                    Planning planning = new Planning();
+                    planning.setP_Row_id(recordId);
+                    planning.setPlanning_date(java.sql.Date.valueOf(plannedDate));
+                    planning.setPlanning_qty(0);
+                    planning.setCycle_time(Float.valueOf("0"));
+                    planning.setP_Shift_type_id("0");
+                    planning.setP_Shift_type(" ");
+                    planning.setCw(" ");
+                    planningList.add(planning);
+                }
+            }
             ObjectMapper objectMapper = new ObjectMapper();
 //            objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
             String ret = objectMapper.writeValueAsString(planningList);
@@ -187,14 +222,14 @@ public class PlanManage extends BaseServlet {
         Long row_id;
         try{
             intPlanout = Integer.valueOf(planout);
-            fCycleTime = Float.valueOf(cycleTime);
+            fCycleTime = (float)(Math.round(Float.valueOf(cycleTime)*100))/100;
             row_id = Long.valueOf(p_Row_id);
 
             long recordId = DAOFacade.getDAO(PlanningManage.class).updatePlanning(planing, intPlanout,
                     shift_type_id, shift_type, fCycleTime, row_id);
             if(recordId == 0){
                 printWriter.write("success");
-                logger.info("updatePlanningOut Method: successfully update updatePlanningOut recordID:" + recordId);
+                logger.info("updatePlanningOut Method: successfully update updatePlanningOut recordID:" + recordId + " fCycleTime:" + fCycleTime);
 
             }else {
                 printWriter.write("error");
@@ -202,6 +237,9 @@ public class PlanManage extends BaseServlet {
             }
 
 
+        }catch (NumberFormatException e) {
+            logger.error("Failed to update updatePlanningOut", e);
+            printWriter.write("error");
         }
         catch (Exception e) {
             logger.error("Failed to update updatePlanningOut", e);
