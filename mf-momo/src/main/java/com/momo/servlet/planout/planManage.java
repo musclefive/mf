@@ -46,14 +46,17 @@ public class PlanManage extends BaseServlet {
 
         if( method.equals("query")){
             //query method today format 2016-01-22
-            String today = getParam(request, "today");
+            String startDay = getParam(request, "startDay");
             String type = getParam(request, "type");
             //查询计划的生产信息 或者已计划的生产信息
             if(type.equals("planning")){
-                queryPlanningManageList(today, request, response);
+                //startDay 是今天日期
+                queryPlanningManageList(startDay, request, response);
 
             }else if(type.equals("planned")){
-                queryPlannedManageList(today, request, response);
+                String endDay = getParam(request, "endDay");
+
+                queryPlannedManageList(startDay,endDay, request, response);
             }else{
 
             }
@@ -150,17 +153,17 @@ public class PlanManage extends BaseServlet {
     }
 
     /*
-    * 查询当天日期之前的生产计划历史信息
+    * 查询开始时间到结束时间内的生产计划历史信息
     * */
-    public void queryPlannedManageList(String today, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Enter PlanManage servlet for queryPlannedManageList ");
+    public void queryPlannedManageList(String startDay, String endDay, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Enter PlanManage servlet for queryPlannedManageList startDay:" + startDay  + " endDay:" + endDay) ;
         try {
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
 
-            List<Planning> planningList = DAOFacade.getDAO(PlanningManage.class).queryPlanningListBeforeToday(today, new Converter<Planning>() {
+            List<Planning> planningList = DAOFacade.getDAO(PlanningManage.class).queryPlanningListBeforeToday(startDay, endDay, new Converter<Planning>() {
                 @Override
                 public Planning convert(ResultSet resultSet) throws SQLException {
                     Planning planning = new Planning();

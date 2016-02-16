@@ -95,6 +95,8 @@ public class ShiftManage extends BaseServlet {
                     }
                     shiftType.setEarliest_time(resultSet.getTime("Earliest_time"));
                     shiftType.setLatest_time(resultSet.getTime("Latest_time"));
+                    shiftType.setReset_time(resultSet.getTime("Reset_time"));
+
                     shiftType.setWork_second(resultSet.getString("Work_second").trim());
 
                     return shiftType;
@@ -130,6 +132,9 @@ public class ShiftManage extends BaseServlet {
         String lunch_end_time = getParam(request, "lunch_end_time");
         String break_start_time = getParam(request, "break_start_time");
         String break_end_time = getParam(request, "break_end_time");
+        String earliest_time = getParam(request, "earliest_time");
+        String latest_time = getParam(request, "latest_time");
+        String reset_time = getParam(request, "reset_time");
         String work_second;
         long second;
         try {
@@ -140,6 +145,9 @@ public class ShiftManage extends BaseServlet {
             Time time_lunch_end_time = Time.valueOf(lunch_end_time);
             Time time_break_start_time = Time.valueOf(break_start_time);
             Time time_break_end_time = Time.valueOf(break_end_time);
+            Time time_earliest_time = Time.valueOf(earliest_time);
+            Time time_latest_time = Time.valueOf(latest_time);
+            Time time_reset_time = Time.valueOf(reset_time);
             Long longRow_id = Long.valueOf(row_id);
 
             SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
@@ -165,7 +173,8 @@ public class ShiftManage extends BaseServlet {
 
             long recordId = DAOFacade.getDAO(ShiftManageDAO.class).updateShiftType(shift_type, shift, time_shift_start_time,
                     time_shift_end_time,time_lunch_start_time ,time_lunch_end_time,
-                    time_break_start_time,time_break_end_time,work_second,longRow_id );
+                    time_break_start_time,time_break_end_time,
+                    time_earliest_time,time_latest_time,time_reset_time, work_second,longRow_id );
             if(recordId == 0){
                 printWriter.write("success");
                 logger.info("updateShiftManage Method: successfully update updateShiftManage recordID:" + recordId + " Work_second:" + work_second);

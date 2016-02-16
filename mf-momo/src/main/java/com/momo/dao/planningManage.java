@@ -28,8 +28,8 @@ public interface PlanningManage {
 
 
     @Table("Planning")
-    @SQL("select * from Planning where  Convert(varchar(100),Planning_date,23) < ? order by Planning_date desc")
-    <T> List<T> queryPlanningListBeforeToday(String today, Converter<T> converter) throws DAOException;
+    @SQL("select * from Planning where  Convert(varchar(100),Planning_date,23) < ? and Convert(varchar(100),Planning_date,23) >= ? order by Planning_date desc")
+    <T> List<T> queryPlanningListBeforeToday(String today, String endDay, Converter<T> converter) throws DAOException;
 
     @Table("Planning")
     @SQLControl(returnAotuGeneratedId = true)
