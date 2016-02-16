@@ -146,6 +146,7 @@ class DBClient {
             }
             if (null != connection) {
                 connection.close();
+                dbConnectionPool.returnObject(connection);
             }
         }
     }

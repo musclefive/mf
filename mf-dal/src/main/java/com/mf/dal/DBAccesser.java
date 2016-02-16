@@ -27,8 +27,8 @@ public class DBAccesser {
     public static synchronized void createInstance(InputStream inputStream, Properties properties) {
         if (null == instance) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
-//                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
                 DBPartitionConfig dbPartitionConfig = new DBPartitionConfig();
                 dbPartitionConfig.loadFromStream(inputStream, properties);
