@@ -138,4 +138,74 @@ function getQueryTomorrowTimeSpecify(str){
     console.info("Method:getQueryTomorrowTimeSpecify()--selectedFormatTomorrow :" + selectedFormatTomorrow);
     return selectedFormatTomorrow;
 }
+/*
+ * 根据用户名从数据库获取用户信息
+ * */
+function getUserNameAndRole(userName){
+    $.ajax({
+        "url" : "/momo/queryDomainUser?method=user&userName="+userName,
+        type:'post',
+        dataType: "json",
+        async:false,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        complete : function(xhr, textStatus){
+            console.info("btn update ajax complete,textStatus:" + textStatus + " data:" + this.data);
+        },
+        error : function (xhr, textStatus){
+            console.info("btn update ajax error,textStatus:" + textStatus);
+        },
+        success: function(data){
+            var showName = data.items["name"];
+            var userRole = data.items["userRole"];
+            var userDescript = data.items["userDescript"];
+            if(userRole == "1"){
+                userDescript = "管理员";
+            }else if(userRole == "2"){
+                userDescript = "操作员";
+            }else{
+                userDescript = "普通用户";
+            }
+            $.cookie("userName",userName);
+            $.cookie("showName",showName);
+            $.cookie("userRole",userRole);
+            $.cookie("userDescript",userDescript);
+            console.info("ajax success " + data);
+
+            var temp = $.cookie("userDescript") + " " + $.cookie("showName");
+            console.info("user info from cookie" + temp + " " + $.cookie("userRole"));
+            $("#divUserName").html(temp);
+            menuRight($.cookie("userRole"));
+        }
+    });
+}
+
+/*
+ * 根据userRole设置用户菜单选项
+ * */
+function menuRight(userRole){
+    if(userRole == "1"){
+        //管理员 所有页面都可见
+        $("#liDashboard").show();
+        $("#liDailyProduction").show();
+        $("#liHistoryProduction").show();
+        $("#liPlanManage").show();
+        $("#liBreakQuery").show();
+        $("#liShiftManage").show();
+        $("#liUserList").show();
+    }else if(userRole == "2"){
+        //操作员 用户权限维护对其不可见 liUserList
+        $("#liDashboard").show();
+        $("#liDailyProduction").show();
+        $("#liHistoryProduction").show();
+        $("#liPlanManage").show();
+        $("#liBreakQuery").show();
+        $("#liShiftManage").show();
+    }else {
+        //普通用户 生产计划维护 班次维护 用户权限对其不可见
+        $("#liDashboard").show();
+        $("#liDailyProduction").show();
+        $("#liHistoryProduction").show();
+        $("#liBreakQuery").show();
+    }
+}
 

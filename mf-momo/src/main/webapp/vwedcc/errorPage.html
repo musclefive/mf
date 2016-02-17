@@ -14,8 +14,6 @@
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="../assets/css/jquery-ui.custom.min.css" />
-		<link rel="stylesheet" href="../assets/css/fullcalendar.css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
@@ -67,18 +65,15 @@
 
 				<!-- /section:basics/sidebar.mobile.toggle -->
 				<div class="navbar-header pull-left">
-					<!-- #section:basics/navbar.layout.brand -->
-					<a href="#" class="navbar-brand">
-						<small>
-							<i class="fa fa-leaf"></i>
-							Ace Admin
-						</small>
-					</a>
-
-					<!-- /section:basics/navbar.layout.brand -->
-
-					<!-- #section:basics/navbar.toggle -->
-
+					<div class="navbar-header pull-left">
+						<!-- #section:basics/navbar.layout.brand -->
+						<img src="../img/logon.png" style="width: 81px;height: 45px;float:left">
+						<a href="#" class="navbar-brand">
+							<small>
+								MOMO 目视化系统
+							</small>
+						</a>
+					</div>
 					<!-- /section:basics/navbar.toggle -->
 				</div>
 
@@ -88,45 +83,17 @@
 						<!-- #section:basics/navbar.user_menu -->
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="Jason's Photo" />
-								<span class="user-info">
+								<!--<img class="nav-user-photo" src="../assets/avatars/user.jpg" alt="Jason's Photo" />-->
+								<span class="user-info" style="max-width: 200px">
 									<small>Welcome,</small>
-									Jason
+									<!--<div id="divUserRoleDescript">admin</div>-->
+									<div id="divUserName"></div>
 								</span>
-
-								<i class="ace-icon fa fa-caret-down"></i>
 							</a>
-
-							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
-									<a href="#">
-										<i class="ace-icon fa fa-cog"></i>
-										Settings
-									</a>
-								</li>
-
-								<li>
-									<a href="profile.html">
-										<i class="ace-icon fa fa-user"></i>
-										Profile
-									</a>
-								</li>
-
-								<li class="divider"></li>
-
-								<li>
-									<a href="#">
-										<i class="ace-icon fa fa-power-off"></i>
-										Logout
-									</a>
-								</li>
-							</ul>
 						</li>
-
 						<!-- /section:basics/navbar.user_menu -->
 					</ul>
 				</div>
-
 				<!-- /section:basics/navbar.dropdown -->
 			</div><!-- /.navbar-container -->
 		</div>
@@ -196,7 +163,7 @@
 					</li>
 
 					<li class="">
-						<a href="#" >
+						<a href="historyProduction.html" >
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> 历史产量图表 </span>
 						</a>
@@ -204,8 +171,8 @@
 
 					</li>
 
-					<li class="active">
-						<a href="planProduction.html">
+					<li class="">
+						<a href="planManage.html">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 生产计划维护 </span>
 
@@ -235,6 +202,17 @@
 					</li>
 
 					<li class="">
+						<a href="shiftManage.html" >
+							<i class="menu-icon fa fa-tag"></i>
+
+							<span class="menu-text">
+								班次信息维护
+							</span>
+
+						</a>
+					</li>
+
+					<li class="active">
 						<a href="userList.html" class="">
 							<i class="menu-icon ace-icon fa fa-user"></i>
 							<span class="menu-text"> 用户权限维护 </span>
@@ -245,7 +223,7 @@
 
 					</li>
 
-					<li class="">
+					<li class="active open">
 						<a href="blank.html" >
 							<i class="menu-icon fa fa-file-o"></i>
 
@@ -282,7 +260,7 @@
 							<a href="#">Home</a>
 						</li>
 
-						<li class="active">生产计划维护</li>
+						<li class="active">Blank Page</li>
 					</ul><!-- /.breadcrumb -->
 
 					<!-- #section:basics/content.searchbox -->
@@ -394,16 +372,60 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<div class="row">
-									<div class="col-sm-9">
+								<!-- #section:pages/error -->
+								<div class="error-container">
+									<div class="well">
+										<h1 class="grey lighter smaller">
+											<span class="blue bigger-125">
+												<i class="ace-icon fa fa-random"></i>
+												500
+											</span>
+											Something Went Wrong
+										</h1>
+
+										<hr />
+										<h3 class="lighter smaller">
+											But we are working
+											<i class="ace-icon fa fa-wrench icon-animated-wrench bigger-125"></i>
+											on it!
+										</h3>
+
 										<div class="space"></div>
 
-										<!-- #section:plugins/data-time.calendar -->
-										<div id="calendar"></div>
+										<div>
+											<h4 class="lighter smaller">Meanwhile, try one of the following:</h4>
 
-										<!-- /section:plugins/data-time.calendar -->
+											<ul class="list-unstyled spaced inline bigger-110 margin-15">
+												<li>
+													<i class="ace-icon fa fa-hand-o-right blue"></i>
+													Read the faq
+												</li>
+
+												<li>
+													<i class="ace-icon fa fa-hand-o-right blue"></i>
+													Give us more info on how this specific error occurred!
+												</li>
+											</ul>
+										</div>
+
+										<hr />
+										<div class="space"></div>
+
+										<div class="center">
+											<a href="javascript:history.back()" class="btn btn-grey">
+												<i class="ace-icon fa fa-arrow-left"></i>
+												Go Back
+											</a>
+
+											<a href="#" class="btn btn-primary">
+												<i class="ace-icon fa fa-tachometer"></i>
+												Dashboard
+											</a>
+										</div>
 									</div>
 								</div>
+
+								<!-- /section:pages/error -->
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -465,138 +487,24 @@
 		<script src="../assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
-		<script src="../assets/js/jquery-ui.custom.min.js"></script>
-		<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="../assets/js/date-time/moment.min.js"></script>
-		<script src="../assets/js/fullcalendar.min.js"></script>
-		<script src="../assets/js/bootbox.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="../assets/js/ace-elements.min.js"></script>
 		<script src="../assets/js/ace.min.js"></script>
 
 		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
-			jQuery(function($) {
 
-				/* initialize the calendar
-				 -----------------------------------------------------------------*/
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		<!--<link rel="stylesheet" href="../assets/css/ace.onpage-help.css" />-->
+		<!--<link rel="stylesheet" href="../docs/assets/js/themes/sunburst.css" />-->
 
-				var date = new Date();
-				var d = date.getDate();
-				var m = date.getMonth();
-				var y = date.getFullYear();
-
-				var calendar = $('#calendar').fullCalendar({
-					//isRTL: true,
-					buttonHtml: {
-						prev: '<i class="ace-icon fa fa-chevron-left"></i>',
-						next: '<i class="ace-icon fa fa-chevron-right"></i>'
-					},
-
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month'
-					},
-					events: [
-						{
-							title: 'All Day Eventffffffffffffffffffffff',
-							start: new Date(y, m, 1),
-							className: 'label-important'
-						},
-						{
-							title: 'Long Event&lt;//br&gt;ff',
-							start: new Date(y, m, d-5),
-							end: new Date(y, m, d-2),
-							className: 'label-success'
-						},
-						{
-							title: 'Some Event',
-							start: new Date(y, m, d-3, 16, 0),
-							allDay: false
-						}
-					]
-					,
-//					editable: true,
-					selectable: true,
-					select: function(start, end, allDay) {
-
-						bootbox.prompt("New Event Title:", function(title) {
-							if (title !== null) {
-								calendar.fullCalendar('renderEvent',
-										{
-											title: title,
-											start: start,
-											end: end,
-											allDay: allDay
-										},
-										true // make the event "stick"
-								);
-							}
-						});
-
-
-						calendar.fullCalendar('unselect');
-					}
-					,
-					eventClick: function(calEvent, jsEvent, view) {
-
-						//display a modal
-						var modal =
-								'<div class="modal fade">\
-                                  <div class="modal-dialog">\
-                                   <div class="modal-content">\
-                                     <div class="modal-body">\
-                                       <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">&times;</button>\
-                                       <form class="no-margin">\
-                                          <label>Change event name &nbsp;</label>\
-                                          <input class="middle" autocomplete="off" type="text" value="' + calEvent.title + '" />\
-					 <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Save</button>\
-				   </form>\
-				 </div>\
-				 <div class="modal-footer">\
-					<button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i> Delete Event</button>\
-					<button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
-				 </div>\
-			  </div>\
-			 </div>\
-			</div>';
-
-
-						var modal = $(modal).appendTo('body');
-						modal.find('form').on('submit', function(ev){
-							ev.preventDefault();
-
-							calEvent.title = $(this).find("input[type=text]").val();
-							calendar.fullCalendar('updateEvent', calEvent);
-							modal.modal("hide");
-						});
-						modal.find('button[data-action=delete]').on('click', function() {
-							calendar.fullCalendar('removeEvents' , function(ev){
-								return (ev._id == calEvent._id);
-							})
-							modal.modal("hide");
-						});
-
-						modal.modal('show').on('hidden', function(){
-							modal.remove();
-						});
-
-
-						//console.log(calEvent.id);
-						//console.log(jsEvent);
-						//console.log(view);
-
-						// change the border color just for fun
-						$(this).css('border-color', 'red');
-
-					}
-
-				});
-
-			})
-		</script>
-
+		<!--<script type="text/javascript"> ace.vars['base'] = '..'; </script>-->
+		<!--<script src="../assets/js/ace/elements.onpage-help.js"></script>-->
+		<!--<script src="../assets/js/ace/ace.onpage-help.js"></script>-->
+		<!--<script src="../docs/assets/js/rainbow.js"></script>-->
+		<!--<script src="../docs/assets/js/language/generic.js"></script>-->
+		<!--<script src="../docs/assets/js/language/html.js"></script>-->
+		<!--<script src="../docs/assets/js/language/css.js"></script>-->
+		<!--<script src="../docs/assets/js/language/javascript.js"></script>-->
 	</body>
 </html>
