@@ -24,7 +24,7 @@ public interface ShiftManageDAO {
     @SQLControl(returnAotuGeneratedId = true)
     @SQL("update ShiftType set Shift_type = ?,Shift = ?,Shift_start_time=?,Shift_end_time=?," +
             "Lunch_start_time=?,Lunch_end_time=?,Break_start_time=?,Break_end_time=?, " +
-            "Earliest_time=?, Latest_time=?, Reset_time=? Work_second=? where Row_id = ?")
+            "Earliest_time=?, Latest_time=?, Reset_time=?, Work_second=? where Row_id = ?")
     Long updateShiftType(String shift_type, String shift, Time shift_start_time, Time shift_end_time,
                          Time lunch_start_time, Time lunch_end_time, Time break_start_time,
                          Time break_end_time, Time Earliest_time, Time Latest_time,

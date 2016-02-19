@@ -107,8 +107,8 @@ public class BreakdownAdd extends BaseServlet {
                     record.setBreakName(break_name);
 //                    record.setStartTime(String.valueOf(start_millionSeconds));
 //                    record.setEndTime(String.valueOf(end_millionSeconds));
-                    record.setStartTime(formatStartTime);
-                    record.setEndTime(formatEndTime);
+                    record.setStartTime(start_time);
+                    record.setEndTime(end_time);
                     record.setDuration(duration);
                     record.setBreakScope(break_scope);
 

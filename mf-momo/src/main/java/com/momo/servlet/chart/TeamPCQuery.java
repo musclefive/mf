@@ -36,26 +36,26 @@ public class TeamPCQuery extends BaseServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
-            String startDate = "2014-09-18 8:00";
-            String endDate = "2014-09-19 8:00";
-            String queryDay = "2014-09-18";
+//            String startDate = "2014-09-18 8:00";
+//            String endDate = "2014-09-19 8:00";
+//            String queryDay = "2014-09-18";
 
 //            String tmp_startDate = getParam(request , "startDate");
             //tmp_startDate 为查询的起始日期 10-13， 结束时期10-14
-//            String tmp_startDate = getParam(request , "endDate");
+            String tmp_startDate = getParam(request , "endDate");
 //
 //            //处理时间 传入参数格式为2014-09-18 转化成 2014-09-18 8:00
-//            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-//            long millionStart = sdf.parse(tmp_startDate).getTime();//毫秒
-//            long millionEnd = millionStart + 86400000;
-//            String endDate = sdf.format(new java.util.Date(millionEnd));
-//            String queryDay = tmp_startDate;
-//            String startDate = tmp_startDate + " 8:00";
-//            endDate = endDate + " 8:00";
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            long millionStart = sdf.parse(tmp_startDate).getTime();//毫秒
+            long millionEnd = millionStart + 86400000;
+            String endDate = sdf.format(new java.util.Date(millionEnd));
+            String queryDay = tmp_startDate;
+            String startDate = tmp_startDate + " 8:00";
+            endDate = endDate + " 8:00";
 
             logger.error("query startDate:" + startDate + "  endDate" + endDate);
             //pic price area bed baths carport district status title address
-            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryDataPerDay(startDate,endDate,new Converter<JsonTeamPC>() {
+            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryTeampcData(startDate,endDate,new Converter<JsonTeamPC>() {
                 @Override
                 public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
@@ -76,9 +76,9 @@ public class TeamPCQuery extends BaseServlet {
 //                        pro.setOpr(opr.substring(0, opr.length() - 1));
                         //如果opr 大于120%， 则设置为100%
                         opr = opr.substring(0, opr.length() - 1);
-                        if(Integer.valueOf(opr) > 120){
-                            opr = "100";
-                        }
+//                        if(Integer.valueOf(opr) > 120){
+//                            opr = "100";
+//                        }
                     }
                     else{
                         opr = "0";
@@ -145,6 +145,7 @@ public class TeamPCQuery extends BaseServlet {
 
 
             ObjectMapper objectMapper = new ObjectMapper();
+            productions.remove(productions.size()-1);
             String ret = objectMapper.writeValueAsString(productions);
             String break_ret = objectMapper.writeValueAsString(breakdowns);
 
@@ -158,5 +159,9 @@ public class TeamPCQuery extends BaseServlet {
             logger.error("Failed to query all houses.", e);
             throw new ServletException(e);
         }
+    }
+
+    public void queryBreakDown(String startDay, String endDay, HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

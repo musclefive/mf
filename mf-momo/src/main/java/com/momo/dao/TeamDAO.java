@@ -25,6 +25,10 @@ public interface TeamDAO {
     @SQL("select * from Data2014 where catch_time > ? and catch_time < ? and station_id = 'M1650'  order by catch_time")
     <T> List<T> queryDataPerDay(String startDate, String endDate, Converter<T> converter) throws DAOException;
 
+    @Table("teampc9")
+    @SQL("select * from teampc9 where catch_time > ? and catch_time < ? and station_id = 'M1650'  order by catch_time")
+    <T> List<T> queryTeampcData(String startDate, String endDate, Converter<T> converter) throws DAOException;
+
     @Table("teampc11")
     @SQL("select * from teampc11 where NO= ?")
     <T> T querySingleData(int number, Converter<T> converter) throws DAOException;

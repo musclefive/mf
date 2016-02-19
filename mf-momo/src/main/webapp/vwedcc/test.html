@@ -362,7 +362,32 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
+								<div class="row">
+									<div class="col-xs-4">
+										<div class="input-group">
+											<div class="input-group">
+												<span class="input-group-addon">
+													<i class="fa fa-calendar bigger-110"></i>
+												</span>
+												<input type="text" class="input-group-sm form-control" size="100" name="txtRangeTime" id="txtRangeTime"
+													   value="" placeholder="自定义时间搜索范围"/>
+												<span class="input-group-btn">
+												<button class="btn btn-sm btn-success" type="button" id="btnReload">
+													<i class='ace-icon fa fa-refresh'></i>Reload
+												</button>
+												</span>
+												<span class="input-group-btn">
+												<button class="btn btn-sm btn-warning" type="button" id="btnClear">
+													<i class='ace-icon fa fa-reply'></i>Clear
+												</button>
+												</span>
+											</div>
+											<input type="hidden" id="txtStartTime"/>
+											<input type="hidden" id="txtEndTime"/>
 
+										</div>
+									</div>
+								</div>
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
@@ -430,7 +455,6 @@
 		<script src="../js/jquery.blockUI.js" type="text/javascript"></script>
 		<script src="../assets/js/date-time/moment.js" type="text/javascript"></script>
 		<script src="../js/jquery.cookie.js" type="text/javascript"></script>
-
 		<script src="../assets/js/date-time/daterangepicker.js"></script>
 		<script src="../js/datatable/jquery.dataTables.js" type="text/javascript"></script>
 		<script src="../js/datatable/dataTables.bootstrap.js" type="text/javascript"></script>
@@ -473,7 +497,38 @@
 					menuRight($.cookie("userRole"));
 				}
 
+				//默认查询十天的数据
+				$("#txtStartTime").val( moment().subtract(10, 'days').format('YYYY-MM-DD'));
+				$("#txtEndTime").val( moment().subtract(1, 'days').format('YYYY-MM-DD') );
+				//时间范围控件
+				$('#txtRangeTime').daterangepicker({
+					timePicker: true,
+					autoApply: true,
+					timePickerIncrement: 5,
+					locale: {
+						format: 'YYYY-MM-DD HH:MM'
+					}
+				}, function(start, end, label) {
+					$("#txtStartTime").val( start.format('YYYY-MM-DD HH:MM'));
+					$("#txtEndTime").val( end.format('YYYY-MM-DD HH:MM') );
+				});
+
+
+				$("#btnReload").click(function(){
+					var start = $("#txtStartTime").val();
+					var end = $("#txtEndTime").val();
+					//如果table 已经存在 则先注销
+					if(tablePlanned){
+						$('#plannedTable').dataTable().fnDestroy();
+					}
+					initPlannedTableList(end,start);
+
+					console.info("start and end:" + start + " " + end);
+
+				});
 			});
+
+			$()
 
 
 		</script>

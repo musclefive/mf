@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>Blank Page - Ace Admin</title>
+		<title>班次信息维护 - MOMO 系统</title>
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -574,7 +574,7 @@
 
 				initTableList();
 				//创建新增按钮用于增加一条新的记录
-				var textButton = "<button class='btn btn-white btn-default btn-round'>" +
+				/*var textButton = "<button class='btn btn-white btn-default btn-round'>" +
 						"<i class='ace-icon glyphicon glyphicon-plus red2'></i><B>新增记录</B></button>";
 				var $btnSubmit = $(textButton);
 				$btnSubmit.click(function (){
@@ -592,7 +592,7 @@
 					$("#reset_time").val("00:00:00");
 					$("#modalShiftManage").modal('show');
 				});
-				$("div.toolbar").append($btnSubmit);
+				$("div.toolbar").append($btnSubmit);*/
 				//校验控件
 				$.validator.addMethod("isDateHHMM",function(value,element){
 					//正则表达式 格式为 HH:MM:SS
@@ -716,7 +716,7 @@
 
 			function initTableList(){
 				table = $('#shiftType').DataTable({
-					"dom": '<"row"<"col-sm-6 toolbar"><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
+//					"dom": '<"row"<"col-sm-6 toolbar"><"col-sm-6"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
 					"ajax": {
 						"url" : "/momo/shiftManage?method=query",
 						"dataSrc" : "items"

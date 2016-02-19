@@ -71,6 +71,10 @@
         <servlet-name>PlanManage</servlet-name>
         <servlet-class>com.momo.servlet.planout.PlanManage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FailureQuery</servlet-name>
+        <servlet-class>com.momo.servlet.chart.FailureQuery</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -108,6 +112,10 @@
     <servlet-mapping>
         <servlet-name>PlanManage</servlet-name>
         <url-pattern>/planManage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FailureQuery</servlet-name>
+        <url-pattern>/failureQuery</url-pattern>
     </servlet-mapping>
 
     <jsp-config>
