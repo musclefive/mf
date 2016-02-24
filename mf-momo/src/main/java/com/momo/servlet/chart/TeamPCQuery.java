@@ -1,6 +1,8 @@
 package com.momo.servlet.chart;
 
+import com.momo.bean.DomainUser;
 import com.momo.dao.BreakdownDAO;
+import com.momo.dao.DomainUserDAO;
 import com.momo.dao.TeamDAO;
 import com.momo.bean.JsonBreakdown;
 import com.momo.bean.JsonTeamPC;
@@ -28,10 +30,23 @@ import java.util.TimeZone;
  */
 public class TeamPCQuery extends BaseServlet {
     private static final Logger logger = Logger.getLogger(TeamPCQuery.class);
+
     @Override
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("Enter TeamPCQuery servlet.");
 
+        String method = getParam(request, "method");
+        if (method.equals("query")) {
+            String tmp_startDate = getParam(request, "endDate");
+            queryAllTeamPCData(tmp_startDate, request, response);
+        } else if (method.equals("queryOne")) {
+            //update method
+            queryLatestData(request, response);
+        }
+
+    }
+
+    public void queryAllTeamPCData(String tmp_startDate, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -42,10 +57,9 @@ public class TeamPCQuery extends BaseServlet {
 
 //            String tmp_startDate = getParam(request , "startDate");
             //tmp_startDate 为查询的起始日期 10-13， 结束时期10-14
-            String tmp_startDate = getParam(request , "endDate");
-//
-//            //处理时间 传入参数格式为2014-09-18 转化成 2014-09-18 8:00
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+
+//           处理时间 传入参数格式为2014-09-18 转化成 2014-09-18 8:00
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             long millionStart = sdf.parse(tmp_startDate).getTime();//毫秒
             long millionEnd = millionStart + 86400000;
             String endDate = sdf.format(new java.util.Date(millionEnd));
@@ -55,32 +69,30 @@ public class TeamPCQuery extends BaseServlet {
 
             logger.error("query startDate:" + startDate + "  endDate" + endDate);
             //pic price area bed baths carport district status title address
-            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryTeampcData(startDate,endDate,new Converter<JsonTeamPC>() {
+            List<JsonTeamPC> productions = DAOFacade.getDAO(TeamDAO.class).queryTeampcData(startDate, endDate, new Converter<JsonTeamPC>() {
                 @Override
                 public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
                     //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
 //                    SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
-                    SimpleDateFormat sdf_1=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat sdf_1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     long millionSeconds = 0;
                     JsonTeamPC pro = new JsonTeamPC();
 //                    pro.setStationId(resultSet.getString("station_id"));
                     String roa = resultSet.getString("roa").trim();
-                    if(roa.length() != 1 ){
-                        roa = roa.substring(0,roa.length()-1);
-                    }
-                    else{
+                    if (roa.length() != 1) {
+                        roa = roa.substring(0, roa.length() - 1);
+                    } else {
                         roa = "0";
                     }
                     String opr = resultSet.getString("opr").trim();
-                    if(opr.length() != 1 ){
+                    if (opr.length() != 1) {
 //                        pro.setOpr(opr.substring(0, opr.length() - 1));
                         //如果opr 大于120%， 则设置为100%
                         opr = opr.substring(0, opr.length() - 1);
 //                        if(Integer.valueOf(opr) > 120){
 //                            opr = "100";
 //                        }
-                    }
-                    else{
+                    } else {
                         opr = "0";
                     }
 //                    String str = sdf.format(resultSet.getTimestamp("catch_time", Calendar.getInstance()));
@@ -121,7 +133,7 @@ public class TeamPCQuery extends BaseServlet {
                     //将时间转化成毫秒格式
                     long start_millionSeconds = 0;
                     long end_millionSeconds = 0;
-                    SimpleDateFormat sdf_1=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat sdf_1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     try {
                         sdf_1.setTimeZone(TimeZone.getTimeZone("GMT")); // 设置时区为GMT = UTC 时间
                         start_millionSeconds = sdf_1.parse(start_time).getTime();//毫秒
@@ -145,7 +157,7 @@ public class TeamPCQuery extends BaseServlet {
 
 
             ObjectMapper objectMapper = new ObjectMapper();
-            productions.remove(productions.size()-1);
+            productions.remove(productions.size() - 1);
             String ret = objectMapper.writeValueAsString(productions);
             String break_ret = objectMapper.writeValueAsString(breakdowns);
 
@@ -155,13 +167,75 @@ public class TeamPCQuery extends BaseServlet {
 
             logger.error("Result : " + ret);
             printWriter.write(ret);
-        } catch (Exception  e) {
+        } catch (Exception e) {
             logger.error("Failed to query all houses.", e);
             throw new ServletException(e);
         }
     }
 
-    public void queryBreakDown(String startDay, String endDay, HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    /*
+    * 获取最新一条的数据信息，用于展示首页
+    * */
+    public void queryLatestData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("Enter TeamPCQuery servlet for queryLatestData ");
+        try {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter printWriter = response.getWriter();
+            JsonTeamPC singleData = DAOFacade.getDAO(TeamDAO.class).queryLatestData(new Converter<JsonTeamPC>() {
+                @Override
+                public JsonTeamPC convert(ResultSet resultSet) throws SQLException {
+                    //设定显示时间格式 HH;mm 24小时  hh:mm 12小时
+//                    SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
+                    SimpleDateFormat sdf_1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    long millionSeconds = 0;
+                    JsonTeamPC pro = new JsonTeamPC();
+//                    pro.setStationId(resultSet.getString("station_id"));
+                    String roa = resultSet.getString("roa").trim();
+                    if (roa.length() != 1) {
+                        roa = roa.substring(0, roa.length() - 1);
+                    } else {
+                        roa = "0";
+                    }
+                    String opr = resultSet.getString("opr").trim();
+                    if (opr.length() != 1) {
+//                        pro.setOpr(opr.substring(0, opr.length() - 1));
+                        //如果opr 大于120%， 则设置为100%
+                        opr = opr.substring(0, opr.length() - 1);
+//                        if(Integer.valueOf(opr) > 120){
+//                            opr = "100";
+//                        }
+                    } else {
+                        opr = "0";
+                    }
+//                    String str = sdf.format(resultSet.getTimestamp("catch_time", Calendar.getInstance()));
+                    String str = sdf_1.format(resultSet.getTimestamp("catch_time", Calendar.getInstance()));
+                    try {
+                        sdf_1.setTimeZone(TimeZone.getTimeZone("GMT")); // 设置时区为GMT = UTC 时间
+                        millionSeconds = sdf_1.parse(str).getTime();//毫秒
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+//                    pro.setCatchTime(str);
+                    pro.setCatchTime(String.valueOf(millionSeconds));
+                    pro.setPlan(resultSet.getString("plan_output"));
+                    pro.setActual(resultSet.getString("actual_output"));
+                    pro.setNO(resultSet.getString("NO"));
+                    pro.setRoa(roa);
+                    pro.setOpr(opr);
+                    return pro;
+                }
+            });
+            ObjectMapper objectMapper = new ObjectMapper();
+            String ret = objectMapper.writeValueAsString(singleData);
+            ret = "{\"items\":" + ret + "}";
+            printWriter.write(ret);
 
+            logger.info("Result : " + ret);
+
+        } catch (Exception e) {
+            logger.error("Failed to queryLatestData ", e);
+            throw new ServletException(e);
+        }
     }
 }

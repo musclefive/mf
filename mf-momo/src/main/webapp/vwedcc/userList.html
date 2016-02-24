@@ -150,7 +150,7 @@
 					<li class="" id="liDashboard" style="display: none">
 						<a href="index.html">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> Dashboard </span>
+							<span class="menu-text"> 首页 </span>
 						</a>
 
 						<b class="arrow"></b>
@@ -544,8 +544,15 @@
 
 		<!-- inline scripts related to this page -->
 		<script language="javascript">
+			var userName ;
+			try {
+				var WshShell = new ActiveXObject("WScript.Shell");
+//				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
+				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
+			}catch(e){
+				alert("请使用IE浏览器");
+			}
 			$(document).ready(function() {
-				var userName = "chao.cui.vwed";
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
 					getUserNameAndRole(userName);

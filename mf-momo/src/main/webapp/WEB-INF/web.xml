@@ -128,15 +128,14 @@
 
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/vwedcc/error-500.html</location>
+        <location>/vwedcc/errorPage.html</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/vwedcc/error-404.html</location>
+        <location>/vwedcc/errorPage.html</location>
     </error-page>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/vwedcc/index.html</welcome-file>
     </welcome-file-list>
 </web-app>

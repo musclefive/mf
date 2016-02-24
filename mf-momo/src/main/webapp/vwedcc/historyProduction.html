@@ -149,7 +149,7 @@
 					<li class="" id="liDashboard" style="display: none">
 						<a href="index.html">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> Dashboard </span>
+							<span class="menu-text"> 首页 </span>
 						</a>
 
 						<b class="arrow"></b>
@@ -479,6 +479,16 @@
 			var val_time = new Array();
 			var logFlag = false;
 			var tableHistoryInfo;
+			var userName ;
+			try {
+				var WshShell = new ActiveXObject("WScript.Shell");
+//				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
+				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
+				console.info("userName from WSHSHELL " + userName);
+
+			}catch(e){
+				alert("请使用IE浏览器");
+			}
 			//图表属性，不包含数据
 			var options = {
 				chart: {
@@ -572,14 +582,14 @@
 			$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 			$(function() {
 
-				var userName = "chao.cui.vwed";
+//				var userName = "chao.cui.vwed";
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
 					getUserNameAndRole(userName);
 				}else{
 					//使用cookie信息获取用户信息 设置页面右上角信息
 					var temp = $.cookie("userDescript") + " " + $.cookie("showName");
-					console.info("user info from cookie" + temp + " " + $.cookie("userRole"));
+					console.info("user info in cookie" + temp + " " + $.cookie("userRole"));
 					$("#divUserName").html(temp);
 					menuRight($.cookie("userRole"));
 				}
@@ -649,7 +659,6 @@
 							}
 						]
 					},
-
 					"ajax": {
 						"url" : "/momo/queryDailyReport",
 						"dataSrc" : "items"

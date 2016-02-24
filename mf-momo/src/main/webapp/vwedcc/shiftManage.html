@@ -148,7 +148,7 @@
 					<li class="" id="liDashboard" style="display: none">
 						<a href="index.html">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> Dashboard </span>
+							<span class="menu-text"> 首页 </span>
 						</a>
 
 						<b class="arrow"></b>
@@ -559,8 +559,16 @@
 		<script language="javascript">
 			var validator;
 			var table;
+			var userName ;
+			try {
+				var WshShell = new ActiveXObject("WScript.Shell");
+//				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
+				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
+			}catch(e){
+				alert("请使用IE浏览器");
+			}
 			$(document).ready(function() {
-				var userName = "chao.cui.vwed";
+//				var userName = "chao.cui.vwed";
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
 					getUserNameAndRole(userName);
@@ -789,8 +797,8 @@
 							"targets": -1,
 							"sTitle" : "操作",
 							"data": null,
-							"defaultContent": "<button class='btn btn-xs btn-info' title='updateShiftManage'><i class='ace-icon fa fa-pencil bigger-120'></i></button>" + "" +
-							" &nbsp; <button class='btn btn-xs btn-danger' title='deleteShiftManage'><i class='ace-icon fa fa-trash-o bigger-120'></i></button>"
+							"defaultContent": "<button class='btn btn-xs btn-info' title='updateShiftManage'><i class='ace-icon fa fa-pencil bigger-120'></i></button>"
+//							" &nbsp; <button class='btn btn-xs btn-danger' title='deleteShiftManage'><i class='ace-icon fa fa-trash-o bigger-120'></i></button>"
 						}
 					],
 					"drawCallback": function( settings ) {

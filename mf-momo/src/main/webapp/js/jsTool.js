@@ -172,7 +172,7 @@ function getUserNameAndRole(userName){
             console.info("ajax success " + data);
 
             var temp = $.cookie("userDescript") + " " + $.cookie("showName");
-            console.info("user info from cookie" + temp + " " + $.cookie("userRole"));
+            console.info("ajax user info from cookie after query database" + temp + " " + $.cookie("userRole"));
             $("#divUserName").html(temp);
             menuRight($.cookie("userRole"));
         }
