@@ -376,7 +376,7 @@
 
 										<li class="">
 											<a data-toggle="tab" href="#group">
-												组权限列表
+												域账户同步
 											</a>
 										</li>
 
@@ -408,7 +408,14 @@
 											</table>
 										</div>
 										<div id="group" class="tab-pane fade">
-
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="form-group">
+														<label for="txtInsertSql">文本框</label>
+														<textarea class="form-control" id="txtInsertSql" rows="30"></textarea>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -564,6 +571,12 @@
 					menuRight($.cookie("userRole"));
 				}
 
+//				//在页面内第一个点击Tab 页 进行数据查询，并显示数据
+//				$('a[href="#group"]').on('shown.bs.tab', function (e) {
+//
+//					initDomainAccountQuery();
+//				});
+
 				initDomainUserList();
 			});
 
@@ -641,7 +654,7 @@
 //						{ "data": "whenCreated" },
 						{ "data": "department" },
 						{
-							"data": "userDescript",
+							"data": "userDescript"
 						},
 						{
 							"targets": -1,
@@ -668,6 +681,24 @@
 						} );
 					}
 				})
+
+			}
+
+			function initDomainAccountQuery(){
+				$.ajax({
+					"url" : "/momo/queryDomainUser?method=domain",
+					"dataType": "text",
+					"type":"post",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					error : function (xhr, textStatus){
+						console.info("ajax error,textStatus:" + textStatus);
+					},
+					"success":function(data){
+						console.info("insert data:" + data);
+						$("#txtInsertSql").html(data);
+
+					}
+				});
 
 			}
 		</script>

@@ -89,9 +89,9 @@ public class TeamPCQuery extends BaseServlet {
 //                        pro.setOpr(opr.substring(0, opr.length() - 1));
                         //如果opr 大于120%， 则设置为100%
                         opr = opr.substring(0, opr.length() - 1);
-//                        if(Integer.valueOf(opr) > 120){
-//                            opr = "100";
-//                        }
+                        if(Integer.valueOf(opr) > 150){
+                            opr = "150";
+                        }
                     } else {
                         opr = "0";
                     }
@@ -157,7 +157,7 @@ public class TeamPCQuery extends BaseServlet {
 
 
             ObjectMapper objectMapper = new ObjectMapper();
-            productions.remove(productions.size() - 1);
+//            productions.remove(productions.size() - 1);
             String ret = objectMapper.writeValueAsString(productions);
             String break_ret = objectMapper.writeValueAsString(breakdowns);
 
