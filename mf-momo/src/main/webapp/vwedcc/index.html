@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
 		<!--<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />-->
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
-
+		<link rel="shortcut icon" href="../img/logo.ico" type="image/x-icon" />
 		<!-- page specific plugin styles -->
 
 		<!-- text fonts -->
@@ -476,14 +476,16 @@
 				console.info("userName from WSHSHELL " + userName);
 
 			}catch(e){
-				alert("请使用IE浏览器");
+				//				alert("请更改浏览器配置");
+				console.info("can't get user name from wscript.shell");
+				location.href = "errorPage.html";
 			}
 			$(document).ready(function() {
 
 				var showTime = moment().format("YYYY-MM-DD dddd") + " KW" + moment().format("WW");
 				$("#divShowCurrentTime").html(showTime);
 
-				var userName = "chao.cui.vwed";
+//				var userName = "chao.cui.vwed";
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
 					getUserNameAndRole(userName);

@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
 		<!--<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />-->
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
+		<link rel="shortcut icon" href="../img/logo.ico" type="image/x-icon" />
 
 		<!-- page specific plugin styles -->
 		<link rel="stylesheet" href="../css/bootstrap-datetimepicker.css" />
@@ -72,18 +73,12 @@
 				<!-- /section:basics/sidebar.mobile.toggle -->
 				<div class="navbar-header pull-left">
 					<!-- #section:basics/navbar.layout.brand -->
+					<img src="../img/logon.png" style="width: 81px;height: 45px;float:left">
 					<a href="#" class="navbar-brand">
 						<small>
-							<i class="fa fa-leaf"></i>
-							Ace Admin
+							MOMO 目视化系统
 						</small>
 					</a>
-
-					<!-- /section:basics/navbar.layout.brand -->
-
-					<!-- #section:basics/navbar.toggle -->
-
-					<!-- /section:basics/navbar.toggle -->
 				</div>
 
 				<!-- #section:basics/navbar.dropdown -->
@@ -456,7 +451,7 @@
 													</div>
 												</div>
 											</div>
-											</br>
+											<br/>
 											<table id="plannedTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 											</table>
 										</div>
@@ -554,7 +549,9 @@
 //				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
 				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
 			}catch(e){
-				alert("请使用IE浏览器" + e);
+				//				alert("请更改浏览器配置");
+				console.info("can't get user name from wscript.shell");
+				location.href = "errorPage.html";
 			}
 			$(document).ready(function() {
 //				var userName = "chao.cui.vwed";

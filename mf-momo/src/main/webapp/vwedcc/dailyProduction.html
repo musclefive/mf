@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
 		<!--<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />-->
 		<link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
+		<link rel="shortcut icon" href="../img/logo.ico" type="image/x-icon" />
 
 		<!-- page specific plugin styles -->
 		<link rel="stylesheet" href="../css/bootstrap-datetimepicker.css" />
@@ -568,7 +569,9 @@
 
 				console.info("userName from WSHSHELL " + userName);
 			}catch(e){
-				alert("请使用IE浏览器" + e);
+				//				alert("请更改浏览器配置");
+				console.info("can't get user name from wscript.shell");
+				location.href = "errorPage.html";
 			}
 			//评分插件
 			var starOptions = {
