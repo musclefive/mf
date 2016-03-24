@@ -552,13 +552,13 @@
 		<!-- inline scripts related to this page -->
 		<script language="javascript">
 			var userName ;
-			try {
-				var WshShell = new ActiveXObject("WScript.Shell");
-//				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
-				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
-			}catch(e){
-				alert("请使用IE浏览器");
-			}
+//			try {
+//				var WshShell = new ActiveXObject("WScript.Shell");
+////				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
+//				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
+//			}catch(e){
+//				alert("请使用IE浏览器");
+//			}
 			$(document).ready(function() {
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
