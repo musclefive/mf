@@ -552,7 +552,7 @@
 
 		<!-- inline scripts related to this page -->
 		<script language="javascript">
-			var userName ;
+			var userName;
 			try {
 				var WshShell = new ActiveXObject("WScript.Shell");
 //				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
@@ -562,6 +562,7 @@
 				console.info("can't get user name from wscript.shell");
 				location.href = "errorPage.html";
 			}
+
 			$(document).ready(function() {
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
