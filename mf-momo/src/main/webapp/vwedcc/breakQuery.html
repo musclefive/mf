@@ -522,16 +522,16 @@
 					"startDate": moment().subtract(10, 'days'),
 					"endDate": moment().subtract(0, 'days'),
 					locale: {
-						format: 'YYYY-MM-DD H:MM'
+						format: 'YYYY-MM-DD HH:MM'
 					}
 				}, function(start, end, label) {
-					$("#txtStartTime").val( start.format('YYYY-MM-DD H:MM'));
-					$("#txtEndTime").val( end.format('YYYY-MM-DD H:MM') );
+					$("#txtStartTime").val( start.format('YYYY-MM-DD HH:MM'));
+					$("#txtEndTime").val( end.format('YYYY-MM-DD HH:MM') );
 				});
 
 				//默认查询十天的数据
-				$("#txtStartTime").val( moment().subtract(10, 'days').format('YYYY-MM-DD H:MM'));
-				$("#txtEndTime").val( moment().subtract(0, 'days').format('YYYY-MM-DD H:MM') );
+				$("#txtStartTime").val( moment().subtract(10, 'days').format('YYYY-MM-DD HH:MM'));
+				$("#txtEndTime").val( moment().subtract(0, 'days').format('YYYY-MM-DD HH:MM') );
 				var start = $("#txtStartTime").val();
 				var end = $("#txtEndTime").val();
 				console.info("query break info time range: " + start + ":" + end);
@@ -589,8 +589,8 @@
 					//根据第四列用户的权限进行默认排序
 //					"bSortClasses": true,
 					"bProcessing":true,
-					"bSort" : false, //是否启动各个字段的排序功能
-					aaSorting : [[0, 'asc']],
+					"bSort" : true, //是否启动各个字段的排序功能
+					aaSorting : [[0, 'desc']],
 					"columns": [
 						{
 							"data": "no",
@@ -603,11 +603,26 @@
 						},
 						{
 							"data": "start_time",
+							"sTitle" : "生产周数",
+							"render": function(data, type, row) {
+								var day = moment(data);
+								return "KW" + day.format("WW");
+							}
+						},
+						{
+							"data": "start_time",
 							"sTitle" : "开始时间"
 						},
 						{
 							"data": "finish_time",
 							"sTitle" : "结束时间"
+						},
+						{
+							"data": "duration",
+							"sTitle" : "持续时长(秒)",
+							"render": function(data, type, row) {
+								return parseFloat(data)/1000;
+							}
 						},
 						{
 							"data": "shift",

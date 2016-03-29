@@ -16,6 +16,7 @@ public class Failure {
     private String shift;
     private String code;
     private String remark;
+    private Long duration;
 
     public Long getNo() {
         return No;
@@ -71,6 +72,14 @@ public class Failure {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
     }
 }
 
