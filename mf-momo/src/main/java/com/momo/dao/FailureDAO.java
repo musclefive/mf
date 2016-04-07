@@ -20,6 +20,6 @@ public interface FailureDAO {
     <T> List<T> queryAllFailureRecord(Converter<T> converter) throws DAOException;
 
     @Table("failure")
-    @SQL("select* from failure where starttime >= ? and finishtime <= ? order by finishtime desc")
+    @SQL("select* from failure where starttime >= ? and starttime <= ? order by starttime desc")
     <T> List<T> queryFailureRecordByDate(String start, String end, Converter<T> converter) throws DAOException;
 }

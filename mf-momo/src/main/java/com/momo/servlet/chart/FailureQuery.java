@@ -46,7 +46,7 @@ public class FailureQuery extends BaseServlet {
     * String endDay 结束时间
     * */
     public void queryBreakInfo(String startDate, String endDate, HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException{
-        logger.info("Enter FailureQuery servlet for query All Failure Record. startDate:" + startDate + " endDate:" + startDate);
+        logger.info("Enter FailureQuery servlet for query All Failure Record. startDate:" + startDate + " endDate:" + endDate);
 
         PrintWriter printWriter = response.getWriter();
         try {
@@ -61,6 +61,11 @@ public class FailureQuery extends BaseServlet {
                     String NO = resultSet.getString("No").trim();
                     String start_time = resultSet.getString("starttime").trim();
                     String finish_time = resultSet.getString("finishtime").trim();
+                    SimpleDateFormat sdf_1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    long millionSeconds_start = 0;
+                    long millionSeconds_end = 0;
+                    long duration = 0;
+
 
                     if (resultSet.getString("station") != null) {
                         record.setStation(resultSet.getString("station").trim());
@@ -73,10 +78,21 @@ public class FailureQuery extends BaseServlet {
                         record.setShift(" ");
                     }
 
+                    try {
+                        sdf_1.setTimeZone(TimeZone.getTimeZone("GMT")); // 设置时区为GMT = UTC 时间
+                        millionSeconds_start = sdf_1.parse(start_time).getTime();//毫秒
+                        millionSeconds_end = sdf_1.parse(finish_time).getTime();//毫秒
+                        duration = millionSeconds_end - millionSeconds_start;
+//                        logger.info("duration : " + duration + " millionSeconds_start:" +start_time + ":" + millionSeconds_start + " millionSeconds_end:" + finish_time + ":"+ millionSeconds_end);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                     record.setNo(Long.valueOf(NO));
                     record.setStart_time(start_time);
                     record.setFinish_time(finish_time);
-
+                    record.setDuration(duration);
                     return record;
                 }
             });
