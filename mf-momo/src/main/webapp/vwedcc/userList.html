@@ -91,7 +91,16 @@
 									<!--<div id="divUserRoleDescript">admin</div>-->
 									<div id="divUserName"></div>
 								</span>
+								<i class="ace-icon fa fa-caret-down"></i>
 							</a>
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="" id="aLogout">
+										<i class="ace-icon fa fa-power-off"></i>
+										Logout
+									</a>
+								</li>
+							</ul>
 						</li>
 						<!-- /section:basics/navbar.user_menu -->
 					</ul>
@@ -552,21 +561,32 @@
 
 		<!-- inline scripts related to this page -->
 		<script language="javascript">
-			var userName;
-			try {
-				var WshShell = new ActiveXObject("WScript.Shell");
-//				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
-				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
-			}catch(e){
-//				alert("请更改浏览器配置");
-				console.info("can't get user name from wscript.shell");
-				location.href = "errorPage.html";
-			}
+//			var userName;
+//			try {
+//				var WshShell = new ActiveXObject("WScript.Shell");
+////				document.write("计算机名 = " + WshShell.ExpandEnvironmentStrings("%USERNAME%") + "<br/>");
+//				userName = WshShell.ExpandEnvironmentStrings("%USERNAME%");
+//			}catch(e){
+////				alert("请更改浏览器配置");
+//				console.info("can't get user name from wscript.shell");
+//				location.href = "errorPage.html";
+//			}
 
 			$(document).ready(function() {
+//				if($.cookie("userName") ==  undefined){
+//					//userName 没在cookie里 则去数据库中取用户信息
+//					getUserNameAndRole(userName);
+//				}else{
+//					//使用cookie信息获取用户信息 设置页面右上角信息
+//					var temp = $.cookie("userDescript") + " " + $.cookie("showName");
+//					console.info("user info from cookie" + temp + " " + $.cookie("userRole"));
+//					$("#divUserName").html(temp);
+//					menuRight($.cookie("userRole"));
+//				}
 				if($.cookie("userName") ==  undefined){
 					//userName 没在cookie里 则去数据库中取用户信息
-					getUserNameAndRole(userName);
+//					getUserNameAndRole(userName);
+					location.href = "login.html";
 				}else{
 					//使用cookie信息获取用户信息 设置页面右上角信息
 					var temp = $.cookie("userDescript") + " " + $.cookie("showName");
@@ -583,7 +603,13 @@
 
 				initDomainUserList();
 			});
-
+			$("#aLogout").click(function(){
+				$.cookie("userName","",{expires : -1});
+				$.cookie("showName","",{expires : -1});
+				$.cookie("userRole","",{expires : -1});
+				$.cookie("userDescript","",{expires : -1});
+				this.href = "login.html";
+			});
 			//点击更新按钮，更改用户权限admin/user/other/
 			//数据库表UserPermission;修改成admin|other则增加一条记录；修改成user则删除该条记录
 			$("#btnUpdate").click(function (e){
